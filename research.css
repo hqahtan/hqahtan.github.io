@@ -1,0 +1,139 @@
+/* ═══════════════════════════════════════════════
+   RESEARCH PAGE STYLES  (research.html)
+═══════════════════════════════════════════════ */
+
+/* ── Focus area cards ── */
+.research-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.research-card {
+  background: var(--bg);
+  padding: 2rem;
+  transition: background 0.2s;
+}
+.research-card:hover { background: var(--white); }
+
+.research-card-tag {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.research-card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+
+.research-card-desc {
+  font-size: 0.83rem;
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+
+/* ── Publications ── */
+.pub-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.pub-item {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.pub-item:first-child { border-top: 1px solid var(--border); }
+
+.pub-year {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  padding-top: 0.2rem;
+}
+
+.pub-title {
+  color: black;
+  text-decoration: none;
+      font-weight: normal;
+}
+
+.pub-authors
+{
+    color: #660000;
+    font-weight: normal;
+}
+
+.pub-venue { font-size: 0.85rem; color: var(--accent); }
+
+.pub-links {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.pub-link {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.pub-link:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ── Grants ── */
+.grant-list { display: flex; flex-direction: column; }
+
+.grant-item {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.grant-item:first-child { border-top: 1px solid var(--border); }
+
+.grant-years {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  padding-top: 0.2rem;
+}
+
+.grant-title {
+  font-size: 0.92rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.grant-funder { font-size: 0.8rem; color: var(--ink-muted); }
+
+.grant-amount {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  color: var(--accent);
+  white-space: nowrap;
+  padding-top: 0.15rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .research-grid { grid-template-columns: 1fr; }
+  .pub-item { grid-template-columns: 48px 1fr; gap: 1rem; }
+  .grant-item { grid-template-columns: 1fr; gap: 0.3rem; }
+}

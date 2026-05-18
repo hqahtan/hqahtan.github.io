@@ -1,0 +1,50 @@
+---
+title: "Creating and Modfying the Tables in Databases"
+format:
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    # callout-appearance: simple
+    callout-icon: false
+---
+
+
+
+In this lab, you will work on creating tables (relations) and adding/deleting records to/from the tables. You will learn also how to modify a database by altering the tables (adding/deleting attributes) or even deleting the whole table.
+When writing the `SQL` queries, it is good to keep a copy of the queries in a plain text document so that you can use them later (if needed).  
+
+**Note:** we will use table and relation exchangeable unless something else is specified. 
+
+
+## Creating table
+
+During the first weeks of the course, we will use the University database from the Database System Concepts book. Over the first two weeks of the course, it would be good to create all the tables and enter a few records in the ***student, instructor and department*** relations.  
+
+* Write the `SQL` query that creates one or more tables. For now, you don't need to specify the primary/foreign keys or any additional constraints. Just the data type of each attribute. 
+
+![University database](Figures/DB_Schema.jpg){width=100%}
+
+## Inserting records into a table
+
+1. Write `SQL` queries to insert a few records in each of the created tables. 
+1. Check if you can enter values of different type other than the type of attribute (e.g. enter strings for attributes with numeric type). Comment on your findings. 
+1. To display the records that you inserted in the tables, you can run:
+
+
+```sql
+ SELECT * FROM table_name; 
+```
+We will discuss querying the database in more details next week.
+
+
+## Modifying the tables
+* Write an `SQL` query to add an attribute *major* in the *student* table. 
+* If you have inserted a few records in the student table before, display the records of the table and check the values in the *major* attribute. 
+* Before performing the next tasks, make sure that you have the query for creating the tables that you will work on and you have the queries for inserting the records again. 
+  + Delete all the records from the table. Make sure that the table itself is not deleted. 
+  + Delete the table and its content. Comment on the differences between the two queries. 
+
+
+

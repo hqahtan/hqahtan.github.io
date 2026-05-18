@@ -1,0 +1,851 @@
+---
+title: "Heterogeneous data analysis & string similarity"
+format: 
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    # callout-appearance: simple
+    callout-icon: false
+  
+---
+
+
+In this lab, you will practice to compute the similairty between different strings and sets. You will use different atomic similarity measures. Moreover, you will practice to find the similarity between different documents using min-hash and locality sensitive hashing beside the traditional ones (Jaccard similarity, Sørensen Coefficient, Tversky Index and the Overlap Coefficient)
+
+## Atomic String Similarity
+In the following exercises, you will learn about finding the simiarity between atomic values using Edit-Distance, Jaro Similarity, Jaro-Winkler Similarity and Soundex). We will start by importing the required libraries.
+
+
+```python
+import pandas as pd
+import csv
+import numpy as np
+```
+::: callout-note
+#### Minimum Edit Distance (Levenshtein)
+
+
+```python
+'''
+TODO: find an implementation of the Levenshtein minimum edit distance and use it 
+to find the similarity between INTENTION and EXECUTION
+'''
+def ldist(s, t):
+    """ 
+        iterative_levenshtein(s, t) -> ldist
+        ldist is the Levenshtein distance between the strings 
+        s and t.
+        For all i and j, dist[i,j] will contain the Levenshtein 
+        distance between the first i characters of s and the 
+        first j characters of t
+    """
+
+    rows = len(s)+1
+    cols = len(t)+1
+    dist = [[0 for x in range(cols)] for x in range(rows)]
+
+    # source prefixes can be transformed into empty strings 
+    # by deletions:
+    for i in range(1, rows):
+        dist[i][0] = i
+
+    # target prefixes can be created from an empty source string
+    # by inserting the characters
+    for i in range(1, cols):
+        dist[0][i] = i
+        
+    for col in range(1, cols):
+        for row in range(1, rows):
+            if s[row-1] == t[col-1]:
+                c = 0
+            else:
+                c = 2
+            dist[row][col] = min(dist[row-1][col] + 1,       # deletion
+                                 dist[row][col-1] + 1,       # insertion
+                                 dist[row-1][col-1] + c)     # substitution
+
+    for r in range(rows):
+        print(dist[r])
+    
+ 
+    return dist[row][col]
+
+print("Minimum edit disctance = ", ldist("INTENTION", "EXECUTION"))
+```
+
+
+```python
+'''
+TODO: Modify the ldist function to accept a new parameter which specifies the substitution cost
+Test your implementation with the call mod_ldist("Intention", "execution", 1) -- You should get 5
+and mod_ldist("Intention", "execution", 2) -- You should get 8
+'''
+def mod_ldist(s, t, substitution_cost):
+    """ 
+        iterative_levenshtein(s, t) -> ldist
+        ldist is the Levenshtein distance between the strings 
+        s and t.
+        For all i and j, dist[i,j] will contain the Levenshtein 
+        distance between the first i characters of s and the 
+        first j characters of t
+    """
+
+    rows = len(s)+1
+    cols = len(t)+1
+    dist = [[0 for x in range(cols)] for x in range(rows)]
+
+    # source prefixes can be transformed into empty strings 
+    # by deletions:
+    for i in range(1, rows):
+        dist[i][0] = i
+
+    # target prefixes can be created from an empty source string
+    # by inserting the characters
+    for i in range(1, cols):
+        dist[0][i] = i
+        
+    for col in range(1, cols):
+        for row in range(1, rows):
+            if s[row-1] == t[col-1]:
+                c = 0
+            else:
+                c = substitution_cost
+            dist[row][col] = min(dist[row-1][col] + 1,       # deletion
+                                 dist[row][col-1] + 1,       # insertion
+                                 dist[row-1][col-1] + c)     # substitution 
+ 
+    return dist[row][col]
+
+print("Minimum edit disctance = ", mod_ldist("INTENTION", "EXECUTION", 2))
+```
+
+:::
+::: callout-note
+
+#### Jaro Similarity
+
+
+```python
+'''
+TODO: find an implementation of the Jaro similarity algorithm and use it 
+to find the similarity between the follwing pairs of strings:
+('nichlseon','niechlson')
+('MARTHA', 'MARHTA'),
+('DIXON', 'DICKSONX'),
+('JELLYFISH', 'SMELLYFISH'),
+('cunningham', 'cunnigham'), 
+('shackleford', 'shackelford'),
+('nichleson', 'nichulson'), 
+('arnab', 'urban')
+('DATASCIENCE','SCIENCEDATA')
+'''
+def jaro(s, t):
+    '''Jaro similarity between two strings.'''
+    s_len = len(s)
+    t_len = len(t)
+ 
+    if s_len == 0 and t_len == 0:
+        return 1
+ 
+    match_distance = (max(s_len, t_len) // 2) - 1
+ 
+    s_matches = [False] * s_len
+    t_matches = [False] * t_len
+ 
+    matches = 0
+    transpositions = 0
+ 
+    for i in range(s_len):
+        start = max(0, i - match_distance)
+        end = min(i + match_distance + 1, t_len)
+ 
+        for j in range(start, end):
+            if t_matches[j]:
+                continue
+            if s[i] != t[j]:
+                continue
+            s_matches[i] = True
+            t_matches[j] = True
+            matches += 1
+            break
+ 
+    if matches == 0:
+        return 0
+ 
+    k = 0
+    for i in range(s_len):
+        if not s_matches[i]:
+            continue
+        while not t_matches[k]:
+            k += 1
+        if s[i] != t[k]:
+            transpositions += 1
+        k += 1
+ 
+    return ((matches / s_len) +
+            (matches / t_len) +
+            ((matches - transpositions / 2) / matches)) / 3
+```
+
+:::
+
+::: callout-note
+
+#### Jaro-Winkler Similarity
+
+
+```python
+'''
+TODO: find an implementation of the Jaro-Winkler similarity algorithm and use it 
+to find the similarity between the pairs of strings in the previous exercise. 
+Compare the results and comment on them.
+'''
+def jaro_winkler(s, t, p = 0.1):
+    # Compute the Jaro similarity
+    jaro_sim = jaro(s, t)
+    ls = len(s)
+    lt = len(t)
+    # Initialize the upper bound for the no. of prefixes.
+    min_l = min(ls, lt)
+
+    # Compute the prefix matches.
+    l = 0
+    for i in range(min_l):
+        if s[i] == t[i]:
+            l += 1
+        else:
+            break
+    # Return the similarity value.
+    L = min(l, 4)
+    return (jaro_sim + ( L * p * (1 - jaro_sim) ))
+```
+
+:::
+Now we test the two methods on the given pairs of strings. 
+
+::: callout-note
+#### Example
+
+```python
+for s, t in [('nichlseon','niechlson'),
+            ('MARTHA', 'MARHTA'),
+            ('DIXON', 'DICKSONX'),
+            ('JELLYFISH', 'SMELLYFISH'),
+            ('cunningham', 'cunnigham'), 
+            ('shackleford', 'shackelford'),
+            ('nichleson', 'nichulson'), 
+            ('arnab', 'urban'),
+            ('DATASCIENCE','SCIENCEDATA')
+        ]:
+    print("jaro(%r, %r) = %.4f  and jaro-winkler(%r, %r) = %.4f" % (s, t, jaro(s, t), s, t, jaro_winkler(s, t)))
+
+```
+
+:::
+
+::: callout-note
+
+#### Soundex
+
+
+```python
+'''
+TODO: find an implementation of the soundex algorithm and use it 
+to find the representation of EDUCATE and EVALUATE
+'''
+def soundex(name):
+
+    """
+    The Soundex algorithm assigns a 1-letter + 3-digit code to strings,
+    the intention being that strings pronounced the same but spelled
+    differently have identical encodings; words pronounced similarly
+    should have similar encodings.
+    """
+
+    soundexcoding = [' ', ' ', ' ', ' ']
+    soundexcodingindex = 1
+
+    #           ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    mappings = "01230120022455012623010202"
+
+    soundexcoding[0] = name[0].upper()
+
+    for i in range(1, len(name)):
+        c = ord(name[i].upper()) - 65
+        if c >= 0 and c <= 25:
+
+             if mappings[c] != '0':
+                if mappings[c] != soundexcoding[soundexcodingindex-1]:
+                    soundexcoding[soundexcodingindex] = mappings[c]
+                    soundexcodingindex += 1
+                    if soundexcodingindex > 3:
+                        break
+
+    if soundexcodingindex <= 3:
+        while(soundexcodingindex <= 3):
+            soundexcoding[soundexcodingindex] = '0'
+            soundexcodingindex += 1
+
+    return ''.join(soundexcoding)
+soundex('EDUCATE'), soundex('EVALUATE')
+```
+:::
+
+### Similarity for Sets
+
+For this exercise, you may use a tokenizing function that convert the following sentences into sets of words (words are separated by spaces). After that, apply Jaccard, Sørensen Coefficient, Tversky Index, Overlap Coefficient). 
+
+```
+D1 = People wearing costumes are gathering in a forest and are looking in the same direction	
+D2 = People wearing costumes are scattering in a forest and are looking in different directions
+D3 = People wearing costumes are gathering in a forest and are looking in the same direction	
+D4 = Masked people are looking in the same direction in a forest
+```
+
+Compute the pairwise similarity between the documents using the four measures.
+
+
+```python
+'''
+TODO: first step is to tokenize the documents 
+'''
+D1 = 'People wearing costumes are gathering in a forest and are looking in the same direction'
+D2 = 'People wearing costumes are scattering in a forest and are looking in different directions'
+D3 = 'People wearing costumes are gathering in the wood and are looking in the same direction'
+D4 = 'Masked people are looking in the same direction in a forest'
+S1 = D1.split()
+S2 = D2.split()
+S3 = D3.split()
+S4 = D4.split()
+```
+
+
+::: callout-note
+#### Jaccard Similarity
+
+
+```python
+'''
+TODO: Compute the pairwise Jaccard similarity for the sets S1, S2, S3, and S4. 
+'''
+def jaccard_similarity(set1, set2):
+    intersection_size = len(set1.intersection(set2))
+    union_size = len(set1.union(set2))
+    return intersection_size / union_size if union_size != 0 else 0.0
+
+strings = [S1, S2, S3, S4]
+for i in range(len(strings)):
+    s1 = set(strings[i])
+    # loop over the columns of the second table
+    s2 = set()
+    for j in range(i+1,len(strings)):
+        s2 = set(strings[j])
+        JSim = jaccard_similarity(s1, s2)
+        # display the Similarities
+        print ("Jacard similarity between S{} and S{} = {:2.3}"\
+               .format(i+1, j+1, JSim))
+```
+:::
+
+::: callout-note
+#### Sørensen Coefficient
+
+
+```python
+'''
+TODO: Compute the pairwise Sørensen Coefficient for the sets S1, S2, S3, and S4. 
+'''
+def Sørensen_Coefficient(set1, set2):
+    intersection_size = len(set1.intersection(set2))
+    total_size = (len(set1) + len(set2))
+    return (2 * intersection_size) / total_size if total_size != 0 else 0.0
+
+strings = [S1, S2, S3, S4]
+for i in range(len(strings)):
+    s1 = set(strings[i])
+    # loop over the columns of the second table
+    s2 = set()
+    for j in range(i+1,len(strings)):
+        s2 = set(strings[j])
+        SCoef = Sørensen_Coefficient(s1, s2)
+        # display the Similarities
+        print ("Sørensen Coefficient between S{} and S{} = {:2.3}"\
+               .format(i+1, j+1, SCoef))
+```
+:::
+
+::: callout-note
+
+#### Tversky Index
+
+
+```python
+'''
+TODO: Compute the pairwise Tversky Index for the sets S1, S2, S3, and S4. 
+'''
+def Tversky_Coefficient(set1, set2):
+    intersection_size = len(set1.intersection(set2))
+    S1_diff_S2 = len(set1.difference(set2))
+    S2_diff_S1 = len(set2.difference(set1))
+    alpha = 0.2
+    beta = 0.8
+    denominator = intersection_size + (alpha * S1_diff_S2) + (beta * S2_diff_S1)
+    return intersection_size / denominator if denominator != 0 else 0.0
+
+strings = [S1, S2, S3, S4]
+for i in range(len(strings)):
+    s1 = set(strings[i])
+    # loop over the columns of the second table
+    s2 = set()
+    for j in range(i+1,len(strings)):
+        s2 = set(strings[j])
+        TCoef = Tversky_Coefficient(s1, s2)
+        # display the Similarities
+        print ("Tversky Coefficient between S{} and S{} = {:2.3}"\
+               .format(i+1, j+1, TCoef))
+               
+```
+
+:::
+
+::: callout-note
+
+
+#### Overlap Coefficient
+
+
+```python
+'''
+TODO: Compute the pairwise Overlap Coefficient for the sets S1, S2, S3, and S4. 
+'''
+def Overlap_Coefficient(set1, set2):
+    intersection_size = len(set1.intersection(set2))
+    min_size = min(len(set1), len(set2))
+    return intersection_size / min_size if min_size != 0 else 0.0
+
+strings = [S1, S2, S3, S4]
+for i in range(len(strings)):
+    s1 = set(strings[i])
+    # loop over the columns of the second table
+    s2 = set()
+    for j in range(i+1,len(strings)):
+        s2 = set(strings[j])
+        OCoef = Overlap_Coefficient(s1, s2)
+        # display the Similarities
+        print ("Overlap Coefficient between S{} and S{} = {:2.3}"\
+               .format(i+1, j+1, OCoef))
+```
+
+:::
+
+
+## Locality Sensitive Hashing (LSH)
+
+In the realm of large datasets and high-dimensional spaces, searching for items can be computationally challenging. Specifically, if you want to find items that are similar to a given item (known as the "query item"), conventional search methods might take an impractical amount of time. This is more observable in tasks that involve finding similar documents in a vast collection corpus or similar image in a massive image database.
+
+Applying LSH for finding similar documents will require comparing the query with the documents in a specific bucket instead of comparing it with every single document in the collection.
+At its heart, LSH is a method for hashing data points in a way such that similar data points will, with high probability, end up in the same "bucket" or hash bin. Conversely, dissimilar items will, with high probability, end up in different bins.
+
+<center><img src="Hashing2.png" ></center>
+
+Unlike traditional hash functions used in dictionaries, which aim to reduce the likelihood of multiple key-values mapping to the same bucket, LSH operates differently. In dictionary hashing, minimizing collisions is crucial. On the contrary, LSH actively embraces collisions, especially for similar inputs. The essence of an LSH function is to group like values into identical buckets.
+
+While the core principle of LSH is to bucket similar items using a hash function, the methodologies can differ significantly.
+
+The technique we're introducing, and which will be the point of this lab, is based on established methods involving shingling, MinHashing, and banding.
+
+
+
+```python
+import requests
+from io import StringIO
+from IPython.display import display
+from random import shuffle
+from itertools import combinations
+
+```
+
+
+### Loading data set
+First we need data set. There are great repository in internet for testing similarity search testing. We will be extracting a set of sentences from [here](https://github.com/brmson/dataset-sts/blob/master/data/sts/sick2014/SICK_train.txt).
+
+
+```python
+# URL of the file
+url = "https://raw.githubusercontent.com/brmson/dataset-sts/master/data/sts/sick2014/SICK_train.txt"
+response = requests.get(url)
+if response.status_code == 200:
+    content = response.text
+    df_docs = pd.read_csv(StringIO(content), delimiter='\t')
+    display(df_docs)
+else:
+    print("Failed to fetch data from the URL.")
+```
+
+
+
+
+### Shingling, MinHashing, and LSH
+
+The Locality-Sensitive Hashing (LSH) approach encompasses a three-step process. Initially, we convert text into sparse vectors using k-shingling and one-hot encoding. We then employ minhashing to generate 'signatures,' which are subsequently used in our LSH process to filter out potential candidate pairs. Finally, we group the signatures into buckets where each bucket conatins the set of doocuments that are potentially similar. This will reduce the computational cost as the pairwise similarity will be performed only on the documents with signatures falling in the same bucket. If the number of buckets is large enough and the signatures are evenly distributed among the buckets, the computational cost will be reduced significantly.
+
+::: callout-note
+
+### k-Shingling
+k-Shingling, often referred to as shingling, involves the transformation of a text string into a collection of 'shingles.' This procedure resembles sliding a window of length k along our text string and capturing a snapshot at each step. We aggregate all these snapshots to form our set of shingles.
+
+
+```python
+def shingle(text: str, k: int)->set:
+    """
+    Create a set of 'shingles' from the input text using k-shingling.
+
+    Parameters:
+        text (str): The input text to be converted into shingles.
+        k (int): The length of the shingles (substring size).
+
+    Returns:
+        set: A set containing the shingles extracted from the input text.
+    """
+    shingle_set = []
+    for i in range(len(text) - k+1):
+        shingle_set.append(text[i:i+k])
+    return set(shingle_set)
+def build_vocab(shingle_sets: list)->dict:
+    """
+    Constructs a vocabulary dictionary from a list of shingle sets.
+
+    This function takes a list of shingle sets and creates a unified vocabulary
+    dictionary. Each unique shingle across all sets is assigned a unique integer
+    identifier.
+
+    Parameters:
+    - shingle_sets (list of set): A list containing sets of shingles.
+
+    Returns:
+    - dict: A vocabulary dictionary where keys are the unique shingles and values
+      are their corresponding unique integer identifiers.
+
+    Example:
+    sets = [{"apple", "banana"}, {"banana", "cherry"}]
+    build_vocab(sets)
+    {'apple': 0, 'cherry': 1, 'banana': 2}  # The exact order might vary due to set behavior
+    """
+    full_set = {item for set_ in shingle_sets for item in set_}
+    vocab = {}
+    for i, shingle in enumerate(list(full_set)):
+        vocab[shingle] = i
+    return vocab
+def one_hot(shingles: set, vocab: dict):
+    vec = np.zeros(len(vocab))
+    for shingle in shingles:
+        idx = vocab[shingle]
+        vec[idx] = 1
+    return vec
+```
+
+:::
+
+::: callout-note
+
+#### Simple example of shingling
+
+
+```python
+'''
+TODO: using the function 'shingle', find the list of 5-shingles in the document:
+D = "This is an example of text shingling using k-shingling."
+After that, find the 5-shingles manually and check if the computed ones are corret or not. 
+
+If you don't see the message "Assertion failed: The result does not match the expected shingles.", 
+then the function that computes the shingles provides correct results
+'''
+
+text = "This is an example of text shingling using k-shingling."
+k = 5
+result = shingle(text, k)
+# We find all the shingles and use the set class to remove the duplicates
+expected_result = {'This ', 'his i', 'is is', 's is ', ' is a', 'is an', 's an ', ' an e', 'an ex', 
+                   'n exa', ' exam', 'examp', 'xampl', 'ample', 'mple ', 'ple o', 'le of', 'e of ', 
+                   ' of t', 'of te', 'f tex', ' text', 'text ', 'ext s', 'xt sh', 't shi', ' shin', 
+                   'shing', 'hingl', 'ingli', 'nglin', 'gling', 'ling ', 'ing u', 'ng us', 'g usi',
+                   ' usin', 'using', 'sing ', 'ing k', 'ng k-', 'g k-s', ' k-sh', 'k-shi', '-shin',
+                   'shing', 'hingl', 'ingli', 'nglin', 'gling', 'ling.', }
+assert result == set(expected_result), "Assertion failed: The result does not match the expected shingles."
+```
+
+:::
+
+::: callout-note
+
+#### Use shingling on the set of document in the dataframe df_docs
+
+
+```python
+'''
+TODO: 
+    1. create a single list that contains all the sentences in sentence_A, sentence_B
+    2. find the list of 3-shingles from the full list of sentences
+    3. Use the functions build_vocab and one_hot to create the documents-shinles matrix 
+        (you can also use your own functions)
+'''
+k = 3
+sentences = df_docs['sentence_A'].tolist()
+sentences.extend(df_docs['sentence_B'].tolist())
+print(f"the number of sentences (documents):{len(sentences)}")
+shingles = []
+for sentence in sentences:
+    shingles.append(shingle(sentence,k))
+vocab = build_vocab(shingles)
+print(f"Number of vocabulary is:{len(vocab)}")
+shingles_1hot = []
+for shingle_set in shingles:
+    shingles_1hot.append(one_hot(shingle_set,vocab))
+shingles_1hot = np.stack(shingles_1hot)
+shingles_1hot
+
+```
+:::
+
+::: callout-note
+### MinHashing
+Minhashing is represents the task of transforming the sparse vectors (in the documents-shingles matrix) into dense ones. Starting with the sparse vectors, for each slot in the signature, we randomly produce a single minhash function.
+For instance, if we aim to formulate a dense vector or signature with 20 values, we would deploy 20 hashing functions.
+
+These hashing functions generate sequences of numbers arranged in randomly. We sequentially number them from 1 up to the number of shingles (vocab entries).
+
+
+```python
+def get_minhash_arr(num_hashes:int,vocab:dict):
+    """
+    Generates a MinHash array for the given vocabulary.
+
+    This function creates an array where each row represents a hash function and
+    each column corresponds to a word in the vocabulary. The values are permutations
+    of integers representing the hashed value of each word for that particular hash function.
+
+    Parameters:
+    - num_hashes (int): The number of hash functions (rows) to generate for the MinHash array.
+    - vocab (dict): The vocabulary where keys are words and values can be any data
+      (only keys are used in this function).
+
+    Returns:
+    - np.ndarray: The generated MinHash array with `num_hashes` rows and columns equal
+      to the size of the vocabulary. Each cell contains the hashed value of the corresponding
+      word for the respective hash function.
+
+    Example:
+    vocab = {'apple': 1, 'banana': 2}
+    get_minhash_arr(2, vocab)
+    # Possible output:
+    # array([[1, 2],
+    #        [2, 1]])
+    """
+    length = len(vocab.keys())
+    arr = np.zeros((num_hashes,length))
+    for i in range(num_hashes):
+        permutation = np.random.permutation(len(vocab.keys())) + 1
+        arr[i,:] = permutation.copy()
+    return arr.astype(int)
+def get_signature(minhash:np.ndarray, vector:np.ndarray):
+    """
+    Computes the signature of a given vector using the provided MinHash matrix.
+
+    The function finds the nonzero indices of the vector, extracts the corresponding
+    columns from the MinHash matrix, and computes the signature as the minimum value
+    across those columns for each row of the MinHash matrix.
+
+    Parameters:
+    - minhash (np.ndarray): The MinHash matrix where each column represents a shingle
+      and each row represents a hash function.
+    - vector (np.ndarray): A vector representing the presence (non-zero values) or
+      absence (zero values) of shingles.
+
+    Returns:
+    - np.ndarray: The signature vector derived from the MinHash matrix for the provided vector.
+
+    Example:
+    minhash = np.array([[2, 3, 4], [5, 6, 7], [8, 9, 10]])
+    vector = np.array([0, 1, 0])
+    get_signature(minhash, vector)
+    output:array([3, 6, 9])
+    """
+    idx = np.nonzero(vector)[0].tolist()
+    shingles = minhash[:,idx]
+    signature = np.min(shingles,axis=1)
+    return signature
+
+def jaccard_similarity(set1, set2):
+    intersection_size = len(set1.intersection(set2))
+    union_size = len(set1.union(set2))
+    return intersection_size / union_size if union_size != 0 else 0.0
+
+def compute_signature_similarity(signature_1, signature_2):
+    """
+    Calculate the similarity between two signature matrices using MinHash.
+
+    Parameters:
+    - signature_1: First signature matrix as a numpy array.
+    - signature_matrix2: Second signature matrix as a numpy array.
+
+    Returns:
+    - Estimated Jaccard similarity.
+    """
+    # Ensure the matrices have the same shape
+    if signature_1.shape != signature_2.shape:
+        raise ValueError("Both signature matrices must have the same shape.")
+    # Count the number of rows where the two matrices agree
+    agreement_count = np.sum(signature_1 == signature_2)
+    # Calculate the similarity
+    similarity = agreement_count / signature_2.shape[0]
+
+    return similarity
+
+```
+
+
+```python
+'''
+TODO:
+    1. create an array to hold 100 permutations (the second dimension will be the number of shingles for sure)
+    2. create the signature matrix 
+        (the size of the matrix should be the number of permutaions times the number of documents)
+'''
+
+minhash_arr =  get_minhash_arr(100,vocab)
+signatures = []
+for vector in shingles_1hot:
+    signatures.append(get_signature(minhash_arr,vector))
+signatures = np.stack(signatures)
+signatures.shape
+
+```
+
+
+```python
+'''
+TODO:compute the simialrity between two documents using:
+    1. Jaccard similarity on the documents-shingles arrays
+    2. the signature based similarity using the function `compute_signature_similarity`
+'''
+print(compute_signature_similarity(signatures[2],signatures[3]))
+print(jaccard_similarity(shingles[3],shingles[2]))
+
+```
+
+:::
+
+::: callout-note
+### LSH Function 
+After preparing the data using the methods mentioned above, the LSH function is applied. This function divides the MinHash signature of each sentence into multiple bands and hashes each band. If two sentences have the same hash value for any band, they are considered to be potentially similar and are placed in the same bucket. Sentences within the same bucket are then checked more thoroughly to determine the degree of their similarity. By adjusting parameters like the number of bands and rows, one can control the trade-off between precision and recall.
+
+
+```python
+class LSH:
+    """
+    Implements the Locality Sensitive Hashing (LSH) technique for approximate
+    nearest neighbor search.
+    """
+    buckets = []
+    counter = 0
+
+    def __init__(self, b: int):
+        """
+        Initializes the LSH instance with a specified number of bands.
+
+        Parameters:
+        - b (int): The number of bands to divide the signature into.
+        """
+        self.b = b
+        for i in range(b):
+            self.buckets.append({})
+
+    def make_subvecs(self, signature: np.ndarray) -> np.ndarray:
+        """
+        Divides a given signature into subvectors based on the number of bands.
+
+        Parameters:
+        - signature (np.ndarray): The MinHash signature to be divided.
+
+        Returns:
+        - np.ndarray: A stacked array where each row is a subvector of the signature.
+        """
+        l = len(signature)
+        assert l % self.b == 0
+        r = int(l / self.b)
+        subvecs = []
+        for i in range(0, l, r):
+            subvecs.append(signature[i:i+r])
+        return np.stack(subvecs)
+
+    def add_hash(self, signature: np.ndarray):
+        """
+        Adds a signature to the appropriate LSH buckets based on its subvectors.
+
+        Parameters:
+        - signature (np.ndarray): The MinHash signature to be hashed and added.
+        """
+        subvecs = self.make_subvecs(signature).astype(str)
+        for i, subvec in enumerate(subvecs):
+            subvec = ','.join(subvec)
+            if subvec not in self.buckets[i].keys():
+                self.buckets[i][subvec] = []
+            self.buckets[i][subvec].append(self.counter)
+        self.counter += 1
+
+    def check_candidates(self) -> set:
+        """
+        Identifies candidate pairs from the LSH buckets that could be potential near duplicates.
+
+        Returns:
+        - set: A set of tuple pairs representing the indices of candidate signatures.
+        """
+        candidates = []
+        for bucket_band in self.buckets:
+            keys = bucket_band.keys()
+            for bucket in keys:
+                hits = bucket_band[bucket]
+                if len(hits) > 1:
+                    candidates.extend(combinations(hits, 2))
+        return set(candidates)
+
+```
+
+Now, we create a set of $b$ buckets to hold the potentially similar documents. 
+
+
+```python
+b = 10   # number of buckets
+lsh = LSH(b)
+for signature in signatures:
+    lsh.add_hash(signature)
+candidate_pairs = lsh.check_candidates()
+len(candidate_pairs)
+```
+
+We display the top 5 similar candidates. 
+
+
+```python
+for candidate in list(candidate_pairs)[:5]:
+    print("Candidate similar sentence are:")
+    print(sentences[candidate[0]])
+    print(sentences[candidate[1]])
+    print("="*10)
+```
+
+
+```python
+'''
+TODO: try displaying more documents that looks similar.
+'''
+number_of_candidates = 8
+for candidate in list(candidate_pairs)[:number_of_candidates]:
+    print("Candidate similar documents are:")
+    print(sentences[candidate[0]])
+    print(sentences[candidate[1]])
+    print("="*10)
+```
+:::

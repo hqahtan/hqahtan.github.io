@@ -1,0 +1,424 @@
+---
+title: "Missing data and imputation II"
+date: last-modified
+callout-appearance: simple
+params:
+  answers: true
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    self-contained: true
+---
+
+# Introduction
+
+The aim of this lab is to learn more about ad-hoc imputation methods as well as multiple imputation, all using the `mice` package. 
+
+In this lab, we perform the following steps:
+
+* Data processing.
+* Inspection of the missingness pattern.
+* Apply ad hoc imputation methods using the `mice` package. 
+* Apply multiple imputation using the `mice` package.
+* Perform a linear regression and compare the output when different imputation approaches are used.
+
+First, we load the packages required for this lab.
+
+```{r}
+#| label: packages
+#| warning: false
+#| message: false
+library(tidyverse)
+library(mice)
+library(ggmice)
+library(ISLR)
+```
+
+Before we start, set a seed for reproducibility, we use `123`, and also use `options(scipen = 999)` to suppress scientific notations, making it easier to compare and interpret results later in the session.
+
+```{r}
+#| label: seed
+set.seed(123)
+options(scipen = 999)
+```
+
+# Data processing
+
+For this part of the practical, you can directly copy and paste the code as given. 
+
+From the `ISLR` package, we will use the `College` dataset. Check out `help(College)` to find out more about this dataset. We will only use the following four variables:
+
+* Outstate: Out-of-state tuition
+* PhD: Pct. of faculty with Ph.D.’s
+* Terminal: Pct. of faculty with terminal degree
+* Expend:  Instructional expenditure per student
+
+Hence, we create a new data frame containing only these four variables:
+
+```{r}
+#| label: data select
+data_complete <- 
+  College |> 
+  select(Outstate, PhD, Terminal, Expend) 
+
+summary(data_complete)
+```
+
+During the practical, we focus on how different imputation approaches affect the linear relationship between `Outstate` and `Expend`. Therefore, we first inspect how this relationship looks like on the complete dataset. 
+
+```{r}
+#| label: lmcomplete
+lm_complete <- lm(Expend ~ Outstate, 
+                  data = data_complete)
+
+summary(lm_complete)
+```
+
+We now generate missingness in the variables `Expend` and `Terminal` under a Seen Data-Dependent (SDD) mechanism, assuming that the missingness in these variables are dependent on the values of `Outstate` and `PhD` respectively. 
+
+```{r}
+#| label: logit
+logistic <- function(x) (exp(x) / (1 + exp(x))) # logistic function
+
+N <- nrow(data_complete) # number of observations
+
+misprob_out <- logistic(scale(data_complete$Outstate)) # predictor Outstate
+misprob_phd <- logistic(scale(data_complete$PhD)) # predictor PhD
+
+data_missing <- 
+  data_complete |> 
+  mutate(
+    R_out = 1 - rbinom(N, 1, misprob_out), # reponse indicator outstate
+    R_phd = 1 - rbinom(N, 1, misprob_phd), # response indicator PhD
+    m_Expend = ifelse(R_out == 0, NA, Expend),    # Missing in expend
+    m_Terminal = ifelse(R_phd == 0, NA, Terminal) # and in terminal
+  ) |> 
+  select(Outstate, m_Expend, m_Terminal) # Select variables that we will use
+```
+
+# Inspection of missingness
+
+::: {.callout-tip icon=false}
+## 1. Inspect the missingness pattern of the dataset using the function `plot_pattern()` from the `ggmice` package.
+
+
+```{r}
+#| label: q1
+#| include: !expr params$answers
+plot_pattern(data_missing)
+```
+:::
+
+# Ad Hoc imputation methods
+
+## Listwise deletion
+
+::: {.callout-tip icon=false}
+
+## 2. Create the object `lm_listwise` by fitting a regression model with `m_Expend` as the outcome object, predicted by `Outstate` using the data containing missing values.
+
+Hint: By default, `lm()` removes the observations that have missings on one of the variables in the model.
+
+```{r}
+#| label: q2
+#| include: !expr params$answers
+lm_listwise <- lm(m_Expend ~ Outstate,
+                  data = data_missing)
+```
+
+:::
+
+::: {.callout-tip icon=false}
+## 3. Inspect the regression output by using the `summary()` function on the `lm_listwise` object. How many observations are excluded from this analysis? Is there a significant effect of `Outstate` on `m_Expend`?
+
+```{r}
+#| label: q3
+#| include: !expr params$answers
+summary(lm_listwise)
+
+# The coefficient is a bit smaller, the standard error somewhat larger, so we
+# introduced some bias, and reduced the power. Both could have been expected,
+# due to how we generated missings and since we lost 373 cases.
+```
+
+:::
+
+
+## Regression imputation
+::: {.callout-tip icon=false}
+## 4. Use `mice()` to impute `data_missing` with regression imputation (`method = "norm.predict"`), using a single imputation (`m = 1`), and a single iteration (`maxit = 1`), and name the output object `imp_regression`.
+
+NB: `m = 1` implies that only a single imputed data set is created, whereas `maxit = 1` implies that `mice()` does not iterate to converge to a distribution.
+
+```{r}
+#| label: q4
+#| include: !expr params$answers
+imp_regression <- mice(
+  data   = data_missing,
+  method = "norm.predict",
+  m      = 1,
+  maxit  = 1
+)
+```
+:::
+
+::: {.callout-tip icon=false}
+## 5. Extract the complete data from the `mids` object using the `complete()` function, and confirm that you have a fully imputed dataset.
+
+```{r}
+#| label: q5
+#| include: !expr params$answers
+complete(imp_regression) |>
+  is.na() |>
+  sum()
+```
+:::
+
+
+The `with(data, expr)` function allows to fit `lm()` and `glm()` models with imputed data sets (`mids`-objects, to be precise), without requiring any further data handling. Check how the function works by running `?with.mids()`.
+
+::: {.callout-tip icon=false}
+## 6. Use the `with()` function to fit the regression model `lm(m_Expend ~ Outstate)` on the imputed data using the `imp_regression` as the data argument, and assign the output to an object called `lm_regression`.
+
+```{r}
+#| label: q6
+#| include: !expr params$answers
+lm_regression <- with(imp_regression, lm(m_Expend ~ Outstate))
+```
+:::
+
+
+::: {.callout-tip icon=false}
+## 7. Inspect the results of the regression model. What happens to the regression coefficient and the corresponding standard error?
+
+```{r}
+#| label: q7
+#| include: !expr params$answers
+summary(lm_regression)
+
+# The regression coefficient is almost identical to the coefficient from the
+# model with listwise deletion, which is not weird, because we used this
+# relationship to impute the missing data. The standard error is substantially
+# smaller though, because we treat the imputed values as the true values, and
+# given that all are on the regression line, we are overly certain about the
+# estimated regression coefficient.
+
+# From an inferential statistics viewpoint, this approach would only be valid 
+# if we have definitive proof that the unobserved values would exactly conform 
+# to the observed data. If this assumption does not hold, `norm.predict` 
+# creates too little variation in our dataset and we can not trust the 
+# resulting standard errors and p-values.
+```
+:::
+
+::: {.callout-tip icon=false}
+## 8. Use `ggmice()` to create a scatterplot that shows the relationship between `m_Expend` (on the `y`-axis) and `Outstate` (on the `x`-axis). What do you notice?
+
+Hint: `ggmice()` works much the same way as `ggplot()`, but accepts `mids` objects. Check `?ggmice` for help.
+
+```{r}
+#| label: q8
+#| include: !expr params$answers
+imp_regression |> 
+  ggmice(aes(x = Outstate, y = m_Expend)) +
+  geom_point()
+
+# Almost all imputed values are on a (almost) straight regression line (which 
+# is how we specified the imputation model). The variation around this line
+# comes from the other variables that are also used in calculating the
+# predictions.
+```
+:::
+
+## Stochastic regression imputation
+
+We will now impute the missing data with stochastic regression imputation, adding an error term to the predicted values such that the imputations show variation around the regression line. The errors follow a normal distribution with a mean equal to zero and a variance equal to the residual variance.
+
+::: {.callout-tip icon=false}
+## 9. Impute `data_missing` with the stochastic regression method using `mice()` with `method = "norm.nob"`, again using a single imputation (`m = 1`) and a single iteration (`maxit = 1`) and assign the outcome to an object called `imp_stochastic`.
+
+
+```{r}
+#| label: q9
+#| include: !expr params$answers
+imp_stochastic <- mice(
+  data   = data_missing,
+  method = "norm.nob",
+  m      = 1,
+  maxit  = 1
+)
+
+```
+:::
+
+::: {.callout-tip icon=false}
+## 10. Fit the same regression model as before using the `with()` function, and assign the outcome to an object called `lm_stochastic`, and inspect the results of the fitted model using `summary()`. What do you notice?
+
+
+```{r}
+#| label: q10
+#| include: !expr params$answers
+lm_stochastic <- with(imp_stochastic, lm(m_Expend ~ Outstate))
+
+summary(lm_stochastic)
+
+# When comparing the results after performing stochastic imputation with 
+# regression imputation, we see that the regression coefficient is still 
+# biased, but that the standard error has increased a little bit.
+```
+:::
+
+::: {.callout-tip icon=false}
+## 11. Use `ggmice()` to create a scatterplot that shows the relationship between `m_Expend` (on the `y`-axis) and `Outstate` (on the `x`-axis) in the stochastic imputed data. What do you notice?
+
+```{r}
+#| label: q11
+#| include: !expr params$answers
+imp_stochastic |> 
+  ggmice(aes(x = Outstate, y = m_Expend)) +
+  geom_point()
+
+# There is considerably more variation between the imputed values as compared to
+# the regression imputations. However, the current approach still treats the 
+# estimated regression coeffcients as fixed, although there is also uncertainty 
+# with respect to these coefficients. This uncertainty is still not taken into 
+# account with stochastic regression imputation.
+```
+:::
+
+# Multiple imputation
+
+We will now impute the missing data with multiple imputation.
+
+::: {.callout-tip icon=false}
+## 12. Impute the missing data by calling the `mice()` function with default settings and assign the result to an object called `imp_multiple`.
+
+```{r}
+#| label: q12
+#| include: !expr params$answers
+
+imp_multiple <- mice(data_missing)
+
+# The imputations are now done. As you can see, the algorithm ran for 5 
+# iterations (the default: `maxit = 5`) and presented us 5 imputations (the
+# default: `m = 5`) for each missing datum.
+```
+:::
+
+::: {.callout-tip icon=false}
+## 13. Inspect the output object `imp_multiple`. What information does it give you?
+
+```{r}
+#| label: q13
+#| include: !expr params$answers
+imp_multiple
+
+# We have created m = 5 imputed data sets, using the method predictive mean 
+# matching. Moreover, all variables are used in the imputation models, as
+# shown by the variables in the columns that are used as predictors for the
+# variable in each row.
+
+# Moreover, the imp_multiple object contains the data with missings, the
+# imputations, etc.
+# To obtain a full overview of the information stored in the object 
+# `imp_multiple`, we can use the `attributes()` function.
+```
+:::
+
+
+::: {.callout-tip icon=false}
+## 14. Again, perform the linear regression on the imputed data using the `with()` function and assign it to an object called `lm_multiple`. What do you notice when you inspect this object?
+
+```{r}
+#| label: q14
+#| include: !expr params$answers
+lm_multiple <- with(imp_multiple, lm(m_Expend ~ Outstate))
+
+# The `lm_multiple` object contains the regression summaries for each of the 5
+# datasets. The new object `lm_multiple` is actually of class `mira`, which 
+# stands for Multiply Imputed Repeated Analyses.
+# in the real data.
+```
+:::
+
+
+::: {.callout-tip icon=false}
+## 15. Use the `pool()` function to combine the regression analyses and assign these results into a new object called `pool_multiple`. Inspect `pool_multiple` and `summary(pool_multiple)`, what information do these objects provide?
+
+```{r}
+#| label: q15
+#| include: !expr params$answers
+pool_multiple <- pool(lm_multiple)
+summary(pool_multiple)
+
+# These results show the regression coefficient and corresponding standard 
+# error obtained after pooling the estimates from the five regression models
+# applied on the five imputed datasets.
+
+# The complete pooled object gives the relevant pooled regression coefficients 
+# and parameters, as well as the fraction of information about the coefficients
+# missing due to nonresponse (`fmi`) and the proportion of the variation
+# attributable to the missing data (`lambda`). The pooled fit object is of 
+# class `mipo`, which stands for multiply imputed pooled object.*
+```
+:::
+
+
+::: {.callout-tip icon=false}
+## 16. Use `ggmice()` to create a scatterplot that shows the relationship between `m_Expend` (on the `y`-axis) and `Outstate` (on the `x`-axis) in the multiply imputed data. What do you notice?
+
+```{r}
+#| label: q16
+#| include: !expr params$answers
+imp_multiple |> 
+  ggmice(aes(x = Outstate, y = m_Expend)) +
+  geom_point()
+
+# Here we take all uncertainty with respect to the imputations into account 
+# (i.e., uncertainty with respect to the values and with respect to the
+# coefficients). Moreover, we impute multiple times, so that we can assess the
+# variability between different data sets (on the level of the estimated model
+# parameters). This is often the best approach when interest is in making 
+# inferences with respect to the imputed data.
+```
+:::
+
+::: {.callout-tip icon=false}
+## 17. Now compare the results from the different methods applied. What is your conclusion?
+
+```{r}
+#| label: q17
+#| include: !expr params$answers
+data.frame("method" = c("complete data", 
+                        "listwise deletion", 
+                        "regression imputation",
+                        "stochastic regression imputation",
+                        "multiple imputation"),
+           "coefficient" = c(summary(lm_complete)$coefficients[2,1],
+                             summary(lm_listwise)$coefficients[2,1],
+                             summary(lm_regression)$estimate[2],
+                             summary(lm_stochastic)$estimate[2],
+                             summary(pool_multiple)$estimate[2]),
+           "standard error" = c(summary(lm_complete)$coefficients[2,2],
+                                summary(lm_listwise)$coefficients[2,2],
+                                summary(lm_regression)$std.error[2],
+                                summary(lm_stochastic)$std.error[2],
+                                summary(pool_multiple)$std.error[2]))
+
+# When comparing the results from the different approaches, it can be 
+# concluded that in case of a dataset where the missingness follows the 
+# mechanism Seen Data Dependent, the estimate obtained after applying multiple
+# imputation is closest to the original estimate obtained from the complete
+# dataset. In addition, it can be concluded that the standard error obtained 
+# using multiple imputation is somewhat larger than the standard error obtain 
+# from the complete dataset. This is due to the fact that when the standard 
+# errors are pooled over the different imputations, not only the average is 
+# taken, but the variance over the differences is also incorporated (check 
+# the pooling rules for more detail), i.e. the standard error also incorporates
+# uncertainty due to the missing values. In contrast, the results obtained 
+# using listwise deletion, regression imputation and stochastic imputation all 
+# show a biased estimate, while regression imputation and stochastic 
+# imputation also show a standard error that is too low.*
+```
+:::

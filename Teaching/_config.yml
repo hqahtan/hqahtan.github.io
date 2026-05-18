@@ -1,0 +1,6 @@
+title: INFOMDWR
+logo: /assets/img/logo.svg
+description: Materials for Applied Data Science course INFOMDWR
+theme: jekyll-theme-minimal
+github:
+    is_project_page: false

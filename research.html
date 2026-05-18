@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Research</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="research.css">
+</head>
+<body>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="img/top.png" width="30"/></button>
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="img/hakim.jpeg" alt="Hakim">
+      <!-- <div class="sidebar-photo-placeholder">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" style="display:block;flex-shrink:0;">
+          <circle cx="30" cy="22" r="11" fill="#C8A96E" opacity="0.5"/>
+          <ellipse cx="30" cy="50" rx="18" ry="12" fill="#C8A96E" opacity="0.35"/>
+        </svg>
+      </div> -->
+    </div>
+    <div class="sidebar-name">Hakim Qahtan</div>
+    <div class="sidebar-title">Assistant Professor</div>
+    <div class="sidebar-dept">Dept. of Information and Computing Sciences</div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a>
+
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Address</div>    
+      Princetonplein 5 <br/>
+      3584CC Utrecht <br/>
+      The Netherlands<br/>
+
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Contact</div>
+    <div class="sidebar-contact-list">
+      <a href="https://www.uu.nl/buys-ballotgebouw" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/office.png" width="20"/></svg>
+        <div><span class="ci-label">Office</span>BBG-467</div>
+      </a>
+      <a class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/phoneB.png" width="20"/></svg>
+        <div><span class="ci-label">Phone</span>
+            <table cellspacing="0" cellpadding="0" border="0"> 
+              <tr>                
+                <tdd>+31 (0) </tdd> 
+                <tdd> 627</tdd> 
+                <tdd>-115</tdd> 
+                <tdd>-384</tdd> 
+              </tr>
+            </table>
+        </div>
+      </a>
+      <a class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/mail.png" width="20"/></svg>
+        <div><span class="ci-label">Email</span>
+          <table cellspacing="0" cellpadding="0" border="0"> 
+            <tr>              
+              <tdd>a.qah</tdd> 
+              <tdd>tan@</tdd> 
+              <tdd>uu.nl</tdd> 
+            </tr>
+          </table>
+        </div>
+      </a>
+    </div>
+    
+    <div class="sidebar-socials">
+      <a href="https://www.linkedin.com/in/hakimqahtan/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/Lin.png" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://scholar.google.co.jp/citations?user=8eKzXa8AAAAJ&hl=en" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/gs.png" width="20"/></svg>
+        Scholar
+      </a>
+      <a href="https://orcid.org/0000-0001-8254-1764" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/ORCID.png" width="20"/></svg>
+        ORCID
+      </a>
+      <a href="https://www.uu.nl/en/research/ai-data-science/data-intensive-systems" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/dislogo.png" width="20"/></svg>
+        DIS Group
+      </a>
+    </div>
+  </aside>
+
+
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="index.html" class="nav-logo">Abdulhakim Qahtan (Hakim)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="index.html">Home</a>          
+        </li>
+        <li>
+          <a href="research.html" class="active">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="research.html#book_chapters">Book Chapters</a>
+            <a href="research.html#research_papers">Research Papers</a>
+            <a href="research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="teaching.html#current-courses">Current courses</a>
+            <a href="teaching.html#past-courses">Past courses</a>
+            <a href="teaching.html#admin">Adminstration</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="page-header">
+      <!-- <p class="section-label">Research</p> -->
+      <h1>Research Areas</h1>
+      <p class="page-intro">My work spans data curation, bias analysis and algorithmic fairness, and data stream mining.</p>
+    </div>
+
+    <!-- Focus Areas -->
+    <section id="book_chapters">
+      <h2>Book Chapters</h2>      
+      <div id="chapters"> 
+      <div class="pub-list reveal">
+        <div class="pub-item">
+          <div class="pub-year">2023</div> 
+          <div>       
+            <div class="pub-title">Machine Learning—Evaluation (Cross-validation, Metrics, Importance Scores)</div>
+            <div class="pub-authors"> <b>Qahtan, A.</b></div>
+            <div class="pub-venue">In Book: Clinical Applications of Artificial Intelligence in Real-World Data, pp.175-187</div>
+          </div>
+        </div>
+        
+        <div class="pub-item">
+        <div class="pub-year">2019</div>
+        <div>
+        <div class="pub-title">Efficient Estimation of Dynamic Density Functions with Applications in Data Streams: Methods and Applications</div>
+        <div class="pub-authors"><b>Qahtan, A.</b>, Wang, S., Zhang, X.</div>
+        <div class="pub-venue">In Book: Learning from Data Streams in Evolving Environments, pp.247-278.</div>
+      </div>
+      </div>
+      </div>
+    </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="research_papers">
+      <h2>Research Papers</h2>
+      <div id="papers">
+      <div class="pub-list reveal">
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div>
+            <div class="pub-title">SynODC: Utilizing the Syntactic Structure for Outlier Detection in Categorical Attributes</div>
+            <div class="pub-authors">Zylinski, A., <b>Qahtan, A.</b></div>
+            <div class="pub-venue">In ECML/PKDD'24</div>            
+          </div>
+        </div>
+
+        <div class="pub-item">
+            <div class="pub-year">2024</div> 
+            <div>       
+              <div class="pub-title">SynthFair: Ensuring Subgroup Fairness in Classification via Synthetic Data Generation</div>
+              <div class="pub-authors"> Hattatoglu, B., <b>Qahtan, A.,</b> Kaya, H., Velegrakis, Y.</div>
+              <div class="pub-venue">In ICDATA'24</div>
+            </div>
+          </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div>
+            <div class="pub-title">TGAIN: Missing Data Imputation for Mixed-Type Relational Datasets using Generative Adversarial Networks</div>
+            <div class="pub-authors">Bannany, O., <b>Qahtan, A.</b></div>
+            <div class="pub-venue">In ICDATA'24</div>            
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div>
+            <div class="pub-title">FIONA: Detecting Syntactical Outliers in Attributes with Categorical Values</div>
+            <div class="pub-authors">Tsiamis, T., <b>Qahtan, A.</b></div>
+            <div class="pub-venue">In ICDATA'24</div>            
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2023</div>
+          <div>
+            <div class="pub-title">PrefixCDD: Effective Online Concept Drift Detection over Event Streams using Prefix Trees</div>
+            <div class="pub-authors">Huete, J., <b>Qahtan, A.</b>, Hassani, M.</div>
+            <div class="pub-venue">In the IEEE Computer Society Signature Conference on Computers, Software, and Applications, COMPSAC'23</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2022</div>
+          <div>
+            <div class="pub-title">Manipulation detection in cryptocurrency markets: an anomaly and change detection based approach</div>
+            <div class="pub-authors">Kampers, O., <b>Qahtan, A.</b>, Mathur, S., Velegrakis, Y.</div>
+            <div class="pub-venue">In SAC'22</div>
+          </div>
+        </div>
+      
+        <div class="pub-item">
+          <div class="pub-year">2020</div>
+          <div>
+            <div class="pub-title">Pattern Functional Dependencies for Data Cleaning</div>
+            <div class="pub-authors"><b>Qahtan, A.</b>, Tang, N., Ouzzani, M., Cao, Y., Stonebraker, M.</div>
+            <div class="pub-venue">In PVLDB'20</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2018</div>
+          <div>
+            <div class="pub-title">FAHES: A Robust Disguised Missing Values Detector</div>
+            <div class="pub-authors"><b>Qahtan, A.</b>, Elmagarmid, A., Fernandez, R., Ouzzani, M., Tang, N.</div>
+            <div class="pub-venue">In SIGKDD'18</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2018</div>
+          <div>
+            <div class="pub-title">Seeping Semantics: Linking Datasets using Word Embeddings for Data Discovery</div>
+            <div class="pub-authors">Fernandez, R., Mansour, E., <b>Qahtan, A.</b>, Elmagarmid, A., Ilyas, I., Madden, S., Ouzzani, M., Stonebraker, M., Tang, N.</div>
+            <div class="pub-venue">In ICDE'18</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2017</div>
+          <div>
+            <div class="pub-title">KDE-Track: An Efficient Dynamic Density Estimator for Data Streams</div>
+            <div class="pub-authors"><b>Qahtan, A.</b>, Wang, S. and Zhang, X.</div>
+            <div class="pub-venue">In TKDE'17</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2016</div>
+          <div>
+            <div class="pub-title">Minimizing User Involvement for Learning Human Mo- bility Patterns from Location Traces</div>
+            <div class="pub-authors">Alharbi, B., <b>Qahtan, A.</b>, Zhang, X. </div>
+            <div class="pub-venue">In AAAI’16</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2015</div>
+          <div>
+            <div class="pub-title">A PCA-Based Change Detection Framework for Multidimensional Data Streams</div>
+            <div class="pub-authors"><b>Qahtan, A.</b>, Alharbi, B., Wang, S., Zhang, X.</div>
+            <div class="pub-venue">In SIGKDD'15</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2014</div>
+          <div>
+            <div class="pub-title">A New Study of Two Divergence Metrics for Change Detection in Data Streams</div>
+            <div class="pub-authors"><b>Qahtan, A.</b>, Wang, S., Carroll, R. J., Zhang, X.</div>
+            <div class="pub-venue">ECAI'14</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2012</div>
+          <div>
+            <div class="pub-title">Efficient Estimation of Dynamic Density Functions with an Application to Outlier Detection</div>
+            <div class="pub-authors"><b>Qahtan, A.</b>, Zhang, X., Wang, S.</div>
+            <div class="pub-venue">In CIKM'12</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2010</div>
+          <div>
+            <div class="pub-title">Performance Evaluation Comparison of Snort NIDS under Linux and Windows Server</div>
+            <div class="pub-authors">Salah, K. and <b>Kahtani, A.</b> </div>
+            <div class="pub-venue">Journal of Network and Computer Applications</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2009</div>
+          <div>
+            <div class="pub-title">Implementation and Experimental Performance Evaluation of a Hybrid Interrupt-Handling Scheme</div>
+            <div class="pub-authors">Salah, K. and <b>Qahtan, A.</b></div>
+            <div class="pub-venue">Journal of Computer Communications</div>
+          </div>
+        </div>
+
+        <div class="pub-item">
+          <div class="pub-year">2009</div>
+          <div>
+            <div class="pub-title">Improving Snort Performance under Linux</div>
+            <div class="pub-authors">Salah, K. and <b>Kahtani, A.</b></div>
+            <div class="pub-venue">Journal of IET Communications</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+      
+    </section>
+    <section id="demos">
+      <h2>Demo Papers</h2>      
+      <div id="demos_papers"> 
+      <div class="pub-list reveal">
+        <div class="pub-item">
+              <div class="pub-year">2025</div>
+              <div>
+                <div class="pub-title">FIONA: Detecting Outliers in Attributes of Relational Datasets with Categorical Values</div>
+                <div class="pub-authors">Tsiamis, T., <b>Qahtan, A.</b></div>
+                <div class="pub-venue">In ICDCS'25 (<b>Best Demo Award</b>)</div>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-year">2024</div>
+              <div>
+                <div class="pub-title">DetCat: Detecting Categorical Outliers in Relational Datasets</div>
+                <div class="pub-authors">Zylinski, A., <b>Qahtan, A.</b></div>
+                <div class="pub-venue">In CIKM'24</div>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-year">2019</div>
+              <div>
+                <div class="pub-title">ANMAT: Automatic Knowledge Discovery and Error Detection through Pattern Functional Dependencies</div>
+                <div class="pub-authors"><b>Qahtan, A.</b>, Tang, N., Ouzzani, M., Cao, Y., Stonebraker, M.</div>
+                <div class="pub-venue">In SIGMOD'19</div>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-year">2018</div>
+              <div>
+                <div class="pub-title">FAHES: Detecting Disguised Missing Values</div>
+                <div class="pub-authors"><b>Qahtan, A.</b>, Elmagarmid, A., Ouzzani, M., Tang, N.</div>
+                <div class="pub-venue">In ICDE'18</div>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-year">2018</div>
+              <div>
+                <div class="pub-title">Building Data Civilizer Pipelines with an Advanced Workflow Engine</div>
+                <div class="pub-authors">Mansour, E., Deng, D., Fernandez, R., <b>Qahtan, A.</b>, Tao, W., Abedjan, Z., Elmagarmid, A., Ilyas, I., Madden, S., Ouzzani, M., Stonebraker, M., Tang, N.</div>
+                <div class="pub-venue">In ICDE'18</div>
+              </div>
+            </div>
+
+            <div class="pub-item">
+              <div class="pub-year">2017</div>
+              <div>
+                <div class="pub-title">A Demo of the Data Civilizer System</div>
+                <div class="pub-authors">Fernandez, R., Deng, D., Mansour, E., <b>Qahtan, A.</b>, Tao, W., Abedjan, Z., Elmagarmid, A., Ilyas, I., Madden, S., Ouzzani, M., Stonebraker, M., Tang, N.</div>
+                <div class="pub-venue">In SIGMOD'17</div>
+              </div>
+            </div>
+
+      </div>
+      </div>
+      <a href="https://scholar.google.co.jp/citations?user=8eKzXa8AAAAJ&hl=en" class="btn btn-ghost">More Details on Google Scholar →</a>
+    </section>
+
+    <!-- Grants -->
+    <!-- <section id="grants">
+      <h2>Grants &amp; funding</h2>
+      <div class="grant-list reveal">
+        <div class="grant-item">
+          <div class="grant-years">2023–2027</div>
+          <div>
+            <div class="grant-title">TRUST-AI: Foundations of Human–AI Trust Calibration</div>
+            <div class="grant-funder">NWO Vidi Grant</div>
+          </div>
+          <div class="grant-amount">€800K</div>
+        </div>
+        <div class="grant-item">
+          <div class="grant-years">2021–2024</div>
+          <div>
+            <div class="grant-title">Explainability at Scale: Interfaces for Industrial AI</div>
+            <div class="grant-funder">EU Horizon Europe — Collaborative</div>
+          </div>
+          <div class="grant-amount">€1.2M</div>
+        </div>
+        <div class="grant-item">
+          <div class="grant-years">2019–2021</div>
+          <div>
+            <div class="grant-title">Cognitive Load Modelling in Decision Support</div>
+            <div class="grant-funder">NWO Veni Grant</div>
+          </div>
+          <div class="grant-amount">€250K</div>
+        </div>
+      </div>
+    </section> -->
+
+    <footer>      
+      <span>© 2026 Hakim Qahtan</span>
+      <span><img src="img/UU-logo.png", width = 120> </span>
+      <span>Utrecht, NL</span>
+    </footer>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+    }, { passive: true });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    // Get the button
+      let mybutton = document.getElementById("to_top");
+
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+  </script>
+</body>
+</html>

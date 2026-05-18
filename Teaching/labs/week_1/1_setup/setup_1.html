@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Teaching</title>
+  <link rel="stylesheet" href="../../../../shared.css">
+  <link rel="stylesheet" href="../../../../teaching.css">
+</head>
+<body>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="../../../../img/top.png" width="30"/></button>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="../../../../img/DW.png" alt="INFOMDW">
+    </div>
+    <div class="sidebar-name">INFOMDW</div>
+    <div class="sidebar-title"><a href="https://www.uu.nl/en/masters/applied-data-science">Applied Data Science Program</a></div>
+    <div class="sidebar-dept"><a href="https://ics.uu.nl/">Dept. of Information and Computing Sciences</a></div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a></div>
+    <div class="sidebar-divider"></div>
+      Materials for the ADS course <br/>
+      (INFOMDW) <br/>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Useful Links</div>
+    <div class="sidebar-contact-list">
+      <a href="https://mytimetable.uu.nl/schedule" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="../../../../img/rooster.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>My Timetable</div>
+      </a>
+      <a href="https://uu.brightspace.com/d2l/home" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="../../../../img/BS.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>BrightSpace</div>
+      </a>
+    </div>
+    <div class="sidebar-socials">
+      <a href="https://creativecommons.org/licenses/by/4.0/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="../../../../img/cc.svg" width="20"/><img src="../../../../img/by.svg" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+    <p>
+      The materials on this website are <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> licensed.
+    </p>
+  </aside>
+
+
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="index.html" class="nav-logo">Data Wrangling (INFOMDW)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="../../../../index.html">Home</a>
+        </li>
+        <li>
+          <a href="../../../../research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="../../../../research.html#book_chapters">Book Chapters</a>
+            <a href="../../../../research.html#research_papers">Research Papers</a>
+            <a href="../../../../research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="../../../../teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="../../../../teaching.html#current-courses">Current courses</a>
+            <a href="../../../../teaching.html#past-courses">Past courses</a>
+            <a href="../../../../teaching.html#admin">Adminstration</a>
+          </div>
+        </li>
+        <li>
+          <a href="infomdw.html" class="active">INFOMDW<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="../../../../infomdw.html#Introduction">Introduction</a>
+            <a href="../../../../infomdw.html#Policy">Policy</a>
+            <a href="../../../../infomdw.html#Material">Material</a>
+            <a href="../../../../infomdw.html#Schedule">Schedule</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+
+    <section id="Introduction">
+      <h1>Know Your Tools</h1>
+
+      <h2>Overview</h2>
+      <p class="page-course">
+        During this lab, you will get familiar with the most important tools that will be used during the course. These tools include (<a href="https://www.sqlite.org/download.html">SQLite</a>), (<a href="https://sqlitebrowser.org/">DB Browser</a>), and (<a href="https://colab.research.google.com/">Google Colab</a>) for Python.
+      </p>
+    </section>
+
+    <section>
+      <h2>SQLite and DB Browser</h2>
+      <p class="page-course">
+        In this course, we will use <strong>SQLite</strong> and its graphical interface <strong>DB Browser</strong> to create and query DBMSs. During this lab, you will install and use the DB Browser or SQLite3. As an example for a database, we will use the <code>Chinook</code> database. To download the <code>.sqlite</code> file, open the <a href="https://database.guide/2-sample-databases-sqlite/">Link</a> and look for <code>Chinook_Sqlite.sqlite</code> and <code>Chinook_Sqlite.sql</code>. Right click on the link and <code>Save Link As ...</code> to download the file into a location of your choice.
+      </p>
+
+      <div class="callout">
+        <div class="callout-header"><span class="icon"><img src="apple.jpg" width="20"></span> SQLite3 (on MACOS)</div>
+        <div class="callout-body">
+          <p class="page-course">
+            For MAC users, sqlite is builtin command. To run sqlite just open your terminal and change the directory to your current working directory where you saved the database. To create a database, type the following command in the terminal:
+          </p>
+          <pre><span class="lang-label">shell</span><code><span class="sh">$</span> <span class="fn">sqlite3</span> Chinook</code></pre>
+          <p class="page-course">
+            This command will create a file <code>Chinook.db</code> in the working directory. To check if the database has been created correctly, you can run <code>.databases</code> from the bash of sqlite3 as follows:
+          </p>
+          <pre><span class="lang-label">sqlite3</span><code><span class="fn">sqlite3&gt;</span> .databases</code></pre>
+          <p class="page-course">If the database has been created correctly, you should see the following output:</p>
+          <pre><span class="lang-label">Output</span><code>main: /Users/.../Chinook r/w</code></pre>
+          <p class="page-course">Now, you can import the tables from the file <code>Chinook_Sqlite.sql</code> using:</p>
+          <pre><span class="lang-label">sqlite3</span><code><span class="fn">sqlite3&gt;</span> .read Chinook_Sqlite.sql</code></pre>
+          <div class="note"><strong>Note:</strong> make sure that you downloaded <code>Chinook_Sqlite.sql</code> and it is in the current working directory. Otherwise, you should specify the path to the <code>.sql</code> file.</div>
+          <p class="page-course">
+            It will take a few seconds to import the database. After that, you can list the tables that exist in the database using:
+          </p>
+          <pre><span class="lang-label">sqlite3</span><code><span class="fn">sqlite3&gt;</span> .tables</code></pre>
+          <p class="page-course">
+            If the database was imported correctly, you should see the following list of tables:
+          </p>
+          <div class="table-list">
+            <span>Album</span><span>Employee</span><span>InvoiceLine</span>
+            <span>PlaylistTrack</span><span>Artist</span><span>Genre</span>
+            <span>MediaType</span><span>Track</span><span>Customer</span>
+            <span>Invoice</span><span>Playlist</span>
+          </div>
+          <p class="page-course">
+            However, if you have downloaded <code>Chinook_Sqlite.sqlite</code>, you cannot use <code>.read</code>. Instead, use <code>.open</code> because <code>Chinook_Sqlite.sqlite</code> is a binary database file and not <code>SQL</code> code (plain text).
+          </p>
+          <p class="page-course">
+            <strong>Browsing the database in <code>Chinook_Sqlite.sqlite</code>:</strong> The file <code>Chinook_Sqlite.sqlite</code> contains the whole database so you can open it directly using:
+          </p>
+          <pre><span class="lang-label">shell</span><code><span class="sh">$</span> <span class="fn">sqlite3</span> Chinook_Sqlite.sqlite</code></pre>
+          <p class="page-course">then you can see the database and perform basic queries on it.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-header"><span class="icon"><img src="windows.png" width="20"></span> SQLite3 (on Windows)</div>
+        <div class="callout-body">
+          <p class="page-course">
+            For MS-Windows user, download the file <code>sqlite-tools-win-x64-3460100.zip</code> from (<a href="https://www.sqlite.org/download.html">SQLite</a>) and store it a specific location (let us say <code>infomdwr/lab0/</code>).
+            &nbsp;
+          </p>
+            <p class="page-course">
+            
+            <img src="1.png" alt="Which file to download?" width="120%">
+          </p>
+          
+          <p class="page-course">
+            &nbsp;
+          Extract the downloaded file and the change the directory name to sqlite (as in the fingure).
+          </p>
+          <p class="page-course">
+            &nbsp;
+          </p>
+          <img src="2.png" alt="Description" width="100%">
+          
+
+          <p class="page-course">
+            After extracting the files, open the <code>Windows PowerShell</code> and change the working directory to the <code>infowmdwr/lab0/sqlite</code> directory that contains the sqlite executable files. Now you can follow the same steps as the MACOS users except that to run sqlite3, you need to use:
+          </p>
+          <pre><span class="lang-label">shell</span><code><span class="op">&gt;</span> <span class="fn">./sqlite3</span> Chinook</code></pre>
+          <p class="page-course">Instead of:</p>
+          <pre><span class="lang-label">shell</span><code><span class="sh">$</span> <span class="fn">sqlite3</span> Chinook</code></pre>
+          <p class="page-course">for the MAC users.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-header"><span class="icon"><img src="SQLite3.png" width="20"></span> DB Browser</div>
+        <div class="callout-body">
+          <p class="page-course">
+            In DB Browser, you can use the graphical interface to create the <code>Chinook</code> database. To import the database from the file <code>Chinook_Sqlite.sql</code>, open the <code>File</code> menu and select <code>import &gt; Database from SQL file ...</code>. Change to the location where you saved the file <code>Chinook_Sqlite.sql</code> and select it. You will be asked if you want to create a new database or not. Since we have created a new database, you select <code>No</code>. If the database is imported correctly, you will see the number of tables changed from <span class="kw">0</span> to <span class="kw">11</span>.
+          </p>
+          <p class="page-course">
+            Now, we need to get familiar with executing a simple SQL query that returns the names of the tables in the database. Unlike using sqlite3, we should use the <code>Execute SQL</code> tool. When selecting the <code>Execute SQL</code>, you will see a text box. Type the query:
+          </p>
+          <pre><span class="lang-label">SQL</span><code><span class="kw">SELECT</span> name <span class="kw">FROM</span> sqlite_schema
+<span class="kw">WHERE</span> type <span class="op">=</span><span class="str">'table'</span> <span class="kw">AND</span>
+      name <span class="kw">NOT</span> <span class="kw">LIKE</span> <span class="str">'sqlite_%'</span>;</code></pre>
+          <p class="page-course">After executing the query, you should see a table with the names of the 11 tables in the database.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Google Colab for Python</h2>
+      <p class="page-course">
+        For simplicity, we will use Google Colab for running the Python programs during the course. If you are familiar with other Integrated Development Environment such as Anaconda, PyCharm or Spyder, then use that IDE. Be careful that specific libraries may run only under a specific version of Python.
+      </p>
+
+      <div class="callout">
+        <div class="callout-header"><span class="icon"><img src="GoogleColab.jpg" width="40"></span> Google Colab</div>
+        <div class="callout-body">
+          <p class="page-course">We will start by creating a new notebook and checking the version of Python that is already installed. We run the command:</p>
+          <pre><span class="lang-label">python</span><code><span class="fn">!python</span> <span class="kw">--version</span></code></pre>
+          <p class="page-course">If we need to install a different version of Python (e.g. 3.7), we can use:</p>
+          <pre><span class="lang-label">python</span><code><span class="fn">!apt-get</span> <span class="kw">install</span> python3.7</code></pre>
+
+          <h3>Installing more Libraries</h3>
+          <p class="page-course">
+            Most of the important libraries that we may need are already installed in the Google Colab environment. However, if you would like to install additional libraries, you can use the <code>pip</code> command. For example, to install <code>py_stringmatching</code>, you can use the command:
+          </p>
+          <pre><span class="lang-label">python</span><code><span class="fn">!pip</span> <span class="kw">install</span> py_stringmatching</code></pre>
+          <div class="note"><strong>Note:</strong> when running system commands in Google Colab, we use <code>!</code> before the command (this is common for running system commands in any notebook environment).</div>
+
+          <h3>Running simple Python code</h3>
+          <p class="page-course">Run the following Python code and explain what the code is doing:</p>
+          <pre><span class="lang-label">python</span><code>t, f = <span class="kw">True, False</span>
+<span class="kw">print</span>(t and f)
+<span class="kw">print</span>(t or f)
+<span class="kw">print</span>(not t)</code>
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    
+
+  </div>
+
+  <script type="text/javascript" async="" src="../../../../button.js"></script>
+
+</body>
+</html>

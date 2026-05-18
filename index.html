@@ -1,121 +1,203 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html">
-	<meta http-equiv="Content-Language" content="en-us">
-	<meta name="Author" content="Hakim" />
-	<link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<title>HQ</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="home.css">
 </head>
 <body>
-	
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="img/top.png" width="30"/></button>
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="img/hakim.jpeg" alt="Hakim">
+      <!-- <div class="sidebar-photo-placeholder">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" style="display:block;flex-shrink:0;">
+          <circle cx="30" cy="22" r="11" fill="#C8A96E" opacity="0.5"/>
+          <ellipse cx="30" cy="50" rx="18" ry="12" fill="#C8A96E" opacity="0.35"/>
+        </svg>
+      </div> -->
+    </div>
+    <div class="sidebar-name">Hakim Qahtan</div>
+    <div class="sidebar-title">Assistant Professor</div>
+    <div class="sidebar-dept">Dept. of Information and Computing Sciences</div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a>
 
-<div id="content"> 
-<div id="header"> 
-<div> 
-	<h1>Dr. Abdulhakim Qahtan (Hakim)</h1> 
-</div> 
-</div> 
-<p/>
-
-<div id="content"> 
-<div id="menu"> 
-<div> 
-<a href="index.html">Home</a>
-<span style="display:inline-block; width:24px;"></span>
-<a href="publications.html">Publications</a>
-<span style="display:inline-block; width:24px;"></span>
-<a href="teaching.html">Teaching</a>
-<span style="display:inline-block; width:24px;"></span>
-</div> 
-</div> 
-<p/>
-
-
-
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Address</div>    
+      Princetonplein 5 <br/>
+      3584CC Utrecht <br/>
+      The Netherlands<br/>
 
 
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Contact</div>
+    <div class="sidebar-contact-list">
+      <a href="https://www.uu.nl/buys-ballotgebouw" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/office.png" width="20"/></svg>
+        <div><span class="ci-label">Office</span>BBG-467</div>
+      </a>
+      <a class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/phoneB.png" width="20"/></svg>
+        <div><span class="ci-label">Phone</span>
+            <table cellspacing="0" cellpadding="0" border="0"> 
+              <tr>                
+                <tdd>+31 (0) </tdd> 
+                <tdd> 627</tdd> 
+                <tdd>-115</tdd> 
+                <tdd>-384</tdd> 
+              </tr>
+            </table>
+        </div>
+      </a>
+      <a class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/mail.png" width="20"/></svg>
+        <div><span class="ci-label">Email</span>
+          <table cellspacing="0" cellpadding="0" border="0"> 
+            <tr>              
+              <tdd>a.qah</tdd> 
+              <tdd>tan@</tdd> 
+              <tdd>uu.nl</tdd> 
+            </tr>
+          </table>
+        </div>
+      </a>
+    </div>
+    
+    <div class="sidebar-socials">
+      <a href="https://www.linkedin.com/in/hakimqahtan/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/Lin.png" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://scholar.google.co.jp/citations?user=8eKzXa8AAAAJ&hl=en" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/gs.png" width="20"/></svg>
+        Scholar
+      </a>
+      <a href="https://orcid.org/0000-0001-8254-1764" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/ORCID.png" width="20"/></svg>
+        ORCID
+      </a>
+      <a href="https://www.uu.nl/en/research/ai-data-science/data-intensive-systems" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/dislogo.png" width="20"/></svg>
+        DIS Group
+      </a>
+    </div>
+  </aside>
 
-<div id="sidebar">
-<div id="sidebar2">
-<img src="images/hakim.jpeg" width="155" title="Hakim Qahtan"/>
-<p/>
-<!--<NOBR><h2>Contact Info</h2></NOBR>-->
-Utrecht University<br/>
-Princetonplein 5<br/>
-3584CC Utrecht<br/>
-Netherlands<br/>
 
-<NOBR><span style="vertical-align:middle"><img src="images/office.png" width="20"/></span> <span style="font-size:85%"><a href="https://www.uu.nl/buys-ballotgebouw">BBG-467</a></span><br/></NOBR>
-<table cellspacing="0" cellpadding="0" border="0"> 
-<tr>
-	<tdd><img src="images/phoneB.png" width="20"/>&nbsp;</tdd> 
-	<tdd>+31 (0)</tdd> 
-	<tdd>627</tdd> 
-	<tdd>-115</tdd> 
-	<tdd>-384</tdd> 
-</tr>
-</table>
-<table cellspacing="0" cellpadding="0" border="0"> 
-<tr>
-	<tdd><img src="images/mail.png" width="20"/>&nbsp;</tdd> 
-	<tdd>a.qah</tdd> 
-	<tdd>tan@</tdd> 
-	<tdd>uu.nl</tdd> 
-</tr>
-</table>
-<NOBR><span style="vertical-align:middle"><img src="images/gs.png" width="20"/></span> <span style="font-size:85%"><a href="https://scholar.google.co.jp/citations?user=8eKzXa8AAAAJ&hl=en">Google Scholar</a></span></NOBR>
-<NOBR><span style="vertical-align:middle"><img src="images/Lin.png" width="20"/></span> <span style="font-size:85%"><a href="https://www.linkedin.com/in/hakimqahtan/">LinkedIn</a></span></NOBR>
-</div>
-</div>
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="index.html" class="nav-logo">Abdulhakim Qahtan (Hakim)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="index.html" class="active">Home</a>          
+        </li>
+        <li>
+          <a href="research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="research.html#book_chapters">Book Chapters</a>
+            <a href="research.html#research_papers">Research Papers</a>
+            <a href="research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="teaching.html#current-courses">Current courses</a>
+            <a href="teaching.html#past-courses">Past courses</a>
+            <a href="teaching.html#admin">Adminstration</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
 
-
-<div id="main"> 
-<div id="main2"> 
-<div class="topic-text"> 
-<!-- <p> 
-            Current advances in data collection techniques and the drop in the storage prices allow for collecting vast amount of data. Processing all the data that has been collected becomes a challenging task for any organization. In fact, only a small fraction of their collected data is processed due to the limitations in the current systems and algorithms. Usually, organizations deal with large amount of data stored as relational databases or arriving continuously in data streams. Extracting models that can summarize the data becomes crucial to get insights from the data to help in improving our lives.
-
- 
-</p> -->
-
-<p>  
-Hakim Qahtan is 
-		an assistant professor of Computer Science at <a href="http://www.uu.nl">Utrecht University</a> and a member of the <a href="https://www.uu.nl/en/research/ai-data-science/data-intensive-systems">Data Intensive Systems</a> group. His research is centered around data stream mining, data cleaning, fairness and explainability of machine learning techniques. He teaches the Data Wrangling course, which is one of the mandatory courses in the <a href="https://www.uu.nl/en/masters/applied-data-science"> applied data science </a> master program. Hakim also chairs the board of examiners for the <a href = "https://www.uu.nl/en/masters/artificial-intelligence"> artificial intelligence</a> master program. Hakim's research is centered around data stream mining, data cleaning, fairness and explainability of machine learning techniques.
+    <section id="bio">
+      <div class="bio-inner">
+        <!-- <div class="bio-eyebrow">Utrecht University</div> -->
+        <h1>Researcher &amp; <em>educator</em></h1>
+        <div class="bio-body">
+    <p>      
+    Hakim Qahtan is 
+    an assistant professor of Computer Science at <a href="http://www.uu.nl">Utrecht University</a> and a member of the <a href="https://www.uu.nl/en/research/ai-data-science/data-intensive-systems">Data Intensive Systems</a> group. His research is centered around data stream mining, data cleaning, fairness and explainability of machine learning techniques. He teaches the Data Wrangling course, which is one of the mandatory courses in the <a href="https://www.uu.nl/en/masters/applied-data-science"> applied data science </a> master program. Hakim also chairs the board of examiners for the <a href = "https://www.uu.nl/en/masters/artificial-intelligence"> artificial intelligence</a> master program. Hakim's research is centered around data stream mining, data cleaning, fairness and explainability of machine learning techniques.
 
 </p>
 
 <p>  
-Before that, he worked as a postdoc at <a href="https://www.hbku.edu.qa/en/qcri">QCRI</a>, where his work focused on extracting syntactic patterns that could reveal important information about the data. The discovered patterns are used to detect disguised missing values (DMVs). That is done by identifying a set of dominating patterns that generate the majority of the values in a given attribute and report the values that are generated by one of the non-dominating patterns as DMVs. The discovered syntactic patterns from the data were also used to define a new set of integrity constraints that could help in discovering data inconsistencies. The new integrity constraints are know as pattern functional dependencies (PFDs). 
+Before that, he worked as a postdoc at <a href="https://www.hbku.edu.qa/en/qcri">Qatar Computing Research Institute (QCRI)</a>, where his work focused on extracting syntactic patterns that could reveal important information about the data. The discovered patterns are used to detect disguised missing values (DMVs). That is done by identifying a set of dominating patterns that generate the majority of the values in a given attribute and report the values that are generated by one of the non-dominating patterns as DMVs. The discovered syntactic patterns from the data were also used to define a new set of integrity constraints that could help in discovering data inconsistencies. The new integrity constraints are known as pattern functional dependencies (PFDs). 
 </p> 
  
 <p> 
 Hakim holds a PhD degree from the
-                <a href="http://www.kaust.edu.sa">King Abdullah University of Science and Technology</a> 
+                <a href="http://www.kaust.edu.sa">King Abdullah University of Science and Technology (KAUST)</a> 
                 and an MSc. degree from
-                <a href="http://www.kfupm.edu.sa">King Fahd University of Petroleum and Minerals,</a> 
+                <a href="http://www.kfupm.edu.sa">King Fahd University of Petroleum and Minerals (KFUPM),</a> 
                 in information and computer science, and a BSc. degree in computer science from <a href = "https://cu.edu.eg/Home">Cairo University</a>. 
 
 
 </p> 
-                
-    <p/> 
-    <br/>
-    <br/>
-</div> 
-</div> 
-</div> 
+        </div>
 
+        <!-- <div class="bio-highlights">
+          <div class="bio-highlight">
+            <div class="bh-value">40+</div>
+            <div class="bh-label">Peer-reviewed publications</div>
+          </div>
+          <div class="bio-highlight">
+            <div class="bh-value">7</div>
+            <div class="bh-label">Years at UvA</div>
+          </div>
+          <div class="bio-highlight">
+            <div class="bh-value">€2.1M</div>
+            <div class="bh-label">Research funding secured</div>
+          </div>
+          <div class="bio-highlight">
+            <div class="bh-value">12</div>
+            <div class="bh-label">PhD students supervised</div>
+          </div>
+        </div> -->
 
-<!-- <div id="menu"> 
-<div> 
-&nbsp;
-</div> 
-</div>  -->
+        <!-- <div class="btn-group">
+          <a href="research.html" class="btn btn-primary">View research →</a>
+          <a href="teaching.html" class="btn btn-ghost">Teaching</a>
+        </div> -->
+      </div>
+    </section>
 
+    <footer>      
+      <span>© 2026 Hakim Qahtan</span>
+      <span><img src="img/UU-logo.png", width = 120> </span>
+      <span>Utrecht, NL</span>
+    </footer>
+  </div>
 
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+    }, { passive: true });
+
+    // Get the button
+      let mybutton = document.getElementById("to_top");
+
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          mybutton.style.display = "block";
+        } else {
+          mybutton.style.display = "none";
+        }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+  </script>
 </body>
-
 </html>
-
-
-

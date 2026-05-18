@@ -1,0 +1,94 @@
+---
+title: "INFOMDWR -- Information about the Final Exam"
+format:
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    callout-icon: false
+---
+
+Information about the final exam on Friday, November 7, 2025.
+
+::: callout-note
+
+## Practicalities
+
+The final exam is made using Remindo and it will be on-location.
+
+- Laptops will be provided.
+- Naturally, you need to be able to log in to Remindo on these laptops. Don’t forget your password.
+- The time allotted for the exam is 120 minutes (time for students with extra time depends on the allowed time by the student desk).
+- The exam is scheduled 13:30 – 16:30 (check your timetable).
+
+:::
+
+::: callout-tip
+
+## Where to go?
+
+Students who signed up to take the exam in a room with low occupancy "minder massaal" will receive a confirmation email from the course coordinators to take the exam in [RUPPERT - A](https://students.uu.nl/marinus-ruppertgebouw). **ALL** other students should attend the exam in [EDUC - GAMMA](https://students.uu.nl/educatorium).
+
+::: 
+
+::: callout-tip
+
+## You are allowed to bring:
+
+- a pen / pencil.
+- blank papers to write notes (we will bring with us also if you need).
+- in Remindo, there is a scientific built-in calculator. **If you do not like that calculator,** you can bring a simple calculator (no programmable device).
+- A4 double-sided cheat sheet.
+
+:::
+
+::: callout-important
+
+## You must bring:
+
+an ID that includes your photo (accepted IDs are: national ID, passport, or driving license).
+
+::: 
+
+::: callout-note
+
+## Exam structure (120 minutes)
+
+Multiple-choice questions: The multiple-choice part is similar to what you have seen during the midterm exam.
+
+
+Open questions: The open question part will test your understanding of core concepts in the course. Each question has different weight so spend your time wisely. You can find examples of the open questions [here](https://infomdwr.nl/exams/Example_Questions_Final.pdf).
+
+:::
+
+::: callout-note
+
+## Exam content
+
+The exam will focus on all the materials from the course (lectures, labs, readings) after the midterm exam, but note that they build on the first part of the course so you should know it too.
+
+:::
+
+::: callout-warning
+
+## When and how to leave?
+
+You are NOT allowed to leave the exam location before one hour of the exam starting time. During the allowed interval, submit your answers and leave quietly to allow your colleagues to focus on their exam.
+
+::: 
+
+::: callout-important
+## !!!! Very important
+
+If the connection to the network is lost, inform us and the IT support team should solve the problem. Do not switch to different computer unless you are SURE THAT YOUR PROGRESS IS SAVED CORRECTLY.
+
+:::
+
+::: callout-important
+## Seating
+
+The area that is allocated for us is highlighted [here](https://infomdwr.nl/exams/seating_2025.pdf) with the red rectangles.
+
+:::
+

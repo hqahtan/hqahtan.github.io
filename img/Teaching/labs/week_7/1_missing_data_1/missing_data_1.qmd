@@ -1,0 +1,403 @@
+---
+title: "Missing data and imputation I"
+date: last-modified
+callout-appearance: simple
+params:
+  answers: true
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    self-contained: true
+---
+
+# Introduction
+
+The aim of this practical is to enhance your understanding in different missingness mechanisms and how they affect your estimates of interest. In addition, we will go over the mean imputation briefly and illustrate why it does not solve the missing data problem.  
+
+In this practical, we will perform the following steps:
+
+* Generating missing values
+* Visualize missing data
+* Perform mean imputation
+
+```{r}
+#| label: packages
+#| warning: false
+#| message: false
+library(MASS)
+library(tidyverse)
+```
+
+::: {.callout-note}
+Make sure to load `MASS` before `tidyverse` otherwise the function `MASS::select()` will overwrite `dplyr::select()` 
+:::
+
+
+Before we start, set a seed for reproducibility, we use `45`. 
+
+```{r}
+#| label: seed
+set.seed(45)
+```
+
+# Income dataset
+
+In this practical, we will manually create missingness to get an idea how different missingness mechanisms affect the outcomes of analyses. To this end, we start with a complete dataset, `income.rds` which can be downloaded [here](data/income.rds). Load the data in R after downloading as follows:
+
+```{r}
+#| label: load data
+income <- readRDS("data/income.rds")
+```
+
+# Generating missing values 
+
+The general expression of the missing data model is $Pr(R = 0|Y_{\text{obs}}, Y_{\text{mis}}, \psi)$. Let's go through this formula step by step.
+
+- $R$ is a matrix with response indicators, which contains the locations of the missing values. For each person and each variable, $R_{i,j}$ indicates whether person $i$ has a missing value ($R_{i,j} = 0$) or an observed value ($R_{i,j} = 1$) on variable $j$. In our case, we have $R_{\text{age}}$, $R_{\text{gender}}$ and $R_{\text{income}}$.
+
+- $Y_{\text{obs}}$ denotes the observed data.
+
+- $Y_{\text{mis}}$ denotes the missing data. Note, we don't have these data, but they might influence whether or not a person has missings on a variable.
+
+- $\psi$ denotes the parameters for the missing data models. These parameters relate the observed and missing values to the response indicator. 
+
+
+Now we have a binary response indicator, and some additional variables, we can build a classification model to predict whether or not someone has a missing value on some variable. Normally, we would use the data to evaluate whether the missingness is related to someone's values on other variables. However, we can also reverse the process, and impose a missingness structure on the observed data that depends on the variables. 
+
+In this practical, we will create missingness in the variable `income`, and we will do that using a logistic regression model. The logistic regression model predicts the probability of a missing value, given a set of indicators.
+
+Note that a logistic regression model for the missingness can be defined as 
+$$
+\Pr(R_{\text{income}} = 0 | Y_{\text{obs}}, Y_{\text{mis}}, \psi) = \frac{\exp\{\psi_0 + \psi_1 * \text{age} + \psi_2 * (\text{gender}=\text{male}) + \psi_3 * \text{income}\}}{1 + \exp\{\psi_0 + \psi_1 * \text{age} + \psi_2 * (\text{gender} = \text{male}) + \psi_3 * \text{income}\}}.
+$$
+In this equation, $\psi_0$ is a parameter for the baseline probability of missingness in $\text{income}$, $\psi_1$ and $\psi_2$ relate the observed data to the missingness in $\text{income}$, and $\psi_3$ relates unobserved information to the missingness in $\text{income}$. 
+
+If we would translate this equation into R-code, we would have
+
+```{r}
+#| label: prob_mis
+prob_mis <- function(psi0, psi1, psi2, psi3, age, gender, income) {
+  exp(psi0 + psi1 * age + psi2 * (gender == "Male") + psi3 * income) /
+    (1 + exp(psi0 + psi1 * age + psi2 * (gender == "Male") + psi3 * income))
+}
+```
+
+# Not Data-Dependent (NDD)
+
+
+The data are considered to be *NDD* if $Pr(R = 0|Y_{obs}, Y_{mis}, \psi) = Pr(R=0|\psi)$, indicating that the missingness probability is unrelated to the data $Y$ and only depends on some parameters $\psi$.
+
+::: {.callout-tip icon=false}
+## 1. Use the function above to add a variable with the missingness probabilities `misprob_ndd` to the income data, in which you specify all missingness parameters to be 0 (i.e., $\psi_0 = \psi_1 = \psi_2 = \psi_3$ = 0), such that the probability of having a missing value equals $0.5$ for everyone. 
+
+Tip: use the `mutate()` function to create the new variable.
+
+```{r}
+#| label: q1
+#| include: !expr params$answers
+income <-
+  income |>
+  mutate(misprob_ndd = prob_mis(
+    psi0   = 0,
+    psi1   = 0,
+    psi2   = 0,
+    psi3   = 0,
+    age    = age,
+    gender = gender,
+    income = income
+  ))
+```
+:::
+
+Using these probabilities, we can randomly draw the observations that will have a missing value on $\text{income}$ from a binomial distribution.
+
+::: {.callout-tip icon=false}
+
+## 2. Use `rbinom()` to create a missingness indicator `R_ndd` using the `misprob_ndd` probabilities, and add this indicator to the `income` data.
+
+NB: The function `prob_mis` gives the probability of having a missing, while the missingness indicator must give zero if income is not observed, so use `1 - rbinom()` to create a proper missingness indicator. 
+
+```{r}
+#| label: q2
+#| include: !expr params$answers
+
+income <- 
+  income |>
+  mutate(R_ndd = 1 - rbinom(n(), 1, misprob_ndd))
+```
+
+:::
+
+::: {.callout-tip icon=false}
+## 3. Use the function `ifelse()` to add a new variable `income_ndd` to the income data, that equals `NA` if `R_ndd` equals 0, and the observed income value otherwise.
+
+```{r}
+#| label: q3
+#| include: !expr params$answers
+
+income <- 
+  income |>
+  mutate(income_ndd = ifelse(R_ndd == 0, NA, income))
+```
+
+:::
+
+::: {.callout-tip icon=false}
+## 4. Verify that approximately $50\%$ of the observations have a missing value on `income_ndd`.
+
+```{r}
+#| label: q4
+#| include: !expr params$answers
+
+table(is.na(income$income_ndd))
+
+```
+:::
+
+# Seen Data-Dependent (SDD)
+
+
+So far, there was a baseline probability to have missing values, but this was the same for all observations (hence the term, Not Data-Dependent). Data are considered to be Seen Data-Dependent if the probability of having a missing value depends on the observed variables. Formally, we can define this as $Pr(R = 0|Y_{obs}, Y_{mis}, \psi) = Pr(R=0|Y_{obs},\psi)$. 
+
+In this example, we let the missingness in $\text{income}$ depend on the observed values of $\text{age}$ and $\text{gender}$, in such a way that older people have a higher probability of having a missing, and that males have a higher probability of having a missing than females. 
+
+::: {.callout-tip icon=false}
+## 5. Use the `prob_mis()` function to create a vector of predicted probabilities called `misprob.sdd`, using `psi0 = -3`, `psi1 = 0.05`, `psi2 = 0.5` and `psi3 = 0`.
+
+```{r}
+#| label: q5
+#| include: !expr params$answers
+income <-
+  income |>
+  mutate(misprob_sdd = prob_mis(
+    psi0   = -3,
+    psi1   = 0.05,
+    psi2   = 0.5,
+    psi3   = 0,
+    age    = age,
+    gender = gender,
+    income = income
+  ))
+```
+:::
+
+
+::: {.callout-tip icon=false}
+## 6. Create a plot that shows how the probability of having a missing value (on the `y`-axis) depends on $\text{age}$ (on the `x`-axis) and $\text{gender}$ (as color aesthetic).
+
+```{r}
+#| label: q6
+#| include: !expr params$answers
+income |> 
+  ggplot(aes(x = age, y = misprob_sdd, colour = gender)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    x = "Age", 
+    y = "Missingness probability", 
+    colour = "Gender",
+    title = "Seen data dependent missingness"
+  )
+```
+:::
+
+
+::: {.callout-tip icon=false}
+## 7. Again, use `rbinom()` to create a missingness indicator `R_sdd` using the `misprob_sdd` probabilities, and add this indicator to the `income` data. Also apply the missingness to the income variable as before, creating an `income_sdd` variable.
+
+```{r}
+#| label: q7
+#| include: !expr params$answers
+
+income <- 
+  income |>
+  mutate(
+    R_sdd = 1 - rbinom(n(), 1, misprob_sdd),
+    income_sdd = ifelse(R_sdd == 0, NA, income)
+  )
+```
+:::
+
+# Unseen Data-Dependent (UDD)
+
+
+We now take the missingness one step further again, by making it dependent on unobserved data. In practice, it is often the case that those who have a higher income are less willing to share their income, which is an example of unseen data-dependent missingness. Namely, we cannot observe whether those who have a missing on income have a higher income, because this is exactly the information that we miss. The missingness could also depend on variables that we have not observed, for example because people who are self-employed might be less willing to answer survey questions about their income than people who have an employer. In both situations, we call the missingness Unseen Data-Dependent. Formally, this is defined as $Pr(R = 0|Y_{obs}, Y_{mis}, \psi) = Pr(R=0|Y_{obs},Y_{mis},\psi)$.
+
+
+Because we have no unobserved variables in this example, we let the missingness in $\text{income}$ depend on the income values themselves, such that higher incomes have a higher probability of being missing. 
+
+::: {.callout-tip icon=false}
+## 8. Use the `prob_mis()` function to create a vector of predicted probabilities called `misprob_udd`, using `psi0 = -7`, `psi1 = 0`, `psi2 = 0` and `psi3 = 0.003`.
+
+```{r}
+#| label: q8
+#| include: !expr params$answers
+income <-
+  income |>
+  mutate(misprob_udd = prob_mis(
+    psi0   = -7,
+    psi1   = 0,
+    psi2   = 0,
+    psi3   = 0.003,
+    age    = age,
+    gender = gender,
+    income = income
+  ))
+```
+:::
+
+::: {.callout-tip icon=false}
+## 9. Create a plot that shows how the probability of having a missing value `misprob_udd` (on the `y`-axis) depends on `income` (on the `x`-axis).
+
+Note: In practice, we would never be able to do this, because we would not have the actual incomes for those who refuse to provide their income values.
+
+```{r}
+#| label: q9
+#| include: !expr params$answers
+
+income |> 
+  ggplot(aes(x = income, y = misprob_udd)) +
+  geom_line() +
+  geom_point() +
+  theme_minimal() +
+  labs(
+    x = "Income", 
+    y = "Missingness probability",
+    title = "Unseen data dependent missingness"
+  )
+
+```
+:::
+
+Now we have generated a model, we can use the `predict()` method to output the estimated probabilities for each point in the training dataset. By default `predict` outputs the log-odds, but we can transform it back using the inverse logit function of before or setting the argument `type = "response"` within the predict function. 
+
+::: {.callout-tip icon=false}
+## 10. Again, use `rbinom()` to create a missingness indicator `R_udd` using the `misprob_udd` probabilities, and add this indicator to the `income` data. Also apply the missingness to the income variable as before, creating an `income_udd` variable.
+
+
+```{r}
+#| label: q10
+#| include: !expr params$answers
+
+income <- 
+  income |>
+  mutate(
+    R_udd = 1 - rbinom(n(), 1, misprob_udd),
+    income_udd = ifelse(R_udd == 0, NA, income)
+  )
+```
+:::
+
+# Visualizing missing data
+
+
+::: {.callout-tip icon=false}
+## 11. Create a boxplot of the observed values and missing values of income under each of the three missing data models. What do you notice?
+
+```{r}
+#| label: q11
+#| include: !expr params$answers
+
+# NB: this would be the "tidyverse" way, 
+# but you are of course free to do this 
+# separately for each mechanism.
+
+income |> 
+  pivot_longer(
+    cols = c(R_ndd, R_sdd, R_udd),
+    names_to = "mechanism",
+    values_to = "observed",
+    names_prefix = "R_"
+  ) |>
+  mutate(observed = factor(ifelse(observed == 0, "missing", "observed"))) |> 
+  ggplot(aes(x = str_to_upper(mechanism), y = income, fill = observed)) +
+  geom_boxplot() + 
+  theme_minimal() + 
+  scale_fill_manual(values = c("seagreen", "lightblue")) +
+  labs(
+    x = "Missingness mechanism", 
+    y = "Income value",
+    colour = ""
+  )
+
+# These boxplots display the distributions of $Y_1$ for 
+# the observed and the missing group under the three 
+# different missing data mechanisms. We see that under 
+# NDD, the distributions are approximately similar, while 
+# they become progressively more distinct under SDD and 
+# UDD.
+```
+:::
+
+# Mean imputation
+
+We will now show why mean imputation is, in general, a bad idea.
+
+::: {.callout-tip icon=false}
+## 12. Use `mutate()` in combination with `ifelse()` and `mean(x, na.rm = TRUE)` to create `imp_income_ndd`, `imp_income_sdd` and `imp_income_udd` in which missings on `income_ndd`, `income_sdd` and `income_udd` are replaced with the means of the respective variables
+
+```{r}
+#| label: q12
+#| include: !expr params$answers
+
+# with across() we can apply a mutate over several columns
+# of course, it's also fine to do this one-by-one!
+# (in fact that would be the same number of lines and 
+# perhaps even more legible)
+income <- 
+  income |>
+  mutate(across(
+    .cols  = c(income_ndd, income_sdd, income_udd),
+    .fns   = function(x) replace_na(x, mean(x, na.rm = TRUE)),
+    .names = "imp_{.col}"
+  ))
+```
+:::
+
+::: {.callout-tip icon=false}
+## 13. Compare the means and standard deviations of the complete, observed income variable, with each of the imputed income variables. What differences do you see?
+
+```{r}
+#| label: q13
+#| include: !expr params$answers
+
+# again, there are many ways to do this
+# we'll stay "tidyversy"
+income |> 
+  pivot_longer(
+    cols = c(income, starts_with("imp_")), 
+    names_to = "mechanism", 
+    values_to = "value"
+  ) |> 
+  group_by(mechanism) |> 
+  summarize(mean = mean(value), sd = sd(value))
+```
+:::
+
+
+::: {.callout-tip icon=false}
+## 14. Create a plot in which you visualize the density or histogram of observed `income`, `imp_income_ndd`, `imp_income_sdd`, `imp_income_udd`. What do you see? Do you think it is a good idea to do mean imputation?
+
+```{r}
+#| label: q14
+#| include: !expr params$answers
+
+income |> 
+  pivot_longer(
+    cols = c(income, starts_with("imp_")), 
+    names_to = "mechanism", 
+    values_to = "value"
+  ) |> 
+  ggplot(aes(x = value, fill = mechanism)) +
+  geom_histogram() +
+  facet_wrap(vars(mechanism)) +
+  theme_minimal() +
+  scale_fill_viridis_d()
+
+# The mean imputation creates an enormous
+# "peak" in the middle that is not there 
+# in the real data.
+```
+:::

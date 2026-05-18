@@ -1,341 +1,260 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html">
-  <meta http-equiv="Content-Language" content="en-us">
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
-  <title>INFOMDW: Data Wrangling</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Teaching</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="teaching.css">
 </head>
 <body>
-  
-<button onclick="topFunction()" id="to_top" title="Go to top">Top</button>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="img/top.png" width="30"/></button>
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="img/hakim.jpeg" alt="Hakim">
+      <!-- <div class="sidebar-photo-placeholder">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" style="display:block;flex-shrink:0;">
+          <circle cx="30" cy="22" r="11" fill="#C8A96E" opacity="0.5"/>
+          <ellipse cx="30" cy="50" rx="18" ry="12" fill="#C8A96E" opacity="0.35"/>
+        </svg>
+      </div> -->
+    </div>
+    <div class="sidebar-name">Hakim Qahtan</div>
+    <div class="sidebar-title">Assistant Professor</div>
+    <div class="sidebar-dept">Dept. of Information and Computing Sciences</div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a>
 
-<div id="content"> 
-<div id="header"> 
-<div> 
-  <h1>INFOMDW: Data Wrangling</h1> 
-</div> 
-</div> 
-<p/>
-
-  
-
-<div id="menu"> 
-<div> 
-<a href="index.html">Home</a>
-<span style="display:inline-block; width:24px;"></span>
-<a href="publications.html">Publications</a>
-<span style="display:inline-block; width:24px;"></span>
-<a href="teaching.html">Teaching</a>
-<span style="display:inline-block; width:24px;"></span>
-</div> 
-</div> 
-<p/>
-
-<div id="submenu"> 
-<div> 
-  <a href="#Introduction">Introduction</a>   <span style="display:inline-block; width:12px;"></span>
-  <a href="#Policy">Policy</a>   <span style="display:inline-block; width:12px;"></span>
-  <a href="#Material">Material</a>  <span style="display:inline-block; width:12px;"></span>
-  <a href="#Schedule">Schedule</a>      <span style="display:inline-block; width:12px;"></span>
-</div> 
-</div> 
-
-<p/>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Address</div>    
+      Princetonplein 5 <br/>
+      3584CC Utrecht <br/>
+      The Netherlands<br/>
 
 
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Contact</div>
+    <div class="sidebar-contact-list">
+      <a href="https://www.uu.nl/buys-ballotgebouw" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/office.png" width="20"/></svg>
+        <div><span class="ci-label">Office</span>BBG-467</div>
+      </a>
+      <a class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/phoneB.png" width="20"/></svg>
+        <div><span class="ci-label">Phone</span>
+            <table cellspacing="0" cellpadding="0" border="0"> 
+              <tr>                
+                <tdd>+31 (0) </tdd> 
+                <tdd> 627</tdd> 
+                <tdd>-115</tdd> 
+                <tdd>-384</tdd> 
+              </tr>
+            </table>
+        </div>
+      </a>
+      <a class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/mail.png" width="20"/></svg>
+        <div><span class="ci-label">Email</span>
+          <table cellspacing="0" cellpadding="0" border="0"> 
+            <tr>              
+              <tdd>a.qah</tdd> 
+              <tdd>tan@</tdd> 
+              <tdd>uu.nl</tdd> 
+            </tr>
+          </table>
+        </div>
+      </a>
+    </div>
+    
+    <div class="sidebar-socials">
+      <a href="https://www.linkedin.com/in/hakimqahtan/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/Lin.png" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://scholar.google.co.jp/citations?user=8eKzXa8AAAAJ&hl=en" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/gs.png" width="20"/></svg>
+        Scholar
+      </a>
+      <a href="https://orcid.org/0000-0001-8254-1764" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/ORCID.png" width="20"/></svg>
+        ORCID
+      </a>
+      <a href="https://www.uu.nl/en/research/ai-data-science/data-intensive-systems" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/dislogo.png" width="20"/></svg>
+        DIS Group
+      </a>
+    </div>
+  </aside>
 
 
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="index.html" class="nav-logo">Abdulhakim Qahtan (Hakim)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="index.html">Home</a>          
+        </li>
+        <li>
+          <a href="research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="research.html#book_chapters">Book Chapters</a>
+            <a href="research.html#research_papers">Research Papers</a>
+            <a href="research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="teaching.html" class="active">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="teaching.html#current-courses">Current courses</a>
+            <a href="teaching.html#past-courses">Past courses</a>
+            <a href="teaching.html#admin">Adminstration</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
 
-<div id="csidebar">
-<div id="csidebar2">
-<img src="images/DW.png" width="145" title="INFOMDW"/>
-<p/>
-<!--<NOBR><h2>Contact Info</h2></NOBR>-->
-Materials for the <br/>
-ADS course <br/>
-  (INFOMDW)<br/>
-<br/>
-<br/>
-The materials on <br/>
-this website are <br/>
-<a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> licensed<br/>
-<NOBR><span style="vertical-align:middle"><img src="images/cc.svg" width="40"/><img src="images/by.svg" width="40"/></NOBR>
+    <div class="page-header">
+      <!-- <p class="section-label">Teaching</p> -->
+      <h1>Teaching</h1>
+      <p class="page-intro">Currently, I teach mainly the data wrangling course (INFOMDW), which is one of the mandatory courses of the <a href="https://www.uu.nl/en/masters/applied-data-science">Applied Data Science (ADS)</a> master's program.</p>
+      <p class="page-intro">
+          Previously, I tought the data analytics (INFOB2DA) undergraduate course and 50% of the data wrangling and data analysis (INFOMDWR), which was the only mandatory course in the ADS program. 
+      </p>
+    </div>
 
-</div>
-</div>
+    <!-- Current courses -->
+    <section id="current-courses">
+      <h2>Current courses</h2>
+      <div class="course-list">
+        <div class="course-item reveal">
+          <div class="course-meta">
+            <span class="course-code">INFOMDW</span>
+            <span class="course-term">P1, (2026 - 2027)</span>
+          </div>
+          <div>
+            <div class="course-name"><a href = "infomdw.html">Data Wrangling</a></div>
+            <div class="course-level">Master . 7.5 ECTS</div>
+            <div class="course-desc">
+              <p class="page-course">
+              With the current advances in the data collection process, we collect vast amount of data that comes from different sources and follows different structures. The volume, variety and velocity of collecting the data pose extra challenges on maintaining the quality of the data, which influences any data analytics and decision-making task. In order to prepare the data for the different tasks, data wrangling steps ensure the transformation of raw unstructured data into clean, organized and suitable formats. 
+            </p>
+            <p class="page-course">
+            The course is designed to balance conceptual understanding with practical implementations (applied &amp; real-world data), using both SQL and Python for data extraction, integration, preparation and validation.
+          </p></div>
+            <div class="course-tags"><span class="tag">Data Extraction</span><span class="tag">Data Preparation</span><span class="tag">Bias &amp; Fairness</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- Past courses -->
+    <section id="past-courses">
+      <h2>Past courses</h2>
+      <div class="course-list">
+        <div class="course-item reveal">
+          <div class="course-meta">
+            <span class="course-code">INFOMDWR</span>
+            <span class="course-term">P1, (2020 - 2021)</span>
+            <span class="course-term">P1, (2021 - 2022)</span>
+            <span class="course-term">P1, (2022 - 2023)</span>
+            <span class="course-term">P1, (2023 - 2024)</span>
+            <span class="course-term">P1, (2024 - 2025)</span>
+            <span class="course-term">P1, (2025 - 2026)</span>
+          </div>
+          <div>
+            <div class="course-name">Data Wrangling &amp; Data Analysis</div>
+            <div class="course-level">With Daniel Oberski &amp; Robert Bagheri &amp; Erik-Jan van Kesteren</div>
+            <div class="course-level">Master · 14 ECTS</div>
+            <div class="course-desc">
+              <p class="page-course">
+              Data do not fall from heaven, but are created, manipulated, transformed, and cleaned - in any data analysis, therefore, the treatment of the data itself is just as important as the modeling techniques applied to them. In this course, you will get acquainted with and implement a variety of techniques to go from raw data to analyses, visualizations and insights for science and business applications. This is an overview course designed to give you the tools and skills to use and evaluate data science methods.
+              </p>
+              <p class="page-course">
+              The course consists of two parts, data wrangling and data analysis, which are intertwined.
+            </p>
 
+            </div>
+            <div class="course-tags"><span class="tag">Data Extraction</span><span class="tag">Data preparation</span><span class="tag">Supervised &amp; unsupervised learning </span><span class="tag">Text mining</span><span class="tag">Bias analysis &amp; algorithmic fairness</span></div>
+          </div>
+        </div>
+        <div class="course-item reveal">
+          <div class="course-meta">
+            <span class="course-code">INFOMDSS</span>
+            <span class="course-term">P1, (2020-2021)</span>
+          </div>
+          <div>
+            <div class="course-name">Data Science &amp; Society</div>
+            <div class="course-level">With Marco Spruit</div>
+            <div class="course-level">Master · 7.5 ECTS</div>
+            <div class="course-desc">
+              <p class="page-course">
+              This is the starting and obligatory course for the Business Informatics (MBI) programme as well as the Applied Data Science profile. As such, its primary objective is to inspire and introduce you to the exciting domain of Applied Data Science. At the end of this course, you will be able to:
+            </p>
+            <p class="page-course">
+              <ul>
+                <li>Understand the role of data science and its societal impact</li>
+                <li>Recognise the knowledge discovery processes in applied data science</li>
+                <li>Identify trends and developments in big data technologies</li>
+                <li>Apply selected big data technologies to solve real-world problems</li>
+                <li>Analyse unstructured data using natural language processing techniques</li>
+                <li>Understand the need for self-service data science</li>
+              </ul>
+            </p>
+            </div>
+            <div class="course-tags"><span class="tag">Applied Data Science</span><span class="tag">Data Analytics</span><span class="tag">Cloud Computing &amp; Big Data </span><span class="tag">Automatic Machine Learning </span><span class="tag">Natural Language Processing </span></div>
+          </div>
+        </div>
+        <div class="course-item reveal">
+          <div class="course-meta">
+            <span class="course-code">INFOB2DA</span>
+            <span class="course-term">P2, (2019 - 2020)</span>
+          </div>
+          <div>
+            <div class="course-name">Data Analytics</div>
+            <div class="course-level">With Marco Spruit</div>
+            <div class="course-level">Bachelor · 7.5 ECTS</div>
+            <div class="course-desc">
+            <p class="page-course">
+            Applied data analytics is a multidisciplinary field where students learn insights needed to make sense of data, research, and observations from everyday life. Students learn how to apply a data-driven approaches to problem solving. They do not only learn about tools, methods, and techniques, or the latest trends, but also more generic insights: why do certain approaches work, why the field is so popular, what common mistakes are made, and so on. Students also learn that data analytics is of two parts: science part and art part. This is because applying methods and searching for findings is a creative component.</p></div>
+            <div class="course-tags"><span class="tag">Business understanding</span><span class="tag">Data understanding and preparation</span><span class="tag">Modeling</span><span class="tag">Evaluation</span><span class="tag">Deployment</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- PhD Students -->
+    <section id="office">
+      <!-- <h2>PhD students</h2>
+      <div class="phd-list reveal">
+        <div class="phd-item">
+          <div>
+            <div class="phd-name">Not now</div>
+            <div class="phd-topic">Fairness</div>
+            <div class="phd-year">Started 20XX</div>
+          </div>
+          <span class="phd-status current">Current</span>
+        </div>
+        
+      </div> -->
 
+      <div class="office-hours">
+        <svg class="oh-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div>
+          <div class="oh-title">Office hours</div>
+          <div class="oh-desc">Building BBG Room 467, please email to schedule a meeting.</div>
+        </div>
+      </div>
+    </section>
 
+    <footer>      
+      <span>© 2026 Hakim Qahtan</span>
+      <span><img src="img/UU-logo.png", width = 120> </span>
+      <span>Utrecht, NL</span>
+    </footer>
+  </div>
 
-<div id="main"> 
-<div id="main2"> 
-<a id="Introduction"></a> 
-<h2>Introduction</h2> 
-<div class="topic-text"> 
-<!-- <div id="publication">  -->
-<p>
-  With the current advances in the data collection process, we collect vast amount of data that comes from different sources and follows different structures. The volume, variety and velocity of collecting the data pose extra challenges on maintaining the quality of the data, which influences any data analytics and decision-making task. In order to prepare the data for the different tasks, data wrangling steps ensure the transformation of raw unstructured data into clean, organized and suitable formats. 
-
-  The course is designed to balance conceptual understanding with practical implementations (applied & real-world data), using both SQL and Python for data extraction, integration, preparation and validation.
-</p>
-<ol type="A">
-<li> <h4>Prerequisites</h4> 
-
-<p>
-We assume that students have knowledge on:
-<ol type="1">
-  <li>Programming (Python) </li>
-  <li> Statistics at a typical undergraduate level (mean, variance, basic linear regression)</li>
-</ol>
-The course is open to students from: the master in applied data science (ADS) and the student from the master of data science (DASC)
-</p>
-</li>
-
-<li> <h4>Objectives</h4> 
-
-<p>
-After completing this course, students should be able to:
-  <ol type="1">
-    <li>Extract parts of the data that are relevant for the data analytics task.</li>
-    <li>  Validate the data against integrity constraints.</li>
-    <li>Prepare the data and test its suitability for the analytics process using different data preparation techniques including cleaning, normalization, discretization and reduction. </li>
-    <li>Handle and process large volumes of data, for example from such as data streams, and integrate the data from multiple sources.</li>
-    <li>Discover the bias in the data and apply bias mitigation algorithms.</li>
-  </ol>
-  </p>
-  </li>  
-</ol>
-</div> 
-</div> 
-</div> 
- 
-
-
-<div id="main"> 
-<div id="main2"> 
-<a id="Policy"></a> 
-<h2>Policy</h2> 
-<div class="topic-text"> 
-<p>
-  This course is one of the mandatory courses for Applied Data Science Students.
-<ol type="A">
-<li> <h4> Weekly course flow </h4> </li> 
-<p/>
-A regular week in this course consists of two lectures (Tuesday and Thursday) and one tutorial session (Thursday afternoon). The material is introduced on a theoretical level in the lectures and then put into practice in the tutorial sessions. The practical work done in these tutorial is drawn from real life situations that allow the students to experience how to solve data science problems.
-
-In addition, students will spend time during each week on two take-home group assignments and two individual peer-graded assignments.
-
-The lectures are in-person. The required readings should be read before the lecture. These are not optional.
-The tutorial sessions are in-person interactive sessions in which you apply the methods you learn about in the lectures. The answers to the exercises that are discussed during the tutorial sessions will be uploaded after the sessions.
-The skills acquired in the lectures and the tutorials provide the basis for doing the assignments. These assignments are handed in via Brightspace.
-<p/>
-
-<li> <h4> Synchronous course policy </h4>
-<p/>
-INFOMDW is an offline-first course, with mostly in-person lectures and tutorial sessions.
-It is important for interactive and collaborative learning that the course is offline-first.
-If you miss a session, e.g., due to sickness, you should catch up in the regular way:
-<p/>
-<ol type="1">
-<li>Read the readings </li>
-<li>Go through the lecture slides</li>
-<li>Do the practicals</li>
-<li>Ask your peers if you have questions</li>
-<li>(after the above) ask the lab teacher for further explanation</li>
-</ol>
-</li>
-
-<p/>
-<li> <h4>Who to ask what</h4></li>
-<p/>
-There are many teachers in this course. If you have questions, first ensure the answer isn’t in this syllabus and then follow the table below:
-<p/>
-<table> 
-<tr> 
-  <th><b>Question type</b></th> 
-  <th><b>How to ask</b></th> 
-</tr>
-<tr> 
-  <td>Course proceedings</td> 
-  <td>Email course coordinator (Hakim)</td> 
-</tr>
-<tr> 
-  <td>Content - general</td> 
-  <td>Email / ask the teaching assistant</td> 
-</tr>
-<tr> 
-  <td>Practical content</td> 
-  <td>Email / ask the teaching assistant</td> 
-</tr>
-<tr> 
-  <td>Assignment content</td> 
-  <td>Email / ask the teaching assistant</td> 
-</tr>
-<tr> 
-  <td>Lecture content</td> 
-  <td>Email the lecturer</td> 
-</tr>
-</table>
-<p/>
-
-<li> <h4>Grading policy</h4>
-<p/>
-Your final grade in the course consists of the following grading components:
-<ol type="1">
-<li> Group assignments (20% of the final grade). There are two group assignments. Each assignment is graded and worth 10% of the final grade. </li>
-<li> Individual assignments (10% of the final grade). There will two individual assignments where each student should submit their own report for the assignment and grade 3 submissions from other students. Each assignment is 5% of the final grade. </li>
-<li> Midterm exam (35% of the final grade): In the 5-th week of the course, there is a midterm exam with multiple choice and open questions that covers the first part of the course.</li>
-<li> Final exam (35% of the final grade): At the end of the course, there is a final exam with multiple choice and open questions that covers (mainly) the material after the midterm. </li>
-</ol>
-<p/>
-To <b>pass</b> the course, the weighted final grade across all components must be at least 5.5. <p/>
-
-In order to qualify for the resit exam: 
-<ol type="1">
-<li> the final grade must be greater than or equal to 4.0 and strictly less than 5.5; and </li>
-<li> a minimum of two assignments must have been submitted; and </li>
-<li> at least one of the exams has been attended; missing both exams will result in a direct ND grade. </li>
-</ol>
-</li>
-</ol>
-
-</p>
-</div>
-</div>
-</div>
-
-
-
-<div id="main"> 
-<div id="main2"> 
-<a id="Material"></a> 
-<h2>Material</h2> 
-<div class="topic-text"> 
-<p/>
-<ol type="A">
-  <li><h4>Required Software</h4></li>
-  <p/>
-  In this course, we will use a variety of software, but mainly SQLite, Python and R. Try to install both on your computer by the start of the course; we will also have a set-up computer lab on the first day to help you with this process.
-  <p/>
-  <b>Installing DB Browser for SQLite</b>: For the SQL parts, we recommend installing DB Browser for SQLite. Installation instructions for MAC, Windows, and Linux can be found <a href="https://sqlitebrowser.org/"> here</a>. 
-  <p/>
-  <b>Installing Python & Jupyter</b>: For the python parts of the course, we will use <a href="https://colab.research.google.com/"> Google Colab </a>, which is an interactive online notebook environment; this means no installation is necessary! However, you do need a google account, so make sure you have one (or make one specifically for the course).
-  <p/>
-
-  <li><h4>Reading Material</h4></li>
-  <p/>
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Title and authors</th>
-      <th>url</th>
-    </tr>
-    <tr>
-      <td>DBSC</td>  
-      <td><b>[Database System Concepts]</b> <span class="pubAuthorsT">Silberschatz, Korth, Sudarshan</span></td>
-      <td><a href="https://www.db-book.com/"> db-book.com </a></td>
-    </tr>
-    <tr>
-      <td>MMDS</td>
-      <td><b>[Mining Massive Datasets]</b> <span class="pubAuthorsT">Leskovec, Rajaraman, Ullman</span></td>
-      <td><a href="http://www.mmds.org">mmds.org</a></td>
-    </tr>
-    <tr>
-      <td>PDA</td> 
-      <td><b>[Python for Data Analysis, 3E]</b> <span class="pubAuthorsT">Wes McKinney</span></td>
-      <td> <a href = "https://wesmckinney.com/book/">wesmckinney.com/book/</a></td>
-    </tr>
-    <tr>
-      <td>DMCT</td>
-      <td><b>[Data Mining: Concepts and Techniques]</b> <span class="pubAuthorsT">Han, Kamber, Pei</span></td>
-      <td><a href="https://github.com/chmx0929/UIUCclasses/blob/master/512DataMiningPrinciples/Data%20Mining%20-%20Concepts%20and%20Techniques%20%5B3rd%20ed.%5D%20-%20Jiawei%20Han%2C%20Micheline%20Kamber%2C%20Jian%20Pei.pdf">3-rd edition</a></td>
-    </tr>
-    <tr>
-      <td>MHRB</td> 
-      <td><b>[A survey on bias and fairness in machine learning]</b> <span class="pubAuthorsT">Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K., and Galstyan, A.</span></td>
-      <td><a href="https://dl.acm.org/doi/pdf/10.1145/3457607?casa_token=MA8ZIHw1d60AAAAA:JHMTg_t01fwkoq_9TflnElEXKl6TcW-65Xthm1YjbsxHFfjiJgC-VFotE25XhKy4H3FeJ-KVdhaN">URL</a> </td>
-    </tr>
-  </table>
-</ol>
-</div>
-</div>
-</div>
-
-
-
-
-
-<div id="main"> 
-<div id="main2"> 
-<a id="Schedule"></a> 
-<h2>Schedule</h2> 
-<div class="topic-text"> 
-<p/>
-You can find the up-to-date class schedule with locations on <a href="https://mytimetable.uu.nl">mytimetable.uu.nl</a>.
-<p/>
-<table>
-  <tr>
-    <th>Week</th>
-    <th>Date</th>
-    <th>Topic</th>
-    <th>Type</th>
-    <th>Reading</th>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td></td>
-    <td>Introduction to the course</td>
-    <td><a href="Teaching/lectures/week_1/1_introduction.pdf">Lecture</a></td>
-    <td>Visiting the course website</td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td></td>
-    <td>Setting up your computer</td>
-    <td><a href="Teaching/labs/week_1/1_setup/lab1_setup.html">Tutorial</a></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
-</div>
-</div>
-</div>
-
-
-
-
-<script>
-// Get the button
-let mybutton = document.getElementById("to_top");
-
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
-}
-
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-}
-</script>
-
-
-
-
+  <script type="text/javascript" async="" src="button.js"></script>
 </body>
 </html>

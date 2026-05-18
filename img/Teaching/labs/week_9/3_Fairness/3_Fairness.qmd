@@ -1,0 +1,355 @@
+---
+title: "Imbalanced Data and Algorithmic Fairness"
+format:
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    callout-appearance: simple
+    callout-icon: false
+  # pdf: 
+  #   toc: false
+  #   toc-depth: 2
+  #   documentclass: scrartcl
+  #   papersize: a4
+  #   number-sections: true
+  #   number-depth: 1
+  #   df-print: kable
+---
+
+```python
+import numpy as np
+import pandas as pd
+from collections import Counter
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+from imblearn.over_sampling import SMOTE
+from matplotlib import pyplot as plt
+from numpy import where
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import balanced_accuracy_score
+from sklearn.metrics import f1_score
+from sklearn.preprocessing import StandardScaler
+```
+
+# Handling the Imbalanced Data Problem
+
+We will start by generating 2-D imbalanced data from two classes (9900 from class 0 and 100 from class 1).
+
+
+```python
+X_org, y_org = make_classification(n_samples=10000, n_features=2, n_redundant=0,
+	n_clusters_per_class=1, weights=[0.99], flip_y=0, random_state=1)
+# summarize class distribution
+counter = Counter(y_org)
+print("Before Running SMOTE: ", counter)
+for label, _ in counter.items():
+	row_ix = where(y_org == label)[0]
+	plt.scatter(X_org[row_ix, 0], X_org[row_ix, 1], label=str(label))
+plt.legend()
+plt.show()
+```
+We will split the data into training and testing set with 70/30 ratio. We will train a logistic regression model on the training data and evaluate its performance on the test data using three performance measures `F1-Score, Accuracy, Balanced Accuracy`.
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(X_org, y_org, test_size = 0.30,
+                                                    shuffle = True,
+                                                    stratify = y_org)
+# Plot the training
+counter = Counter(y_train)
+print("In training: ", counter)
+for label, _ in counter.items():
+	row_ix = where(y_train == label)[0]
+	plt.scatter(X_train[row_ix, 0], X_train[row_ix, 1], label=str(label))
+plt.legend()
+plt.show()
+
+# Plot the testing set
+
+counter = Counter(y_test)
+for label, _ in counter.items():
+	row_ix = where(y_test == label)[0]
+	plt.scatter(X_test[row_ix, 0], X_test[row_ix, 1], label=str(label))
+plt.legend()
+plt.show()
+
+len(X_train), len(X_test)
+
+```
+
+
+```python
+# Train a logisitic regression model
+# Train the model with the training subset
+logreg = LogisticRegression()
+logreg.fit(X_train, y_train)
+
+# Test the model on the test subset
+result = logreg.predict(X_test)
+# Display the confusion matrix to check the performance of your model
+confusion_matrix(result, y_test)
+```
+
+
+```python
+f1 = f1_score(y_test, result, average=None)
+acc = accuracy_score(y_test, result, normalize=True)
+bacc = balanced_accuracy_score(y_test, result)
+print ("F1-Score = {}\nAccuracy = {}\nBalanced Accuracy = {}".format(f1, acc, bacc))
+```
+
+To solve the imbalanced data problem, we will practice on two techniques:
+
+* Generating more examples from the class of minority.
+* Using cost sensitive classification.
+
+
+## Synthetic Data Generation
+We start with generating synthetic data from the minority using `SMOTE` and `GANs`.
+
+::: callout-note
+### SMOTE for Balancing Data
+
+
+The first technique that we will use is [SMOTE](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html). Make sure that you use only the training set to generate more examples. 
+
+```python
+'''
+TODO: Use SMOTE to generated more examples using the training set and 
+plot the new dataset using scatter plot as we did before
+'''
+```
+
+
+```python
+'''
+TODO: Train a logistic regression model
+Train the model with the training subset
+'''
+
+'''
+TODO: Test the model on the test subset
+'''
+
+'''
+TODO: Display the confusion matrix to check the performance of your model
+'''
+
+```
+
+
+```python
+'''
+TODO: Based on the values in the confusion matrix, compute the values of 
+the three performance measures that we mentioned earlier 
+F1-Score, Accuracy, Balanced Accuracy
+'''
+
+```
+
+Comment on the results after comparing them with the results that you obtained earlier by training the model using the original data. 
+
+:::
+
+
+::: callout-note
+
+### C-GAN: Generate Synthetic Data
+
+CTGAN model is conditional generative network based on Deep Learning data synthesizing.
+The architecture is comprised of a generator and a discriminator model. The generator is responsible for generating new examples that, ideally, are indistinguishable from real examples in the dataset. The discriminator model is responsible for classifying a given example as either real (drawn from the dataset) or fake (generated).
+
+The models are trained together in a zero-sum manner, such that improvements in the discriminator come at the cost of a reduced capability of the generator, and vice versa.
+
+You may need to install the `sdv` and `ctgan` packages using:
+
+* `!pip install sdv`
+* `!pip install ctgan`
+
+If you are facing problems, you can check the documentation of `ctgan` [here](https://docs.sdv.dev/sdv/). We will point to specific parts of the documentation later. 
+
+
+First, we will join the data values with their labels to be used by the GAN as training data.
+
+```python
+b = np.array([y_train])
+data = np.concatenate((X_train, b.T), axis=1)
+df = pd.DataFrame(data, columns=['x1', 'x2', 'y'])
+```
+
+You need to extract the metadata of the dataframe to define the synthesizer. Check [metadata](https://docs.sdv.dev/sdv/single-table-data/data-preparation/single-table-metadata-api) for more information.
+
+
+```python
+from ctgan import CTGAN
+from sdv.metadata import SingleTableMetadata
+'''
+TODO: define a metadata object and find the metadata of the df dataframe
+'''
+
+```
+
+```python
+'''
+TODO: Check the collected information about the dataframe
+'''
+
+```
+
+Define a `CTGANSynthesizer` and pass the collected metadata to the defined object. Check this [link](https://docs.sdv.dev/sdv/single-table-data/modeling/synthesizers/ctgansynthesizer) for more information. 
+
+
+```python
+from sdv.single_table import CTGANSynthesizer
+'''
+TODO: define the synthesizer and train it using the data in the df dataframe.
+'''
+```
+
+List the constraints that would you like to apply in order to generate values with specific characteristics. Here, we need to generate examples from the minority class `y = 1`. You need also to find how many examples you want to generate to have balanced dataset. For more information check this [link](https://docs.sdv.dev/sdv/single-table-data/sampling/conditional-sampling).
+
+
+```python
+from sdv.sampling import Condition
+'''
+TODO: find how many examples do we need to generate from the minority class 
+to have equal number of examples from each class. 
+Define a condition and specify the number of examples to be generated  
+from the minority (class = 1)
+'''
+
+```
+
+```python
+'''
+TODO: Use the `synthesizer` to generate the required set of examples 
+according to the conditions that you specified in the previous step. 
+Concatenate the generated examples with the examples from the original dataframe.
+'''
+
+```
+
+```python
+'''
+TODO: plot the new dataframe to check the generated data as we did before. 
+'''
+
+```
+
+```python
+'''
+TODO: Train a logistic regression model as you did before and check the 
+performance of the model in terms of F1-Score, Accuracy and Balanced Accuracy. 
+Comment on the results. 
+'''
+```
+::: 
+
+
+
+# Cost sensitive classification
+
+Specifying the cost of misclassification is another technique for forcing the classifiers to predict the class label of the minority more accurately. Use the original imbalanced data and check the [sklearn documentation](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html) about setting the `class_weight` to define a cost sensitive classifier. Test the performance of the classifier on the test set using the same performance measures (F1-Score, Accuracy and Balanced Accuracy).
+
+::: callout-note
+
+```python
+'''
+TODO: Train a logistic regression model
+Train the model with the training subset
+'''
+
+'''
+TODO: Test the model on the test subset
+'''
+
+'''
+TODO: Display the confusion matrix to check the performance of your model
+'''
+
+```
+
+
+```python
+'''
+TODO: Based on the values in the confusion matrix, compute the values of 
+the three performance measures that we mentioned earlier 
+F1-Score, Accuracy, Balanced Accuracy
+'''
+
+```
+
+::: 
+
+
+# Algorithmic Fairness
+
+In this Exercise, we will measure the bias in a given dataset and apply some bias mitigation algorithms. You will need to install the `AIF360` library using:
+
+* `!pip install aif360`
+
+This library contains implementation of a wide variety of bias mitigation algorithms including pre/in/post-processing algorithms. However, you will need to upload the dataset that you would like to work with in the `AIF360` directory in Google colab. To do so, download the dataset from the specified link on the [GitHub](https://github.com/Trusted-AI/AIF360/tree/master/examples). It is recommended to use the [German Credit Data](https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data). After downloading the data, go to Google colab and click on the button that points up as in the figure below. When you see the folders tree, goto (`usr/local/lib/pythonX.XX/dist-packages/aif360/data/raw/german` and click on the three vertical dots next to that name then select `Upload`. Browse to the location where you saved the dataset and upload it.
+
+![Uploading data](aif.png)
+
+Since different users may have different versions of Python on Google colab, pythonX.XX was used in the path where you need to upload the data. 
+
+::: callout-note
+
+```python
+'''
+You can check the version of your python using 
+'''
+!python --version
+```
+
+First, we read the German dataset and replace the class label 2 by 0.
+
+
+```python
+german_data = GermanDataset()
+german_df = german_data.convert_to_dataframe()
+german_df = german_df[0]
+german_df
+```
+
+
+```python
+from aif360.metrics import BinaryLabelDatasetMetric
+from aif360.datasets import GermanDataset
+from aif360.algorithms.preprocessing.lfr import LFR
+
+german_data = GermanDataset()
+german_df = german_data.convert_to_dataframe()
+german_df = german_df[0]
+german_df["credit"].replace({2.0: 0}, inplace=True)
+german_df
+```
+
+Check the example notebooks at [aif360/examples](https://github.com/Trusted-AI/AIF360/tree/master/examples) to learn how to specify the `privileged` and `unprivileged` groups according to the sensitive attributes. 
+
+
+```python
+'''
+TODO: Define the privileged and unprivileged
+'''
+
+```
+
+Check if the data is biased or not using the measures that can be computed from the dataset directly (do not require the outcome of the classifier). 
+
+
+```python
+'''
+TODO: compute and display the fairness meausres that can be computed directly from the data. 
+'''
+```
+
+Apply one of the bias mitigation algorithms and display the values of the fairness measures that you can compute. 
+
+:::
+

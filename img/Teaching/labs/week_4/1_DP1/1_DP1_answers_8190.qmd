@@ -1,0 +1,576 @@
+---
+title: "Data preparation (1)"
+format:
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    # callout-appearance: simple
+    callout-icon: false
+  # pdf: 
+  #   toc: false
+  #   toc-depth: 2
+  #   documentclass: scrartcl
+  #   papersize: a4
+  #   number-sections: true
+  #   number-depth: 1
+  #   df-print: kable
+---
+
+
+## Working with missing values, and noisy data
+For this Tutorial, you need to install the following libraries:
+```
+* matplotlib
+* sklearn
+```
+
+You will also need to download the oil price data from [here](https://www.kaggle.com/competitions/store-sales-time-series-forecasting/data?select=oil.csv). We start by importing the most important libraries. 
+
+
+### Understanding the data
+
+::: callout-note
+### Data profiling
+
+```python
+import pandas as pd
+import numpy as np
+```
+
+Before you can work on the data, you will need to upload the file on Google Colab (if you are using it). After that, you can read the csv as follows:
+
+
+```python
+# TODO: read the csv file pid
+df_oil = pd.read_csv('oil.csv', header = 0,
+                 quotechar = '"',sep = ",",
+                 na_values = ['na', '-', '.', ''])
+```
+
+The table contains two columns (date and dcoilwtico). 'dcoilwtico' contains missing values. Let us display the dataframe
+
+
+```python
+'''
+TODO: display the dataframe
+'''
+display(df_oil)
+```
+
+We can also visualize the data using the matplotlib library 
+
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+'''
+TODO: define a variable X to hold the value {0, 1, 2, ..., len(df_oil) - 1}
+Y = the values in the dcoilwtico
+Plot Y against X as a scatter plot. 
+'''
+X = range(len(df_oil))
+Y = df_oil.dcoilwtico
+plt.scatter(X, Y)
+```
+
+```python
+'''
+TODO: 
+Plot the first 200 values of Y as a scatter plot. 
+'''
+X = range(200)
+Y = df_oil.dcoilwtico[:200]
+plt.scatter(X, Y)
+```
+
+
+Recall that summary statistics and arithmetic with missing data is natively supported by pandas.The mean is computed normally and missing values are ignored:
+
+
+```python
+'''
+TODO: Compute and print the mean value of dcoilwtico
+''' 
+df_oil.dcoilwtico.mean()    
+```
+
+
+```python
+'''
+TODO: Compute and print the mean value of dcoilwtico using a function from the numpy library
+''' 
+np.mean(df_oil.dcoilwtico)
+```
+
+Min, Max, STD and Variance all work even when values are missing:
+
+
+```python
+'''
+TODO: Compute and display the min, max, standard deviation and variance of dcoilwtico
+''' 
+np.min(df_oil.dcoilwtico), np.max(df_oil.dcoilwtico), np.std(df_oil.dcoilwtico)
+```
+
+```python
+'''
+TODO: Compute and display the min, max, standard deviation and variance of dcoilwtico
+    using the functions from numpy. Compare the values with those from the previous 
+    exercise. What is different and why?
+''' 
+df_oil.dcoilwtico.min(), df_oil.dcoilwtico.max(), df_oil.dcoilwtico.std()
+```
+The value for the standard deviation is different because in Pandas dataframe,
+the standard deviation is computing by dividing over $(n-1)$, 
+where $n$ is the number of values. In numpy, the standard deviation is computed 
+by dividing over $n$. 
+
+To get the same results from Pandas as numpy, we either pass `ddof = 1` to the 
+std function of numpy as follows `np.std(df_oil.dcoilwtico, ddof = 1)`
+or we pass `ddof = 0` to the 
+std function of pandas as follows `df_oil.dcoilwtico.std(ddof = 0)`.
+
+:::
+
+
+### Incomplete data
+
+::: callout-note
+### Handling the missing values
+
+First, deleting the records that contain missing values 
+
+Pandas has a function that allows deleting the rows in a dataframe (or elements in a series) that contain missing values.
+
+
+```python
+'''
+TODO: create a new dataframe from the df_oil after deleting the records with missing values
+'''
+df_oil_nona = df_oil.dropna()
+```
+
+However, very often you may wish to fill in those missing values rather than simply dropping them. Of course, pandas also has that functionality. For example, we could fill missing values with a constant. 
+**We do this for exercise only but you will learn later about more sophisticated techniques for data imputation.**
+
+
+```python
+'''
+TODO: replace the missing value with -99 in attribute dcoilwtico
+'''
+A = df_oil.dcoilwtico
+B = A.fillna(-99)
+display(B)
+```
+
+That actually works with any data type.
+
+
+```python
+'''
+TODO: fill the missing values with the string 'unknown' in attribute dcoilwtico
+'''
+A = df_oil.dcoilwtico
+B = A.fillna('unknown')
+display(B)
+```
+
+Moreover, we can use this functionality to fill in the gaps with the average value computed across the non-missing values.
+
+
+```python
+'''
+TODO: replace the missing values with the average of the non-missing values
+'''
+A = df_oil.dcoilwtico
+B = A.fillna(np.mean(A))
+display(B)
+```
+
+
+
+Since the values of dcoilwtico represent a time series reading, we can fill the missing values with the closest non-missing value before or after. We can do that in Python using the flags *pad* / *ffill* and *bfill* / *backfill*
+
+
+```python
+'''
+TODO: fill the missing values in dcoilwtico with the values in the previous/furture records (no limit)
+'''
+A = df_oil.dcoilwtico
+B = A.fillna(method = 'pad') # OR ffill for forward filling
+display(B)
+```
+
+```python
+'''
+TODO: fill the missing values in dcoilwtico with the values in the previous/furture records (no limit)
+'''
+A = df_oil.dcoilwtico
+B = A.fillna(method = 'bfill') # OR backfill for backward filling
+display(B)
+```
+
+
+We can set a limit if we only want to replace consecutive gaps.
+We can observe the difference only for the values batween 1170 and 1180 as 
+the values at indexes 1174 and 1175 are missing. You can see that after using 
+limit = 1, one of the missing values will stay and the other will be filled. 
+
+```python
+'''
+TODO: fill the missing values in dcoilwtico with the value in the next record 
+(the value of a record can be used in the previous record only)
+'''
+A = df_oil.dcoilwtico
+B = A.fillna(method = 'backfill', limit = 1) # OR ffill for forward filling
+display(B[1170:1180])
+```
+:::
+
+
+
+::: callout-note
+### Arithmetic operations on data with missing values
+
+We can also perform element-wise arithmetic operations between series with missing data. 
+
+Remember: by definition, the result of any operation that involves missing values is NaN.
+
+
+```python
+'''
+TODO: Perform element-wise addition (+) between the values in original dcoilwtico 
+and the one that is filled with the values from previous records. Use the addition operator (+)
+'''
+A = df_oil.dcoilwtico
+B = A.fillna(method = 'backfill') # OR ffill for forward filling
+A + B
+```
+
+
+```python
+'''
+TODO: Find which function in the numpy library that can perform 
+the pairwise addition between two lists and use it. 
+Compare the results with the results from the previous exercise. 
+'''
+A = df_oil.dcoilwtico
+B = A.fillna(method = 'backfill') # OR ffill for forward filling
+np.add(A, B)
+```
+:::
+
+
+### Noisy data
+
+::: callout-note
+### Handling the noisy data
+
+In this exercise, we will apply the techniques that we learned about handling noisy data using the binning technique. First, we sort the data and partition it into (equal-frequency) bins
+Then one can smooth by bin means,  smooth by bin median, smooth by bin boundaries, etc.
+
+**Example on small list of data:**
+```python
+import numpy as np
+import math
+
+# load iris data set
+b = [4, 15, 26, 8, 34, 9, 21, 29, 21, 24, 25, 28]
+b=np.sort(b) #sort the array
+
+num_bins = 3
+bin_size = math.ceil(len(b)/num_bins)
+
+mean_bins = np.full(shape = (num_bins, bin_size), fill_value = None)
+median_bins = np.full(shape = (num_bins, bin_size), fill_value = None)
+boundary_bins = np.full(shape = (num_bins, bin_size), fill_value = None)
+
+
+# # Bin mean
+for i in range (0, len(b), bin_size):
+  k = int(i / bin_size)
+  current = b[i:i+bin_size]  
+  m = np.mean(current)  
+  for j in range(bin_size):
+    mean_bins[k,j] = m
+print("Smoothing by Mean: \n", mean_bins)
+
+
+# # Bin median
+for i in range (0, len(b), bin_size):
+  k = int(i / bin_size)
+  current = b[i:i+bin_size]  
+  m = np.median(current)
+  # print(current, '\t\t', m)
+  for j in range(len(current)):
+    median_bins[k,j] = m
+print("Smoothing by Median: \n", median_bins)
+
+
+# # Bin boundaries
+for i in range (0, len(b), bin_size):
+  k = int(i / bin_size)
+  current = b[i:i+bin_size]  
+  for j in range(len(current)):
+    if (np.abs(current[j] - current[0]) <= np.abs(current[j] - current[-1])):
+      boundary_bins[k,j] = current[0]
+    else:
+      boundary_bins[k,j] = current[-1]
+print("Smoothing by Boundaries: \n", boundary_bins)
+
+```
+**Using the oil dataset:**
+
+```python
+'''
+TODO: 
+    1. extract the first 200 values from the attribute dcoilwtico and sort the values
+    2. partition the data into different number of bin (10, 20, 25 and 40)
+    3. for every partitioning, smooth the values using 
+        the three different techniques and plot the smoothed curve
+'''
+
+# Using Pandas
+A = df_oil.dcoilwtico
+B = A.dropna()
+data = B[:200]
+plt.plot(data)
+```
+
+**Preparing the bins**
+
+```python
+bin_size = 5
+num_bins = math.ceil(len(data)/bin_size)
+
+mean_bins = np.full(shape = (num_bins, bin_size), fill_value = None)
+median_bins = np.full(shape = (num_bins, bin_size), fill_value = None)
+boundary_bins = np.full(shape = (num_bins, bin_size), fill_value = None)
+```
+
+#### Smoothing by mean
+```python
+# # Bin mean
+for i in range (0, len(data), bin_size):
+  k = int(i / bin_size)
+  current = np.array(data[i:min(i + bin_size, len(data) - 1)])
+  m = np.mean(current)  
+  for j in range(len(current)):
+    mean_bins[k,j] = m
+# print("Smoothing by Mean: \n", mean_bins)
+smoothed_list = [item for bin in mean_bins for item in bin]
+plt.plot(range(len(smoothed_list)), smoothed_list, color = 'r')
+plt.scatter(range(len(data)), data)
+```
+#### Smoothing by median
+```python
+# # Bin median
+for i in range (0, len(data), bin_size):
+  k = int(i / bin_size)
+  current = np.array(data[i:min(i + bin_size, len(data) - 1)])  
+  m = np.median(current)
+  # print(current, '\t\t', m)
+  for j in range(len(current)):
+    median_bins[k,j] = m
+# print("Smoothing by Median: \n", median_bins)
+smoothed_list = [item for bin in median_bins for item in bin]
+plt.plot(range(len(smoothed_list)), smoothed_list, color = 'r')
+plt.scatter(range(len(data)), data)
+```
+
+#### Smoothing by boundaries
+```python
+# # Bin boundaries
+for i in range (0, len(data), bin_size):
+  k = int(i / bin_size)
+  current = np.array(data[i:min(i + bin_size, len(data) - 1)])
+  # print(i, np.array(current))
+  for j in range(len(current)):
+    if (np.abs(current[j] - current[0]) <= np.abs(current[j] - current[len(current)-1])):
+      boundary_bins[k,j] = current[0]
+    else:
+      boundary_bins[k,j] = current[len(current)-1]
+# print("Smoothing by Boundaries: \n", boundary_bins)
+smoothed_list = [item for bin in boundary_bins for item in bin]
+plt.plot(range(len(smoothed_list)), smoothed_list, color = 'r')
+plt.scatter(range(len(data)), data)
+```
+
+:::
+
+
+## Outlier detection
+For this exercise, you will use the [Pima Indians Diabetes Database](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database). 
+
+```python
+df_pid = pd.read_csv('diabetes.csv', header = 0,
+                 quotechar = '"',sep = ",",
+                 na_values = ['na', '-', '.', ''])
+df_pid
+```
+
+::: callout-note
+#### The statistical approach
+
+We start by detecting the outliers using a statistical method. We assume that the values are extracted from a normal distribution. We estimate the parameters of the normal distribution from the available data and use the condition that a value is considered outlier if the distance from the value to the mean is greater than 3 times the standard deviation.
+
+
+```python
+'''
+TODO: Ignore the label column. 
+    1. assume that the values in each column are extracted from a normal distribution, then estimate the parameters
+    2. report the ouliers in each column using the statistical method
+    3. plot the data after highlighting the outliers (normal in blue, outliers in red)
+'''
+import matplotlib.pyplot as plt
+%matplotlib inline
+def stat_outliers (col):
+    outliers = set()
+    m = col.mean()
+    s = col.std()
+    for p in col.unique():
+        if (abs(p-m) > 3 * s):
+            outliers.add(p)
+    outliers_indexes = col.isin(outliers)
+    plt.plot(col, color='blue', marker='o', ms = 2, linewidth = 0)
+    plt.plot(col, color='red', markevery = outliers_indexes, marker='*', ms = 6, linewidth = 0)
+    plt.show()
+    return outliers
+
+for col in df_pid.columns[:-1]:
+    outliers = stat_outliers(df_pid[col])
+    print("Outliers in column ", col, " are: ", outliers)
+```
+:::
+
+
+::: callout-note
+#### Outlier detection using KNN
+
+Now, we use the [k-nearest neighbours](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.NearestNeighbors.html) method to detect the outliers 
+
+
+```python
+from sklearn.neighbors import NearestNeighbors
+import matplotlib.pyplot as plt
+%matplotlib inline
+'''
+TODO: 
+    1. define a function to find the outliers and 
+    2. plot the data after highlighting the outliers
+'''
+'''
+First, we define a function to find the outlier and 
+plot the data after highlighting the outliers
+'''
+def knn_outliers(data, threshold, neigbors = 10):
+    nbrs = NearestNeighbors(n_neighbors = neigbors)
+    X = data.reshape(-1, 1)
+    # fit model
+    nbrs.fit(X)
+    # distances and indexes of k-neaighbors from model outputs
+    distances, indexes = nbrs.kneighbors(X)
+    # plot mean of k-distances of each observation
+    plt.plot(distances.mean(axis = 1))
+    # visually determine cutoff values > 0.15
+    outlier_index = np.where(distances.mean(axis = 1) > threshold)
+    knn_outliers = list(outlier_index[0])
+    plt.plot(data, color='black', marker='o', ms = 2, linewidth = 0)
+    plt.plot(data, markevery = knn_outliers, color='red', marker='s', ms=7, fillstyle='none', linewidth=0)
+    plt.show()
+    outliers = X[knn_outliers]
+    return np.unique(outliers)
+```
+
+```python
+# Now, we iterate over the columns and find the outliers in each column
+for col in df_pid.columns[:-1]:
+    data = np.array(df_pid[col])
+    outliers = knn_outliers(data, 0.75, 10)       # We can change these params.
+    print("Attribute {} has {} as outliers".format(col, outliers))
+```
+
+We need to handle the attribute Insulin Separately with different threshold values
+
+```python
+col = 'Insulin'
+data = np.array(df_pid[col])
+outliers = knn_outliers(data, 6, 10)        # We can change these params.
+print("Attribute {} has {} as outliers".format(col, outliers))
+print ("Number of outliers = ", len(outliers))
+```
+
+```python
+'''
+TODO: 
+    use different values for the paramters and compare the results 
+'''
+col = 'Insulin'
+data = np.array(df_pid[col])
+outliers = knn_outliers(data, 6, 15)        # We can change these params.
+print("Attribute {} has {} as outliers".format(col, outliers))
+print ("Number of outliers = ", len(outliers))
+```
+For Insulin, the parameters 6, 10 seems to be optimal. 
+:::
+
+::: callout-note
+#### Outlier detection using Local Outlier Factor
+
+Now, we use the [LOF](https://scikit-learn.org/stable/auto_examples/neighbors/plot_lof_outlier_detection.html) method to detect the outliers
+
+
+```python
+'''
+TODO: Apply LOF to find outliers in the data 
+'''
+from sklearn.neighbors import LocalOutlierFactor
+%matplotlib inline
+
+def lof_outliers(data, threshold, neigbors = 10):
+    clf = LocalOutlierFactor(n_neighbors = 10)
+    X = data.reshape(-1, 1)
+    clf.fit_predict(X)
+    lofOutiers = []
+    for cc in range(len(clf.negative_outlier_factor_)):
+        if clf.negative_outlier_factor_[cc] < -threshold:
+            lofOutiers.append(cc)
+    plt.plot(data, color='black', marker='o', ms=2, linewidth=0)
+    plt.plot(data, markevery = lofOutiers, color='red', marker='s', ms=7, \
+             fillstyle='none', linewidth=0)
+    plt.show()
+    outliers = X[lofOutiers]
+    return np.unique(outliers)
+```
+
+```python
+for col in df_pid.columns[:-1]:
+    data = np.array(df_pid[col])
+    outliers = lof_outliers(data, 1.0, 10)    
+    print("Attribute {} has {} as outliers".format(col, outliers))
+```
+
+```python
+col = 'Insulin'
+data = np.array(df_pid[col])
+outliers = lof_outliers(data, 2, 10)
+print("Attribute {} has {} as outliers".format(col, outliers))
+print ("Number of outliers = ", len(outliers))
+```
+
+```python
+'''
+TODO: 
+    use different values for the paramters and compare the results 
+    which set of parameters gives reasonable results 
+'''
+```
+For each column, you can change the parmaeters when you call the `lof_outliers`
+
+```python
+outliers = lof_outliers(data, 2, 10)
+```
+:::

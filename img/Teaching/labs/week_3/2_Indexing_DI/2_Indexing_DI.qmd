@@ -1,0 +1,219 @@
+---
+title: "Indexing and data integration"
+format:
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    # callout-appearance: simple
+    callout-icon: false
+  # pdf: 
+  #   toc: false
+  #   toc-depth: 2
+  #   documentclass: scrartcl
+  #   papersize: a4
+  #   number-sections: true
+  #   number-depth: 1
+  #   df-print: kable
+---
+## Introduction
+In databases, indexes are used to speed up the retrieval of rows by creating a data structure that allows the database engine to quickly locate the required data. There are several types of indexes:
+
+::: callout-note
+#### Single-Column Index
+
+The most common type of index, created on a single column in a table. This index is useful for answering frequent queries on that specific column.
+```sql
+CREATE INDEX idx_name ON table_name(column_name);
+```
+:::
+
+::: callout-note
+#### Multi-Column (Composite) Index
+An index that is created on multiple columns. It's beneficial when queries involve multiple columns in the `WHERE` clause. It can be created using:
+```sql
+CREATE INDEX idx_name ON table_name(column1, column2);
+```
+:::
+
+
+::: callout-note
+#### Unique Index
+
+Index to enforce uniqueness of the indexed column(s). This ensures that no two rows can have the same values for the indexed column(s). It can be created using:
+```sql
+CREATE UNIQUE INDEX idx_name ON table_name(column_name);
+```
+
+:::
+
+
+::: callout-note
+#### Implicit Index
+
+Index that is automatically created by the Database Management System (DBMS) when you define a PRIMARY KEY or UNIQUE constraint on a table.
+
+:::
+
+## Creating and deleting indexes
+
+In this exercise, you will practice on creating and deleting indexes in a database. We can use the university database `univdb-sqlite.db` from [here](https://www.db-book.com/university-lab-dir/sqlite-tips.html). 
+
+::: callout-note
+#### Listing the available indexes
+
+After uploading the database, list the available indexes for a given table using the code:
+```sql 
+PRAGMA index_list('student');
+```
+Check the type of the indexes that you will see. 
+:::
+
+::: callout-note
+#### Creating an index
+
+Create an index using the code:
+```sql 
+CREATE INDEX idx_studen_name ON student(name);
+```
+Try to create multiple indexes on different tables. 
+
+:::
+
+::: callout-note
+#### Deleting an index
+
+Delete indexes from those that you have created using the code:
+```sql 
+DROP INDEX idx_name;
+```
+Try to create multiple indexes on different tables. 
+
+:::
+
+
+## Query Performance with and without indexes
+
+For this exercise, we will create a database with only one big table of synthetic data about employees. 
+
+::: callout-note
+#### Generating the data
+
+Copy this code to Google colab and run it (You don't have to fully understand how it works).
+
+```python
+import sqlite3
+import random
+import datetime
+
+NUM_ROWS = 5_000_000
+
+conn = sqlite3.connect(f'employees_{NUM_ROWS}.db')
+cur = conn.cursor()
+
+cur.execute('''
+CREATE TABLE IF NOT EXISTS Employees (
+    EmployeeID INTEGER PRIMARY KEY,
+    FirstName TEXT,
+    LastName TEXT,
+    Email TEXT UNIQUE,
+    DepartmentID char(6),
+    Salary REAL,
+    HireDate DATE
+);
+''')
+
+def random_date(start, end):
+    return start + datetime.timedelta(
+        days=random.randint(0, int((end - start).days)))
+
+first_names = [
+    "John", "Jane", "Michael", "Emily", "James", "Patricia", "Robert", "Linda", "William", "Barbara",
+    "David", "Elizabeth", "Joseph", "Susan", "Charles", "Margaret", "Thomas", "Dorothy", "Christopher", "Nancy",
+    "Daniel", "Karen", "Matthew", "Betty", "Anthony", "Helen", "Mark", "Sandra", "Paul", "Ashley",
+    "Steven", "Deborah", "Andrew", "Jessica", "Kenneth", "Sarah", "Joshua", "Laura", "Kevin", "Anna",
+    "Brian", "Kimberly", "George", "Melissa", "Edward", "Michelle", "Ronald", "Emily", "Timothy", "Amanda",
+    "Jason", "Angela", "Jeffrey", "Rebecca", "Ryan", "Cynthia", "Jacob", "Stephanie", "Gary", "Katherine",
+    "Nicholas", "Shirley", "Eric", "Brenda", "Jonathan", "Catherine", "Stephen", "Christine", "Larry", "Marie",
+    "Justin", "Janet", "Scott", "Samantha", "Brandon", "Carolyn", "Frank", "Rachel", "Gregory", "Heather",
+    "Raymond", "Diane", "Benjamin", "Virginia", "Patrick", "Julie", "Alexander", "Joyce", "Jack", "Victoria",
+    "Dennis", "Olivia", "Jerry", "Christina", "Tyler", "Kelly", "Aaron", "Emma", "Jose", "Lauren"
+]
+last_names = [
+    "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
+    "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin",
+    "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson",
+    "Walker", "Young", "Allen", "King", "Wright", "Scott", "Torres", "Nguyen", "Hill", "Flores", "Green",
+    "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts", "Gomez",
+    "Phillips", "Evans", "Turner", "Diaz", "Parker", "Cruz", "Edwards", "Collins", "Reyes", "Stewart",
+    "Morris", "Morales", "Murphy", "Cook", "Rogers", "Gutierrez", "Ortiz", "Morgan", "Cooper", "Peterson",
+    "Bailey", "Reed", "Kelly", "Howard", "Ramos", "Kim", "Cox", "Ward", "Richardson", "Watson",
+    "Brooks", "Chavez", "Wood", "James", "Bennett", "Gray", "Mendoza", "Ruiz", "Hughes", "Price",
+    "Alvarez", "Castillo", "Sanders", "Patel", "Myers", "Long", "Ross", "Foster", "Jimenez", "Powell"
+]
+
+domains = ['example.com', 'test.com', 'demo.com']
+
+start_date = datetime.date(2000, 1, 1)
+end_date = datetime.date(2023, 12, 31)
+locations = ['AM', 'UT', 'RT', 'EN']
+
+for i in range(NUM_ROWS):
+    first_name = f'{random.choice(first_names)}_{i%10000}'
+    last_name = f'{random.choice(last_names)}_{i%10000}'
+    email = f"{first_name.lower()}.{last_name.lower()}{i}@{random.choice(domains)}"
+    department_id = locations[random.randint(0, 3)] + str(random.randint(1, 100))
+    salary = round(random.uniform(30000, 150000), 2)
+    hire_date = random_date(start_date, end_date).isoformat()
+
+    cur.execute('''
+    INSERT INTO Employees (FirstName, LastName, Email, DepartmentID, Salary, HireDate)
+    VALUES (?, ?, ?, ?, ?, ?);
+    ''', (first_name, last_name, email, department_id, salary, hire_date))
+
+    if i % 100000 == 0:
+        print(f"inserted numberd of rows {i}")
+        conn.commit()
+
+conn.commit()
+conn.close()
+
+print(f"Database with {NUM_ROWS} rows created successfully!")
+```
+
+Download the generated database and upload it to DB-Browser. 
+:::
+
+
+::: callout-note
+#### Testing the performance of the queries
+
+For each of the following queries perform the following list of tasks:
+
+1. Run the query and record its running time.
+1. Create an index on the column that is specified in the query.
+1. Run the query again with the indexed column and record the running time. 
+
+The queries:
+```sql
+SELECT * FROM Employees WHERE LastName="Adams_278";
+```
+```sql
+SELECT * FROM Employees WHERE Salary = 66355.3;
+```
+Since the salary is randomly generated, this value might not be in your database. You may start by displaying a few records from the `Employees` table and pick one of the values in the salary column. You can use the code `SELECT * FROM Employees LIMIT 100` to display the first 100 records. 
+
+
+```sql
+SELECT  DepartmentID FROM Employees WHERE DepartmentID = 'EN98' AND Salary = 93080.25;
+```
+Similar to the previous query, you may display a few records first and select values that are in the same record for the `DepartmentID` and the `Salary`.
+```sql
+SELECT DISTINCT  DepartmentID FROM Employees;
+```
+
+**Additionally,** try more queries in your own. 
+:::
+
+

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Teaching</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="teaching.css">
+</head>
+<body>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="img/top.png" width="30"/></button>
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="img/DW.png" alt="INFOMDW">
+      <!-- <div class="sidebar-photo-placeholder">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" style="display:block;flex-shrink:0;">
+          <circle cx="30" cy="22" r="11" fill="#C8A96E" opacity="0.5"/>
+          <ellipse cx="30" cy="50" rx="18" ry="12" fill="#C8A96E" opacity="0.35"/>
+        </svg>
+      </div> -->
+    </div>
+    <div class="sidebar-name">INFOMDW</div>
+    <div class="sidebar-title"><a href="https://www.uu.nl/en/masters/applied-data-science">Applied Data Science Program</a></div>
+    <div class="sidebar-dept"><a href="https://ics.uu.nl/">Dept. of Information and Computing Sciences</a></div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a>
+
+    </div>
+    <div class="sidebar-divider"></div>
+    <!-- <div class="sidebar-section-label">Address</div>     -->
+      Materials for the ADS course <br/>
+      (INFOMDW) <br/>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Useful Links</div>
+    <div class="sidebar-contact-list">
+      
+      <a href="https://mytimetable.uu.nl/schedule" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/rooster.jpg" width="50"/></svg>
+        <div><span class="ci-label"></span>My Timetable</div>
+      </a>
+
+      <a href="https://uu.brightspace.com/d2l/home" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="img/BS.png" width="50"/></svg>
+        <div><span class="ci-label"></span>BrightSpace</div>
+      </a>
+
+      
+      
+    </div>
+    
+    <div class="sidebar-socials">
+      <a href="https://creativecommons.org/licenses/by/4.0/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="img/cc.svg" width="20"/><img src="img/by.svg" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      
+    </div>
+    <p>
+      The materials on this website are <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> licensed.
+    </p>  
+  </aside>
+
+
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="index.html" class="nav-logo">Data Wrangling (INFOMDW)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="index.html">Home</a>          
+        </li>
+        <li>
+          <a href="research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="research.html#book_chapters">Book Chapters</a>
+            <a href="research.html#research_papers">Research Papers</a>
+            <a href="research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="teaching.html#current-courses">Current courses</a>
+            <a href="teaching.html#past-courses">Past courses</a>
+            <a href="teaching.html#admin">Adminstration</a>
+          </div>
+        </li>
+        <li>
+          <a href="infomdw.html" class="active">INFOMDW<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="infomdw.html#Introduction">Introduction</a>
+            <a href="infomdw.html#Policy">Policy</a>
+            <a href="infomdw.html#Material">Material</a>
+            <a href="infomdw.html#Schedule">Schedule</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <section id="Introduction">
+      <!-- <p class="section-label">Teaching</p> -->
+      <h1>Introduction</h1>
+      <p class="page-course">
+        With the current advances in the data collection process, we collect vast amount of data that comes from different sources and follows different structures. The volume, variety and velocity of collecting the data pose extra challenges on maintaining the quality of the data, which influences any data analytics and decision-making task. In order to prepare the data for the different tasks, data wrangling steps ensure the transformation of raw unstructured data into clean, organized and suitable formats. 
+
+        The course is designed to balance conceptual understanding with practical implementations (applied & real-world data), using both <code>SQL</code> and <code>Python</code> for data extraction, integration, preparation and validation.
+      </p>
+      <ol type="A">
+        <h2>Prerequisites</h2> 
+
+        <p class="page-course">
+        We assume that students have knowledge on:
+        <ol type="1">
+          <li>Programming (<code>Python</code>) </li>
+          <li> Statistics at a typical undergraduate level (mean, variance, basic linear regression)</li>
+        </ol>
+        </p>
+        <p class="page-course">
+        The course is open to students from: the master in applied data science (<a href="https://www.uu.nl/en/masters/applied-data-science">ADS</a>) and the student from the master of data science (<a href="https://www.uu.nl/en/masters/data-science">DASC</a>)
+        </p>
+        
+
+        <h2>Objectives</h2> 
+
+        <p class="page-course">
+        After completing this course, students should be able to:
+      </p>
+          <ol type="1">
+            <li><p class="page-course">Extract parts of the data that are relevant for the data analytics task.</p></li>
+            <li><p class="page-course">Validate the data against integrity constraints.</p></li>
+            <li><p class="page-course">Prepare the data and test its suitability for the analytics process using different data preparation techniques including cleaning, normalization, discretization and reduction. </p></li>
+            <li><p class="page-course">Handle and process large volumes of data, for example from such as data streams, and integrate the data from multiple sources.</p></li>
+            <li><p class="page-course">Discover the bias in the data and apply bias mitigation algorithms.</p></li>
+          </ol>
+          </p>  
+        </ol>
+    </section>
+    <section id="Policy">
+      <!-- <p class="section-label">Teaching</p> -->
+      <h1>Policy</h1>
+      <p class="page-course">
+            This course is one of the mandatory courses for Applied Data Science Students.
+      </p>
+      <p class="page-course">
+          <h2> Weekly course flow </h2> 
+          <p/>
+        <p class="page-course">  
+          A regular week in this course consists of two lectures (Tuesday and Thursday) and one tutorial session (Thursday afternoon). The material is introduced on a theoretical level in the lectures and then put into practice in the tutorial sessions. The practical work done in these sessions is drawn from real life situations that allow the students to experience how to solve data science problems.
+          In addition, students will spend time during each week on two take-home group assignments and two individual peer-graded assignments.
+          </p>
+          <p class="page-course">
+          The lectures are in-person. It is better to come to the lecture well prepared by reading the required readings before the lecture.
+          </p>
+          <p class="page-course">
+          The tutorial sessions are in-person interactive sessions in which you apply the methods you learn about in the lectures. The answers to the exercises that are discussed during the tutorial sessions will be uploaded after the sessions.
+          The skills acquired in the lectures and the tutorials provide the basis for doing the assignments. These assignments are handed in via <a href="https://uu.brightspace.com/d2l/home">Brightspace</a>.
+          <p/>
+        </p>
+          <p class="page-course">
+          <h2> Synchronous course policy </h2>
+          <p/>
+          </p>
+          <p class="page-course">
+          INFOMDW is an offline-first course, with mostly in-person lectures and tutorial sessions.
+          It is important for interactive and collaborative learning that the course is offline-first.
+          If you miss a session, e.g., due to sickness, you should catch up in the regular way:
+          </p>
+          <p/>
+          <ol type="1">
+          <li>Read the readings </li>
+          <li>Go through the lecture slides</li>
+          <li>Do the practicals</li>
+          <li>Ask your peers if you have questions</li>
+          <li><p class="page-course">(after the above) ask the lab teacher for further explanation</p></li>
+          </ol>
+          
+
+          <p/>
+          <h2>Who to ask what</h2>
+          <p/>
+          <p class="page-course">
+          There are many teachers in this course. If you have questions, first ensure the answer isn’t in this syllabus and then follow the table below:
+          </p>
+          <p/>
+          <table class="table-ask"> 
+          <tr> 
+            <th><b>Question type</b></th> 
+            <th><b>How to ask</b></th> 
+          </tr>
+          <tr> 
+            <td>Course proceedings</td> 
+            <td>Email course coordinator (Hakim)</td> 
+          </tr>
+          <tr> 
+            <td>Content - general</td> 
+            <td>Email / ask the teaching assistant</td> 
+          </tr>
+          <tr> 
+            <td>Practical content</td> 
+            <td>Email / ask the teaching assistant</td> 
+          </tr>
+          <tr> 
+            <td>Assignment content</td> 
+            <td>Email / ask the teaching assistant</td> 
+          </tr>
+          <tr> 
+            <td>Lecture content</td> 
+            <td>Email the lecturer</td> 
+          </tr>
+          </table>
+          <p/>
+
+          <h2>Grading policy</h2>
+          <p/>
+          <p class="page-course">
+          Your final grade in the course consists of the following grading components:
+          </p>
+          <ol type="1">
+          <li><p class="page-course">Group assignments (20% of the final grade). There are two group assignments. Each assignment is graded and worth 10% of the final grade. </p></li>
+          <li><p class="page-course"> Individual assignments (10% of the final grade). There will two individual assignments where each student should submit their own report for the assignment and grade 3 submissions from other students. Each assignment is 5% of the final grade. </p></li>
+          <li><p class="page-course">Midterm exam (35% of the final grade): In the 5-th week of the course, there is a midterm exam with multiple choice and open questions that covers the first part of the course.</p></li>
+          <li><p class="page-course">Final exam (35% of the final grade): At the end of the course, there is a final exam with multiple choice and open questions that covers (mainly) the material after the midterm.</p></li>
+          </ol>
+          <p/>
+          <p class="page-course">To <b>pass</b> the course, the weighted final grade across all components must be at least 5.5. </p><p/>
+
+          In order to qualify for the resit exam: 
+          <ol type="1">
+          <li><p class="page-course">the final grade must be greater than or equal to 4.0 and strictly less than 5.5; and </p></li>
+          <li><p class="page-course"> a minimum of two assignments must have been submitted; and </p></li>
+          <li><p class="page-course">at least one of the exams has been attended; missing both exams will result in a direct ND grade. </p></li>
+          </ol>
+          
+
+          </p>
+      </p>
+    </section>
+    
+    <section id="Material">
+      <!-- <p class="section-label">Teaching</p> -->
+      <h1>Material</h1>
+      <p class="page-course">
+        <h2>Required Software</h2>
+          <p/>
+        </p>
+        <p class="page-course">
+          In this course, we will use a variety of software, but mainly SQLite, Python and R. Try to install both on your computer by the start of the course; we will also have a set-up computer lab on the first day to help you with this process.
+          <p/>
+          
+          <h3>Installing DB Browser for SQLite</h3><p class="page-course">For the SQL part, we recommend installing DB Browser for SQLite. Installation instructions for MAC, Windows, and Linux can be found <a href="https://sqlitebrowser.org/"> here</a>. 
+          <p/>
+          </p>
+          
+          <h3>Installing Python & Jupyter</h3><p class="page-course">For the python part of the course, we will use <a href="https://colab.research.google.com/"> Google Colab</a>, which is an interactive online notebook environment; this means no installation is necessary! However, you do need a google account, so make sure you have one (or make one specifically for the course).
+          <p/>
+        </p>
+        <p class="page-course">
+          <h2>Reading Material</h2>
+          <p/>
+          <table class="table-schedule">
+            <tr>
+              <th>ID</th>
+              <th>Title and authors</th>
+              <th>url</th>
+            </tr>
+            <tr>
+              <td>DBSC</td>  
+              <td><b>[Database System Concepts]</b> <span class="pub-authorsT">Silberschatz, Korth, Sudarshan</span></td>
+              <td><a href="https://www.db-book.com/"> db-book.com </a></td>
+            </tr>
+            <tr>
+              <td>MMDS</td>
+              <td><b>[Mining Massive Datasets]</b> <span class="pub-authorsT">Leskovec, Rajaraman, Ullman</span></td>
+              <td><a href="http://www.mmds.org">mmds.org</a></td>
+            </tr>
+            <tr>
+              <td>PDA</td> 
+              <td><b>[Python for Data Analysis, 3E]</b> <span class="pub-authorsT">Wes McKinney</span></td>
+              <td> <a href = "https://wesmckinney.com/book/">wesmckinney.com/book/</a></td>
+            </tr>
+            <tr>
+              <td>DMCT</td>
+              <td><b>[Data Mining: Concepts and Techniques]</b> <span class="pub-authorsT">Han, Kamber, Pei</span></td>
+              <td><a href="https://github.com/chmx0929/UIUCclasses/blob/master/512DataMiningPrinciples/Data%20Mining%20-%20Concepts%20and%20Techniques%20%5B3rd%20ed.%5D%20-%20Jiawei%20Han%2C%20Micheline%20Kamber%2C%20Jian%20Pei.pdf">3-rd edition</a></td>
+            </tr>
+            <tr>
+              <td>MHRB</td> 
+              <td><b>[A survey on bias and fairness in machine learning]</b> <br/>
+                <span class="pub-authorsT">Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K., and Galstyan, A.</span></td>
+              <td><a href="https://dl.acm.org/doi/pdf/10.1145/3457607?casa_token=MA8ZIHw1d60AAAAA:JHMTg_t01fwkoq_9TflnElEXKl6TcW-65Xthm1YjbsxHFfjiJgC-VFotE25XhKy4H3FeJ-KVdhaN">URL</a> </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>Other resource will be mentioned when needed</td>
+              <td></td>
+            </tr>
+          </table>
+      </p>
+    </section>
+
+    <section id="Schedule">
+      <!-- <p class="section-label">Teaching</p> -->
+      <h1>Schedule</h1>
+      <p class="page-intro">
+        You can find the up-to-date class schedule with locations on <a href="https://mytimetable.uu.nl">mytimetable.uu.nl</a>.
+        <p/>
+        <table class="table-schedule">
+          <tr>
+            <th>Week</th>
+            <th>Date</th>
+            <th>Topic</th>
+            <th>Type</th>
+            <th>Reading</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td></td>
+            <td>Introduction to the course</td>
+            <td><a href="Teaching/lectures/week_1/1_introduction.pdf">Lecture</a></td>
+            <td>Visiting the course website</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td></td>
+            <td>Setting up your computer</td>
+            <td><a href="Teaching/labs/week_1/1_setup/setup_1.html">Tutorial</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </p>
+    </section>
+
+
+
+
+
+
+
+    <footer>      
+      <span>© 2026 Hakim Qahtan</span>
+      <span><img src="img/UU-logo.png", width = 120> </span>
+      <span>Utrecht, NL</span>
+    </footer>
+  </div>
+
+  <script type="text/javascript" async="" src="button.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+---
+title: "INFOMDWR: Course Syllabus 2025"
+authors: 
+  - Erik-Jan van Kesteren
+  - Hakim Qahtan
+  - Ayoub Bagheri
+date: 26 Sep. 2025
+format: 
+  pdf:
+    pdf-engine: pdflatex
+    toc: false
+    toc-depth: 2
+    documentclass: scrartcl
+    papersize: a4
+    number-sections: true
+    number-depth: 1
+    df-print: kable
+  html:
+    standalone: true
+    self-contained: true
+    toc: true
+    toc-depth: 2
+    number-depth: 1
+    number-sections: true
+    df-print: kable
+monofont: Fira Code
+urlcolor: blue
+mainfont: Arial
+sansfont: Arial
+---
+
+# Introduction
+
+Data do not fall from heaven, but are created, manipulated, transformed, and cleaned - in any data analysis, therefore, the treatment of the data itself is just as important as the modeling techniques applied to them. In this course, you will get acquainted with and implement a variety of techniques to go from raw data to analyses, visualizations and insights for science and business applications. This is an overview course designed to give you the tools and skills to use and evaluate data science methods.
+
+The course consists of two parts, data wrangling and data analysis, which are intertwined. 
+
+## Prerequisites
+
+We assume that students who will join the course will have knowledge of statistics up to regression and analysis of variance, as well as some experience in programming in languages such as R and Python.
+
+## Objectives
+
+At the end of this course, students have attained the following objectives:
+
+- Know, explain, and apply data retrieval from existing relational and nonrelational databases, including text, using queries built from primitives such as select, subset, and join both directly in, e.g., SQL and through the python & R programming languages.
+- Know, explain, and apply common data clean-up procedures, including missing data and the appropriate imputation methods and feature selection.
+- Know, explain, and apply methodology to properly set-up data analysis experiments, such as train, validate, and test and the bias/variance trade-off.
+- Know, explain, and apply supervised machine learning algorithms, both for classification and regression purposes as well as their related quality measures, such as AUC and Brier scores.
+- Know, explain, and apply non-supervised learning algorithms, such as clustering and (other) matrix factorization techniques that may or may not result in lower-dimensional data representations.
+- Be able to choose between the different techniques learned in the course and be able to explain why the chosen technique fits both the data and the research question best.
+
+# Course Policy
+
+This course is worth 14 ECTS, which means it is designed to give a full-time workload.
+
+## Weekly course flow
+A regular week in this course consists of three lectures (Tuesday, Thursday and Friday morning) and three lab sessions (Tuesday, Thursday and Friday afternoon). The material is introduced on a theoretical level in the lectures and then put into practice in the lab sessions. The practical work done in these labs is drawn from real life situations that allow the students to experience how to solve data science problems. 
+
+In addition, students will spend time during each week on bi-weekly take-home group assignments.
+
+- The __lectures__ are in-person. The required readings should be read before the lecture. These are _not_ optional.
+- The __lab sessions__ are in-person interactive sessions in which you apply the methods you learn about in the lectures. The answers to the exercises in the labs are discussed at the end of each session.
+- The skills acquired in the lectures and the labs provide the basis for doing the bi-weekly __take-home assignment__. This assignment is made in groups of 4-5 students and handed in via Brightspace.
+
+## Synchronous course policy
+- INFOMDWR is an offline-first course, with mostly in-person lectures and lab sessions.
+- We find it important for interactive and collaborative learning that the course is offline-first.
+- If you miss a session, e.g., due to sickness, you should catch up in the regular way:
+  - Read the readings
+  - Go through the lecture slides
+  - Do the practicals
+  - Ask your peers if you have questions
+  - (after the above) ask the lab teacher for further explanation
+
+## Who to ask what
+There are many teachers in this course. If you have questions, first __ensure the answer isn’t in this syllabus__ and then follow the table below:
+
+| Question type      | How to ask                                     |
+| ------------------ | ---------------------------------------------- |
+| Course proceedings | Email course coordinators (Hakim, Erik-Jan, Ayoub)                      |
+| Content - general  | Email / ask lab teachers                       |
+| Practical content  | Email / ask lab teachers                       |
+| Assignment content | Email / ask lab teachers                       |
+| Lecture content    | Email Lecturer (Hakim Qahtan / Daniel Oberski) |
+
+## Grading policy
+
+Your final grade in the course consists of the following grading components:
+
+-	Biweekly assignments (20%): every two weeks, there is a group assignment. Each assignment is graded and worth 5% of the final grade.
+-	Midterm exam (40%): Halfway through the course, there is a midterm exam. The content of this exam pertains to the first half of the course.
+-	Final exam (40%): At the end of the course, there is a final exam. The content of this exam emphasizes non-exclusively the teaching material of the second half of the course.
+
+To pass the course:
+
+- The weighted final grade of all grading components should be greater than or equal to 5.5.
+
+Resit:
+
+- If you obtain a final grade between 4.0 and 5.4, you are eligible for the resit.
+- You can only retake one of the two exams. By default, this will be the one with the lowest grade. If you obtained the same grade for both, you will redo the final exam.
+- The grade attained in the resit will replace the grade from the selected exam.
+
+
+# Course materials
+
+## Required Software
+
+In this course, we will use a variety of software, but mainly SQLite, Python and R. Try to install both on your computer by the start of the course; we will also have a set-up computer lab on the first day to help you with this process.
+
+__Installing DB Browser for SQLite__ For the SQL parts, we recommend installing DB Browser for SQLite. Installation instructions for mac, windows, and linux can be found [here](https://sqlitebrowser.org/). 
+
+__Installing Python & Jupyter__ For the python parts of the course, we will use [Google Colab](https://colab.research.google.com/), which is an interactive online notebook environment; this means no installation is necessary! However, you do need a google account, so make sure you have one (or make one specifically for the course).
+
+__Installing R & RStudio__ First, install the latest version of R for your system (see [https://cran.r-project.org/](https://cran.r-project.org/)). Then, install the latest (desktop open source) version of the RStudio integrated development environment ([link](https://posit.co/download/rstudio-desktop/)). We will make extensive use of the `tidyverse` suite of packages, which can be installed from within `R` using the command `install.packages("tidyverse")`.
+
+## Required readings
+
+Freely available sections from the following books:
+
+| Book   | Title (Authors)                                           | URL                                                                     |
+| ------ | --------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `DBSC` | Database System Concepts (Silberschatz, Korth, Sudarshan) | [db-book.com](https://www.db-book.com/)                                 |
+| `MMDS` | Mining Massive Datasets (Leskovec, Rajaraman, Ullman)     | [mmds.org](http://www.mmds.org)                                         |
+| `PDA`  | Python for Data Analysis, 3E (Wes McKinney)               | [wesmckinney.com/book/](https://wesmckinney.com/book/)                  |
+| `DMCT` | Data Mining: Concepts and Techniques (Han, Kamber, Pei)   | Find it online for free.                                                |
+| `R4DS` | R for Data Science (Grolemund & Wickham)                  | [r4ds.hadley.nz](https://r4ds.hadley.nz/)                               |
+| `ISLR` | Introduction to Statistical Learning (James et al.)       | [statlearning.com](https://www.statlearning.com/)                       |
+| `DLBK` | Deep Learning (Goodfellow, Bengio, Courville)             | [deeplearningbook.org](https://www.deeplearningbook.org/)               |
+| `FIMD` | Flexible Imputation of Missing Data (van Buuren)          | [stefvanbuuren.name/fimd](https://stefvanbuuren.name/fimd)              |
+| `SLP3` | Speech and language processing (Jurafsky & Martin)        | [stanford.edu/~jurafsky/slp3](https://web.stanford.edu/~jurafsky/slp3/ed3bookfeb3_2024.pdf) |
+| `TTMR` | Text mining with R: A tidy approach (Silge & Robinson)    | [tidytextmining.com/](https://www.tidytextmining.com/)                  |
+| `OMNG` | Operations Management 4th ed. (Reid & Sanders)            | Find it online for free.                                                |
+
+
+And (parts of) the following references:
+
+- Oberski, D.L. (2016). Mixture models: Latent profile and latent class analysis. Modern statistical methods for HCI, 275-287. [URL](http://daob.nl/wp-content/uploads/2015/06/oberski-LCA.pdf)
+- Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K., & Galstyan, A. (2021). A survey on bias and fairness in machine learning. ACM computing surveys (CSUR), 54(6), 1-35. [URL](https://dl.acm.org/doi/pdf/10.1145/3457607?casa_token=MA8ZIHw1d60AAAAA:JHMTg_t01fwkoq_9TflnElEXKl6TcW-65Xthm1YjbsxHFfjiJgC-VFotE25XhKy4H3FeJ-KVdhaN)
+- Hennig, C. (2015). Clustering strategy and method selection. arXiv preprint arXiv:1503.02059. [URL](https://arxiv.org/pdf/1503.02059.pdf)
+- Bouveyron, C., Celeux, G., Murphy, T. B., & Raftery, A. E. (2019). Model-based clustering and classification for data science: with applications in R (Vol. 50). Cambridge University Press.
+- Some other freely available articles & chapters
+
+# Class Schedule
+
+You can find the up-to-date class schedule with locations on [mytimetable.uu.nl](https://mytimetable.uu.nl).
+
+```{r}
+#| echo: false
+options(knitr.kable.NA = "")
+readxl::read_xlsx("course_schedule.xlsx") |> 
+  dplyr::mutate(Topic = ifelse(!is.na(URL), glue::glue("[{Title}]({URL})"), Title), .keep = "unused") |> 
+  dplyr::relocate(Topic, .after = Date)
+```

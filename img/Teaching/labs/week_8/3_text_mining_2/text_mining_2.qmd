@@ -1,0 +1,505 @@
+---
+title: "Text Mining II"
+date: last-modified
+callout-appearance: simple
+params:
+  answers: false
+format: 
+  html: 
+    toc: true
+    toc-depth: 2
+    self-contained: true
+---
+
+# Introduction
+
+Welcome to the third practical of the week!
+
+The aim of this practical is to introduce you to word embedding, and enhance your understanding of sentiment analysis by doing dictionary-based sentiment embedding.
+
+ 
+```{r}
+#| label: packages
+#| warning: false
+#| message: false
+library(tidyverse) # as always :)
+library(tidytext)  # for text mining
+library(text2vec)  # our dataset comes from this package
+```
+
+# Word Embedding
+
+In this part of the practical we will use word embedding. To work with text, we need to transform it into numerical values. One way is to count the words and weight their frequency (e.g. with TF-IDF). Another method is word embedding. Word embedding techniques such as word2vec and GloVe use neural networks to construct word vectors. With these techniques, words in similar contexts are represented by similar numerical vectors. 
+
+We will use the Harry Potter books as our data. Let's start by installing the `harrypotter` package from `github` using [remotes](https://remotes.r-lib.org/).
+
+```{r}
+#| label: harrypotter package
+#| warning: false
+#| message: false
+remotes::install_github("bradleyboehmke/harrypotter")
+library(harrypotter) # Not to be confused with the CRAN palettes package
+
+```
+
+The `harrypotter` package supplies the first seven novels in the Harry Potter series. Here is some info about this data set:
+
+- **A data set with all Harry Potter books.**  
+This data set contains the full texts of the first seven Harry Potter books (see below the list). Each text is in a character vector with each element representing a single chapter. It is provided from the [harrypotter package](https://github.com/bradleyboehmke/harrypotter) written by [Bradley Boehmke](https://github.com/bradleyboehmke).
+
+  - philosophers_stone: Harry Potter and the Philosophers Stone, published in 1997
+  - chamber_of_secrets: Harry Potter and the Chamber of Secrets, published in 1998
+  - prisoner_of_azkaban: Harry Potter and the Prisoner of Azkaban, published in 1999
+  - goblet_of_fire: Harry Potter and the Goblet of Fire, published in 2000
+  - order_of_the_phoenix: Harry Potter and the Order of the Phoenix, published in 2003
+  - half_blood_prince: Harry Potter and the Half-Blood Prince, published in 2005
+  - deathly_hallows: Harry Potter and the Deathly Hallows, published in 2007
+
+::: {.callout-tip icon=false}
+## 1. Use the code below to load the first seven novels in the Harry Potter series.
+
+```{r}
+#| label: q1
+#| warning: false
+#| message: false
+#| eval: !expr params$answers
+hp_books <- c("philosophers_stone", "chamber_of_secrets",
+              "prisoner_of_azkaban", "goblet_of_fire",
+              "order_of_the_phoenix", "half_blood_prince",
+              "deathly_hallows")
+
+hp_words <- list(
+  philosophers_stone,
+  chamber_of_secrets,
+  prisoner_of_azkaban,
+  goblet_of_fire,
+  order_of_the_phoenix,
+  half_blood_prince,
+  deathly_hallows
+) |>
+  # name each list element
+  set_names(hp_books) |>
+  # convert each book to a data frame and merge into a single data frame
+  map_df(as_tibble, .id = "book") |>
+  # convert book to a factor
+  mutate(book = factor(book, levels = hp_books)) |>
+  # remove empty chapters
+  filter(!is.na(value)) |>
+  # create a chapter id column
+  group_by(book) |>
+  mutate(chapter = row_number(book))
+
+head(hp_words)
+
+```
+:::
+
+::: {.callout-tip icon=false}
+
+## 2. Use the `unnest_tokens` function from the `tidytext` package to tokenize the data frame and name your object `hp_words`.
+
+```{r}
+#| label: q2
+#| include: !expr params$answers
+#| eval: !expr params$answers
+# tokenize the data frame
+hp_words <- hp_words |>
+  unnest_tokens(word, value)
+
+head(hp_words)
+```
+
+:::
+
+::: {.callout-tip icon=false}
+## 3. Remove the stop words from the tokenized data frame.
+
+Hint: Use `anti_join` function to filter the `stop_words` from the `tidytext` package.
+
+```{r}
+#| label: q3
+#| include: !expr params$answers
+#| eval: !expr params$answers
+hp_words <- hp_words |> 
+  # remove stop words
+  anti_join(stop_words)
+
+head(hp_words)
+```
+:::
+
+
+::: {.callout-tip icon=false}
+## 4. Create a vocabulary of unique terms using the `create_vocabulary` function from the `text2vec` package. Remove the words that appear less than 5 times.
+
+Hint: The code is given below, make sure you understand it.  
+Step 1. Create a list of words from `hp_words` (iterator object) using `list` function.  
+Step 2. Use the `itoken` function on the word list to create index-tokens.  
+Step 3: Use the `create_vocabulary` function on the `itoken` object to collect unique terms.   
+Step 4: Use the `prune_vocabulary` on the dataframe of unique terms and specify `term_count_min = 5` to filter the infrequent terms.
+
+```{r}
+#| label: q4
+#| warning: false
+#| message: false
+#| eval: !expr params$answers
+# make it a list (iterator)
+hp_words_ls <- list(hp_words$word)
+# create index-tokens
+it <- itoken(hp_words_ls, progressbar = FALSE) 
+# collects unique terms 
+hp_vocab <- create_vocabulary(it)
+# filters the infrequent terms (number of occurrence is less than 5)
+hp_vocab <- prune_vocabulary(hp_vocab, term_count_min = 5)
+# show the resulting vocabulary object (formatting it with datatable)
+hp_vocab
+
+
+# We've just created word counts, that's all the vocabulary object is!
+```
+:::
+
+::: {.callout-tip icon=false}
+## 5. The next step is to create a [token co-occurrence matrix](https://stackoverflow.com/questions/24073030/what-are-co-occurence-matrixes-and-how-are-they-used-in-nlp)(TCM). First, we need to apply `vocab_vectorizer` function to transform the list of tokens into a vector space. Then, use `create_tcm` function to create a TCM with the window of 5 for context words.
+
+Hint: The code is given below, make sure you understand it.
+Step 1: Map the words to indices by `vocab_vectorizer(vocabulary object from Q14)`.  
+Step 2: Create a TCM by `create_tcm(it, vectorizer function from Step 1, skip_grams_window = 5)`. `it` is the
+list of iterators over tokens from `itoken`. 
+
+```{r}
+#| label: q5
+#| warning: false
+#| message: false
+#| eval: !expr params$answers
+# maps words to indices
+vectorizer <- vocab_vectorizer(hp_vocab)
+# use window of 5 for context words
+hp_tcm <- create_tcm(it, vectorizer, skip_grams_window = 5)
+
+
+# Note that such a matrix will be extremely sparse. 
+# Most words do not go with other words in the grand 
+# scheme of things. So when they do, it usually matters.
+```
+:::
+
+::: {.callout-tip icon=false}
+## 6. Use the GlobalVectors as given in the code below to fit the word vectors on our data set. Choose the embedding size (rank variable) equal to 50, and the maximum number of co-occurrences equal to 10. Train word vectors in 20 iterations. You can check the full input arguments of the fit_transform function from [here](https://www.rdocumentation.org/packages/text2vec/versions/0.5.1/topics/GlobalVectors).
+
+```{r}
+#| label: q6
+#| warning: false
+#| message: false
+#| eval: !expr params$answers
+glove      <- GlobalVectors$new(rank = 50, x_max = 10)
+hp_wv_main <- glove$fit_transform(hp_tcm, n_iter = 20, convergence_tol = 0.001)
+```
+:::
+
+::: {.callout-tip icon=false}
+## 7. The GloVe model learns two sets of word vectors: main and context. Essentially they are the same since the model is symmetric. In general combining the two sets of word vectors leads to higher quality embeddings (read more [here](http://text2vec.org/glove.html)). The best practice is to combine both the main word vectors and the context word vectors into one matrix. Extract the word vectors and save the summation of them for further questions.
+
+Hint: Follow the steps below.  
+
+Step 1: Extract context word vectors by `glove$components`.  
+Step 2: Sum two sets of word vectors (e.g., `hv_wv_main + t(hp_wv_context)`).
+
+```{r}
+#| label: q7
+#| warning: false
+#| message: false
+#| include: !expr params$answers
+#| eval: !expr params$answers
+# extract context word vector
+hp_wv_context <- glove$components
+
+# check the dimension for both matrices
+dim(hp_wv_main); dim(hp_wv_context) 
+
+# Either word-vectors matrices could work, but the developers of the technique
+# suggest the sum/mean may work better
+hp_word_vectors <- hp_wv_main + t(hp_wv_context) # transpose one matrix to perform matrix addition
+```
+:::
+
+::: {.callout-tip icon=false}
+## 8. Find the most similar 10 words to each of the words: "harry", "death", and "love".
+
+Hint: Follow the steps below.  
+
+Step 1: Extract the row of the corresponding word from the word vector matrix (e.g., matrix["harry", , drop = FALSE]).  
+Step 2: Use `sim2` function with the cosine similarity measure to calculate the pairwise similarities between the chosen row vector (from Step 1) and the rest of words: `sim2(x = whole word vector matrix, y = chosen row vector, method = "cosine", norm = "l2")`.  
+Step 3: Sort the resulting column vector of similarities in descending order and present the first 10 values. For example, you can do this by `head(sort(similarity vector, decrasing = TRUE), 10)`.  
+Step 4: Repeat *Step 1* - *Step 3*  for the other words.
+
+```{r}
+#| label: q8
+#| warning: false
+#| message: false
+#| include: !expr params$answers
+#| eval: !expr params$answers
+# extract the row of "harry"
+harry <- hp_word_vectors["harry", , drop = FALSE]
+
+# calculates pairwise similarities between"harry" and the rest of words
+cos_sim_harry <- sim2(x = hp_word_vectors, y = harry, method = "cosine", norm = "l2")
+
+# the top 10 words with the highest similarities
+head(sort(cos_sim_harry[,1], decreasing = T), 10)
+
+# extract the row of "death"
+death <- hp_word_vectors["death", , drop = FALSE]
+
+# calculates pairwise similarities between"harry" and the rest of words
+cos_sim_death <- sim2(x = hp_word_vectors, y = death, method = "cosine", norm = "l2")
+
+# the top 10 words with the highest similarities
+head(sort(cos_sim_death[,1], decreasing = T), 10)
+
+# extract the row of "love"
+love <- hp_word_vectors["love", , drop = FALSE]
+
+# calculates pairwise similarities between"harry" and the rest of words
+cos_sim_love <- sim2(x = hp_word_vectors, y = love, method = "cosine", norm = "l2")
+
+# top 10 words with the highest similarities
+head(sort(cos_sim_love[,1], decreasing = T), 10)
+```
+:::
+
+::: {.callout-tip icon=false}
+## 9. Now you can play with word vectors! For example, add the word vector of "harry" with the word vector of "love" and subtract them from the word vector of "death". What are the top terms in your result?
+
+Hint: You can literally add/subtract the word vectors to each other (e.g., harry word vector + love word vector - death word vector). Once you have the resulting vector, calculate similarities as you did previously in Question 8.
+
+
+```{r}
+#| label: q9
+#| include: !expr params$answers
+#| eval: !expr params$answers
+# add/subtract word vectors
+test <- harry + love - death
+
+# calculates pairwise similarities between"harry" and the rest of words
+cos_sim_test <- sim2(x = hp_word_vectors, y = test, method = "cosine", norm = "l2")
+
+# top 10 words with the highest similarities
+head(sort(cos_sim_test[,1], decreasing = T), 10)
+```
+:::
+
+# Dictionary-based Sentiment Analysis
+In this part of the practical, we are going to apply dictionary-based sentiment analysis methods on the `movie_review` data set.
+
+## Text data set
+
+We are going to use the data set `movie_review`. This is a data set with 5,000 IMDB movie reviews available from the `text2vec` package, labeled according to their IMDB rating The sentiment of the reviews is binary, meaning an IMDB rating < 5 results in a sentiment score of 0, and a rating >=7 has a sentiment score of 1. No individual movie has more than 30 reviews.  
+
+The objective of the practical is to understand if the reviews are predictive of the IMDB rating.
+
+Let's load the data set and convert it to a dataframe.
+
+```{r}
+#| label: movie review data
+#| warning: false
+#| message: false
+#| eval: !expr params$answers
+# load the movie review dataset from the text2vec package
+data("movie_review")
+movie_review <- as_tibble(movie_review)
+head(movie_review)
+```
+
+## Dictionary-based sentiment analysis
+
+The `tidytext` package contains 4 general purpose lexicons in the sentiments dataset.
+
+ - `afinn`: list of English words rated for valence between -5 and +5
+ - `bing`: list of positive and negative sentiment
+ - `nrc`: list of English words and their associations with 8 emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and 2 sentiments (negative and positive); binary
+ - `loughran`: list of sentiment words for accounting and finance by category (Negative, Positive, Uncertainty, Litigious, Strong Modal, Weak Modal, Constraining)
+
+We are going to use labMT dictionary (Dodds' et al. 2011), one of the best dictionaries for sentiment analysis (see e.g. [this paper](https://epjdatascience.springeropen.com/counter/pdf/10.1140/epjds/s13688-017-0121-9.pdf).)
+ 
+![](images/tidytext_sentiment.png){width=80%}
+
+::: {.callout-tip icon=false}
+## 10.  Run the code below to download the `labMT` dictionary.
+
+```{r}
+#| label: q10
+#| warning: false
+#| message: false
+#| eval: !expr params$answers
+
+labMT_url <- "https://github.com/andyreagan/sentidict/raw/refs/heads/main/data/LabMT/labMT2english.txt.gz"
+
+labMT <- readr::read_delim(labMT_url, delim = "\t") |> select(word, value = happs)
+```
+:::
+
+::: {.callout-tip icon=false}
+## 11. Use `unnest_tokens` function from `tidytext` package to break the `movie_review` data set into individual tokens, then use the `head` function to see its first several rows.
+
+```{r}
+#| label: q11
+#| include: !expr params$answers
+#| eval: !expr params$answers
+# tokenize the reviews
+tidy_review <- 
+  movie_review |> 
+  unnest_tokens(word, review) 
+
+head(tidy_review)
+```
+:::
+
+::: {.callout-tip icon=false}
+## 12. Remove the stop words from the tokenized data frame.
+
+Hint: Use `anti_join` function to filter the `stop_words` from the `tidytext` package.
+
+```{r}
+#| label: q12
+#| include: !expr params$answers
+#| eval: !expr params$answers
+tidy_review <- tidy_review |> 
+  # remove stop words
+  anti_join(stop_words)
+
+head(tidy_review)
+```
+
+:::
+
+::: {.callout-tip icon=false}
+## 13. Use the `inner_join` function to find a sentiment score for each of the tokenized review words using the labMT dictionary.
+
+```{r}
+#| label: q13
+#| include: !expr params$answers
+#| eval: !expr params$answers
+review_sentiment <- 
+  tidy_review |>
+  inner_join(labMT)
+
+head(review_sentiment)
+```
+:::
+
+::: {.callout-tip icon=false}
+## 14. Calculate the average sentiment score for each review. What are the three most positive and negative reviews (i.e., has the highest and lowest average sentiment score)? Save the results with the name `sorted_review_sentiment`.
+
+Hint: Follow the steps below.    
+Step 1: Group the data by `id` using `group_by` function.  
+Step 2: Use `summarize` function to compute (1) the average sentiment score (mean(value)) (2) the average sentiment from the original review (mean(sentiment)).   
+Step 3: Use `arrange` function to sort the average sentiment score in descending order. Or, you can use `slice_max` function to select the rows with the highest sentiment score.
+Step 4: Use the IDs of the reviews with the highest and lowest average sentiments to filter the `movie_review` dataset and see if your results make sense.
+
+```{r}
+#| label: q14
+#| include: !expr params$answers
+#| eval: !expr params$answers
+sorted_review_sentiment <- 
+  review_sentiment |>
+  # group by review id
+  group_by(id) |> 
+  # compute the average sentiment score
+  summarize(average_sentiment = mean(value),
+            sentiment = mean(sentiment)) |> 
+  # arrange the average sentiment score in descending order
+  arrange(desc(average_sentiment)) 
+
+sorted_review_sentiment
+
+# filter happiest reviews
+movie_review |> 
+  filter(id %in% head(sorted_review_sentiment$id, 3)) |> 
+  pull(review)
+
+# filter saddest reviews
+movie_review |> 
+  filter(id %in% tail(sorted_review_sentiment$id, 3)) |> 
+  pull(review)
+```
+:::
+
+::: {.callout-tip icon=false}
+## 15. Plot a bar chart of these average sentiment scores across the `id`s. Use color to show the original sentiment.
+
+```{r}
+#| label: q15
+#| include: !expr params$answers
+#| eval: !expr params$answers
+sorted_review_sentiment |>
+  # create the coloring variable
+  mutate(sentiment = ifelse(sentiment > 0, "pos", "neg")) |>
+  # reorder `id` such that average sentiment scores are presented in descending order. 
+  ggplot(aes(
+    x = reorder(id, -average_sentiment), 
+    y = average_sentiment - mean(average_sentiment), 
+    fill = sentiment
+  )) +
+  # plot the bar chart using `geom_col`
+  geom_col() + 
+  labs(x = "id", title = "Average sentiment scores") +
+  theme_minimal() + 
+  theme(axis.text.x=element_blank())
+
+```
+:::
+
+::: {.callout-tip icon=false}
+## 16. Create a `predicted_sentiment` column, such that_average score higher than 5.75 is positive = 1 and average score lower than or equal to 5.75 is negative = 0. Then, use a [confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) to compare this `predicted_sentiment` to the original sentiment. What is the accuracy of our results?
+
+Hint: You can use `ifelse` function to create `predicted_sentiment` (i.e., dichotomize the average sentiment score). Then, use `table` function to create the confusion matrix.  
+Note that there are some rows removed when we `inner_join` the reviews with labMT lexicon. You need to filter out those removed rows before comparing the predicted sentiment to original sentiment.
+
+```{r}
+#| label: q16
+#| include: !expr params$answers
+#| eval: !expr params$answers
+review_sentiment_agg <- 
+  sorted_review_sentiment |>
+  # Dichotomize average sentiment score to match with the original sentiment scores
+  # 1: scores higher than zero; 0: scores lower than or equal to zero
+  mutate(predicted_sentiment = ifelse(average_sentiment > 5.75, 1, 0),)
+
+## not too bad
+table(
+  true = review_sentiment_agg$sentiment, 
+  predicted = review_sentiment_agg$predicted_sentiment
+)
+
+# Accuracy = 1653+1729/5000 = 67.64%
+
+```
+:::
+
+::: {.callout-tip icon=false}
+## 17. Follow the same steps, but only for the reviews in the top or bottom 25% of the distribution of average sentiment (there are likely many neutral reviews). Do our results improve? What is the accuracy of our results?
+
+```{r}
+#| label: q17
+#| include: !expr params$answers
+#| eval: !expr params$answers
+summary(sorted_review_sentiment$average_sentiment)
+
+review_sentiment_agg <- sorted_review_sentiment |>
+  filter((average_sentiment > 5.945) | (average_sentiment < 5.528)) |> 
+  # Dichotomize average sentiment score to match with the original sentiment scores
+  # 1: scores higher than zero; 0: scores lower than or equal to zero
+  mutate(predicted_sentiment = ifelse(average_sentiment > 5.75, 1, 0),)
+
+## not too bad
+table(
+  true = review_sentiment_agg$sentiment, 
+  predicted = review_sentiment_agg$predicted_sentiment
+)
+
+# Accuracy = (935+990)/2501 = 77.0%
+# Our accuracy increases considerably
+
+```
+:::

@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-09-26">
+
+<title>INFOMDW: Course Syllabus 2026</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+width: 0.8em;
+margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
+}
+</style>
+
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives">Objectives</a></li>
+  </ul></li>
+  <li><a href="#course-policy" id="toc-course-policy" class="nav-link" data-scroll-target="#course-policy"><span class="header-section-number">2</span> Course Policy</a>
+  <ul class="collapse">
+  <li><a href="#weekly-course-flow" id="toc-weekly-course-flow" class="nav-link" data-scroll-target="#weekly-course-flow">Weekly course flow</a></li>
+  <li><a href="#synchronous-course-policy" id="toc-synchronous-course-policy" class="nav-link" data-scroll-target="#synchronous-course-policy">Synchronous course policy</a></li>
+  <li><a href="#who-to-ask-what" id="toc-who-to-ask-what" class="nav-link" data-scroll-target="#who-to-ask-what">Who to ask what</a></li>
+  <li><a href="#grading-policy" id="toc-grading-policy" class="nav-link" data-scroll-target="#grading-policy">Grading policy</a></li>
+  </ul></li>
+  <li><a href="#course-materials" id="toc-course-materials" class="nav-link" data-scroll-target="#course-materials"><span class="header-section-number">3</span> Course materials</a>
+  <ul class="collapse">
+  <li><a href="#required-software" id="toc-required-software" class="nav-link" data-scroll-target="#required-software">Required Software</a></li>
+  <li><a href="#required-readings" id="toc-required-readings" class="nav-link" data-scroll-target="#required-readings">Required readings</a></li>
+  </ul></li>
+  <li><a href="#class-schedule" id="toc-class-schedule" class="nav-link" data-scroll-target="#class-schedule"><span class="header-section-number">4</span> Class Schedule</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="syllabus.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">INFOMDWR: Course Syllabus 2025</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Erik-Jan van Kesteren </p>
+             <p>Hakim Qahtan </p>
+             <p>Ayoub Bagheri </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 26, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Data do not fall from heaven, but are created, manipulated, transformed, and cleaned - in any data analysis, therefore, the treatment of the data itself is just as important as the modeling techniques applied to them. In this course, you will get acquainted with and implement a variety of techniques to go from raw data to analyses, visualizations and insights for science and business applications. This is an overview course designed to give you the tools and skills to use and evaluate data science methods.</p>
+<p>The course consists of two parts, data wrangling and data analysis, which are intertwined.</p>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>We assume that students who will join the course will have knowledge of statistics up to regression and analysis of variance, as well as some experience in programming in languages such as R and Python.</p>
+</section>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<p>At the end of this course, students have attained the following objectives:</p>
+<ul>
+<li>Know, explain, and apply data retrieval from existing relational and nonrelational databases, including text, using queries built from primitives such as select, subset, and join both directly in, e.g., SQL and through the python &amp; R programming languages.</li>
+<li>Know, explain, and apply common data clean-up procedures, including missing data and the appropriate imputation methods and feature selection.</li>
+<li>Know, explain, and apply methodology to properly set-up data analysis experiments, such as train, validate, and test and the bias/variance trade-off.</li>
+<li>Know, explain, and apply supervised machine learning algorithms, both for classification and regression purposes as well as their related quality measures, such as AUC and Brier scores.</li>
+<li>Know, explain, and apply non-supervised learning algorithms, such as clustering and (other) matrix factorization techniques that may or may not result in lower-dimensional data representations.</li>
+<li>Be able to choose between the different techniques learned in the course and be able to explain why the chosen technique fits both the data and the research question best.</li>
+</ul>
+</section>
+</section>
+<section id="course-policy" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Course Policy</h1>
+<p>This course is worth 14 ECTS, which means it is designed to give a full-time workload.</p>
+<section id="weekly-course-flow" class="level2">
+<h2 class="anchored" data-anchor-id="weekly-course-flow">Weekly course flow</h2>
+<p>A regular week in this course consists of three lectures (Tuesday, Thursday and Friday morning) and three lab sessions (Tuesday, Thursday and Friday afternoon). The material is introduced on a theoretical level in the lectures and then put into practice in the lab sessions. The practical work done in these labs is drawn from real life situations that allow the students to experience how to solve data science problems.</p>
+<p>In addition, students will spend time during each week on bi-weekly take-home group assignments.</p>
+<ul>
+<li>The <strong>lectures</strong> are in-person. The required readings should be read before the lecture. These are <em>not</em> optional.</li>
+<li>The <strong>lab sessions</strong> are in-person interactive sessions in which you apply the methods you learn about in the lectures. The answers to the exercises in the labs are discussed at the end of each session.</li>
+<li>The skills acquired in the lectures and the labs provide the basis for doing the bi-weekly <strong>take-home assignment</strong>. This assignment is made in groups of 4-5 students and handed in via Brightspace.</li>
+</ul>
+</section>
+<section id="synchronous-course-policy" class="level2">
+<h2 class="anchored" data-anchor-id="synchronous-course-policy">Synchronous course policy</h2>
+<ul>
+<li>INFOMDWR is an offline-first course, with mostly in-person lectures and lab sessions.</li>
+<li>We find it important for interactive and collaborative learning that the course is offline-first.</li>
+<li>If you miss a session, e.g., due to sickness, you should catch up in the regular way:
+<ul>
+<li>Read the readings</li>
+<li>Go through the lecture slides</li>
+<li>Do the practicals</li>
+<li>Ask your peers if you have questions</li>
+<li>(after the above) ask the lab teacher for further explanation</li>
+</ul></li>
+</ul>
+</section>
+<section id="who-to-ask-what" class="level2">
+<h2 class="anchored" data-anchor-id="who-to-ask-what">Who to ask what</h2>
+<p>There are many teachers in this course. If you have questions, first <strong>ensure the answer isn’t in this syllabus</strong> and then follow the table below:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question type</th>
+<th>How to ask</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Course proceedings</td>
+<td>Email course coordinators (Hakim, Erik-Jan, Ayoub)</td>
+</tr>
+<tr class="even">
+<td>Content - general</td>
+<td>Email / ask lab teachers</td>
+</tr>
+<tr class="odd">
+<td>Practical content</td>
+<td>Email / ask lab teachers</td>
+</tr>
+<tr class="even">
+<td>Assignment content</td>
+<td>Email / ask lab teachers</td>
+</tr>
+<tr class="odd">
+<td>Lecture content</td>
+<td>Email Lecturer (Hakim Qahtan / Daniel Oberski)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="grading-policy" class="level2">
+<h2 class="anchored" data-anchor-id="grading-policy">Grading policy</h2>
+<p>Your final grade in the course consists of the following grading components:</p>
+<ul>
+<li>Biweekly assignments (20%): every two weeks, there is a group assignment. Each assignment is graded and worth 5% of the final grade.</li>
+<li>Midterm exam (40%): Halfway through the course, there is a midterm exam. The content of this exam pertains to the first half of the course.</li>
+<li>Final exam (40%): At the end of the course, there is a final exam. The content of this exam emphasizes non-exclusively the teaching material of the second half of the course.</li>
+</ul>
+<p>To pass the course:</p>
+<ul>
+<li>The weighted final grade of all grading components should be greater than or equal to 5.5.</li>
+</ul>
+<p>Resit:</p>
+<ul>
+<li>If you obtain a final grade between 4.0 and 5.4, you are eligible for the resit.</li>
+<li>You can only retake one of the two exams. By default, this will be the one with the lowest grade. If you obtained the same grade for both, you will redo the final exam.</li>
+<li>The grade attained in the resit will replace the grade from the selected exam.</li>
+</ul>
+</section>
+</section>
+<section id="course-materials" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Course materials</h1>
+<section id="required-software" class="level2">
+<h2 class="anchored" data-anchor-id="required-software">Required Software</h2>
+<p>In this course, we will use a variety of software, but mainly SQLite, Python and R. Try to install both on your computer by the start of the course; we will also have a set-up computer lab on the first day to help you with this process.</p>
+<p><strong>Installing DB Browser for SQLite</strong> For the SQL parts, we recommend installing DB Browser for SQLite. Installation instructions for mac, windows, and linux can be found <a href="https://sqlitebrowser.org/">here</a>.</p>
+<p><strong>Installing Python &amp; Jupyter</strong> For the python parts of the course, we will use <a href="https://colab.research.google.com/">Google Colab</a>, which is an interactive online notebook environment; this means no installation is necessary! However, you do need a google account, so make sure you have one (or make one specifically for the course).</p>
+<p><strong>Installing R &amp; RStudio</strong> First, install the latest version of R for your system (see <a href="https://cran.r-project.org/">https://cran.r-project.org/</a>). Then, install the latest (desktop open source) version of the RStudio integrated development environment (<a href="https://posit.co/download/rstudio-desktop/">link</a>). We will make extensive use of the <code>tidyverse</code> suite of packages, which can be installed from within <code>R</code> using the command <code>install.packages(&quot;tidyverse&quot;)</code>.</p>
+</section>
+<section id="required-readings" class="level2">
+<h2 class="anchored" data-anchor-id="required-readings">Required readings</h2>
+<p>Freely available sections from the following books:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Book</th>
+<th>Title (Authors)</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>DBSC</code></td>
+<td>Database System Concepts (Silberschatz, Korth, Sudarshan)</td>
+<td><a href="https://www.db-book.com/">db-book.com</a></td>
+</tr>
+<tr class="even">
+<td><code>MMDS</code></td>
+<td>Mining Massive Datasets (Leskovec, Rajaraman, Ullman)</td>
+<td><a href="http://www.mmds.org">mmds.org</a></td>
+</tr>
+<tr class="odd">
+<td><code>PDA</code></td>
+<td>Python for Data Analysis, 3E (Wes McKinney)</td>
+<td><a href="https://wesmckinney.com/book/">wesmckinney.com/book/</a></td>
+</tr>
+<tr class="even">
+<td><code>DMCT</code></td>
+<td>Data Mining: Concepts and Techniques (Han, Kamber, Pei)</td>
+<td>Find it online for free.</td>
+</tr>
+<tr class="odd">
+<td><code>R4DS</code></td>
+<td>R for Data Science (Grolemund &amp; Wickham)</td>
+<td><a href="https://r4ds.hadley.nz/">r4ds.hadley.nz</a></td>
+</tr>
+<tr class="even">
+<td><code>ISLR</code></td>
+<td>Introduction to Statistical Learning (James et al.)</td>
+<td><a href="https://www.statlearning.com/">statlearning.com</a></td>
+</tr>
+<tr class="odd">
+<td><code>DLBK</code></td>
+<td>Deep Learning (Goodfellow, Bengio, Courville)</td>
+<td><a href="https://www.deeplearningbook.org/">deeplearningbook.org</a></td>
+</tr>
+<tr class="even">
+<td><code>FIMD</code></td>
+<td>Flexible Imputation of Missing Data (van Buuren)</td>
+<td><a href="https://stefvanbuuren.name/fimd">stefvanbuuren.name/fimd</a></td>
+</tr>
+<tr class="odd">
+<td><code>SLP3</code></td>
+<td>Speech and language processing (Jurafsky &amp; Martin)</td>
+<td><a href="https://web.stanford.edu/~jurafsky/slp3/ed3bookfeb3_2024.pdf">stanford.edu/~jurafsky/slp3</a></td>
+</tr>
+<tr class="even">
+<td><code>TTMR</code></td>
+<td>Text mining with R: A tidy approach (Silge &amp; Robinson)</td>
+<td><a href="https://www.tidytextmining.com/">tidytextmining.com/</a></td>
+</tr>
+<tr class="odd">
+<td><code>OMNG</code></td>
+<td>Operations Management 4th ed. (Reid &amp; Sanders)</td>
+<td>Find it online for free.</td>
+</tr>
+</tbody>
+</table>
+<p>And (parts of) the following references:</p>
+<ul>
+<li>Oberski, D.L. (2016). Mixture models: Latent profile and latent class analysis. Modern statistical methods for HCI, 275-287. <a href="http://daob.nl/wp-content/uploads/2015/06/oberski-LCA.pdf">URL</a></li>
+<li>Mehrabi, N., Morstatter, F., Saxena, N., Lerman, K., &amp; Galstyan, A. (2021). A survey on bias and fairness in machine learning. ACM computing surveys (CSUR), 54(6), 1-35. <a href="https://dl.acm.org/doi/pdf/10.1145/3457607?casa_token=MA8ZIHw1d60AAAAA:JHMTg_t01fwkoq_9TflnElEXKl6TcW-65Xthm1YjbsxHFfjiJgC-VFotE25XhKy4H3FeJ-KVdhaN">URL</a></li>
+<li>Hennig, C. (2015). Clustering strategy and method selection. arXiv preprint arXiv:1503.02059. <a href="https://arxiv.org/pdf/1503.02059.pdf">URL</a></li>
+<li>Bouveyron, C., Celeux, G., Murphy, T. B., &amp; Raftery, A. E. (2019). Model-based clustering and classification for data science: with applications in R (Vol. 50). Cambridge University Press.</li>
+<li>Some other freely available articles &amp; chapters</li>
+</ul>
+</section>
+</section>
+<section id="class-schedule" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Class Schedule</h1>
+<p>You can find the up-to-date class schedule with locations on <a href="https://mytimetable.uu.nl">mytimetable.uu.nl</a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="kable-table">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Week</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Topic</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Reading</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2025-09-04</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_1/1_introduction.pdf">Introduction to the course</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">Syllabus</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2025-09-04</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_1/1_setup/setup.html">Introduction lab: setting up your computer</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;">R4DS 1, 2, 4, 6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2025-09-05</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_1/2_DataModels.pdf">Data models</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">DBSC 1, 3.2, 3.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2025-09-05</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_1/2_DataModels/2_DataModels_answers_2738.html">Data models</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2025-09-09</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_2/1_DE_1.pdf">Data extraction with SQL</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">DBSC 2.6, 3.3 - 3.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2025-09-09</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_2/1_DE_1/1_DE_1_answers_1063.html">Data extraction with SQL</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2025-09-11</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_2/2_DE_2.pdf">Data extraction with SQL + Python</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">PDA 5, 6.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2025-09-11</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_2/2_DE_2/2_DE_2_answers_6271.html">Data extraction with SQL + Python</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2025-09-12</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_2/3_ICs.pdf">Integrity constraints in databases</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">DBSC 3.2.1, 4.4, 6.1, 6.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2025-09-12</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_2/3_ICs/3_ICs_answers_3592.html">Integrity constraints in databases</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2025-09-16</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_3/1_FDs.pdf">Functional dependency</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">DBSC 7.1-7.4.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2025-09-16</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_3/1_FDs/1_FDs_answers_0372.html">Functional dependency</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2025-09-16</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_3/Social.html">Social Event (Playground)</a></td>
+<td style="text-align: left;">Social</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2025-09-18</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_3/2_Indexing_DI.pdf">Indexing &amp; data integration</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">DBSC 14.1 - 14.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2025-09-18</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_3/2_Indexing_DI/2_Indexing_DI_answers_6021.html">Indexing &amp; data integration</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2025-09-19</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_3/3_HDA_SS.pdf">Hetero. data analysis &amp; string similarity</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">MMDS 3.1-3.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2025-09-19</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_3/3_HDA_SS/3_HDA_SS_answers_5529.html">Hetero. data analysis &amp; string similarity</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2025-09-23</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_4/1_DP1.pdf">Data preparation 1</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">DMCT 3.1, 3.2, 12.1 - 12.4 , PDA 7.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2025-09-23</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_4/1_DP1/1_DP1_answers_8190.html">Data preparation 1</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2025-09-23</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/assignments/assignment_1.html">9:00AM assignment 1</a></td>
+<td style="text-align: left;">Deadline</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2025-09-25</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_4/2_DP2.pdf">Data preparation 2</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">DMCT 3.3-3.5, PDA 7.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2025-09-25</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_4/2_DP2/2_DP2_answers_8826.html">Data preparation 2</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2025-09-26</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_4/3_visualization_1.pdf">Data visualization</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">R4DS 1, 3, 9, 10 (optionally 2, 4, 6)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">2025-09-26</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_4/3_data_visualization_1/data_visualization_1_answers.html">Data visualization using ggplot</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">2025-09-30</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_5/1_visualization_2.pdf">Exploratory data analysis</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">R4DS 1, 3, 9, 10 (optionally 2, 4, 6)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">2025-09-30</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_5/1_data_visualization_2/data_visualization_2_answers_a20f95b.html">Exploratory data analysis in R</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">2025-10-02</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_5/2_regression_1_redacted.pdf">Supervised learning: Regression</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">ISLR 1, 2.1, 2.2, 3.1, 3.2, 3.3, 3.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">2025-10-02</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_5/2_supervised_1/supervised_1_answers_34b1c2a.html">Supervised learning: Regression models in R</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">2025-10-03</td>
+<td style="text-align: left;">Q&amp;A</td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">2025-10-03</td>
+<td style="text-align: left;">No lab, time to study</td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">2025-10-06</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/exams/Mid-TermExam.html">Midterm exam (10:00 - 13:00)</a></td>
+<td style="text-align: left;">Exam</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">2025-10-07</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/assignments/assignment_2.html">9:00AM assignment 2</a></td>
+<td style="text-align: left;">Deadline</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">2025-10-07</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_6/1_regression_2.pdf">Supervised learning: model evaluation</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">ISLR 5.1, 8.1, 8.2.1, 8.2.2, 8.2.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">2025-10-07</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/assignments/assignment_3.html">Supervised learning: model evaluation</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">2025-10-09</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_6/2_regression_3.pdf">Supervised learning: classification</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">ISLR 4.1, 4.2, 4.3, 4.4.1, 4.4.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">2025-10-09</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_6/2_supervised_3/supervised_3_answers_3ba2fbb.html">Supervised learning: classification</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">2025-10-10</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_6/3_deep_learning.pdf">Deep learning</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">ISLR 10, DLBK 11, (optionally 6)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">2025-10-10</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_6/3_deep_learning/supervised_4_answers_3gh12s.html">Deep learning</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">2025-10-14</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_7/1_missing_data_1.pdf">Missing data 1: Mechanisms</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">FIMD 1.1, 1.2, 1.3, 1.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">2025-10-14</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_7/1_missing_data_1/missing_data_1_answers_ej4ab45.html">Missing data mechanisms</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">2025-10-16</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_7/2_missing_data_2.pdf">Missing data 2: Solutions</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">FIMD 1.1, 1.2, 1.3, 1.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">2025-10-16</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_7/2_missing_data_2/missing_data_2_answers_32ksaae.html">Imputation methods</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">2025-10-17</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_7/3_clustering_1.pdf">Clustering</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">ISLR 12.1, 12.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">2025-10-17</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_7/3_clustering_1/clustering_1_answers_a23b1e3.html">Clustering</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">2025-10-21</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/assignments/assignment_3.html">9:00AM assignment 3</a></td>
+<td style="text-align: left;">Deadline</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">2025-10-21</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_8/1_clustering_2.pdf">Model-based clustering</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">Oberski (2016), optional Hennig (2016), Bouveyron et al. (2019)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">2025-10-21</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_8/1_clustering_2/clustering_2_answers_25ae1b.html">Model-based clustering using MClust</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">2025-10-23</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_8/2_text_mining_1.pdf">Text mining 1</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">SLP3 2.1, 2.4, 6.2, 6.3, 6.5, 6.8; TTMR 3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">2025-10-23</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_8/2_text_mining_1/text_mining_1_answers_655643.html">Text mining 1</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">2025-10-23</td>
+<td style="text-align: left;"><a href="RUPPERT%20-%20WIT">Inspecting the mid-term exam (13:15 - 14:30)</a></td>
+<td style="text-align: left;">Exam Inspection</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">2025-10-24</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_8/3_text_mining_2.pdf">Text mining 2</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">SLP3 2.1, 2.4, 6.2, 6.3, 6.5, 6.8; TTMR 3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">2025-10-24</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_8/3_text_mining_2/text_mining_2_answers_3b2f11.html">Text mining 2</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">2025-10-28</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_9/1_TS.pdf">Time series</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">OMNG pages 265-294 (forecasting)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">2025-10-28</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_9/1_TS/1_TS_answers_9022.html">Time series</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">2025-10-30</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_9/2_DS.pdf">Data streams</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">MMDS 4.1 – 4.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">2025-10-30</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_9/2_DS/2_DS_answers_0186.html">Data streams</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">2025-10-31</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/lectures/week_9/3_Fairness.pdf">Algorithmic fairness</a></td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;">Mehrabi et al. (2021)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">2025-10-31</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/labs/week_9/3_Fairness/3_Fairness_answers_6781.html">Algorithmic fairness</a></td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">2025-11-04</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/assignments/assignment_4.html">9:00AM assignment 4</a></td>
+<td style="text-align: left;">Deadline</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">2025-11-04</td>
+<td style="text-align: left;">Q&amp;A (11:00 - 12:45)</td>
+<td style="text-align: left;">Lecture</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">2025-11-04</td>
+<td style="text-align: left;">No lab, time to study</td>
+<td style="text-align: left;">Lab</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">2025-11-07</td>
+<td style="text-align: left;"><a href="https://infomdwr.nl/exams/FinalExam.html">Final exam (13:30 - 16:30)</a></td>
+<td style="text-align: left;">Exam</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">2026-01-05</td>
+<td style="text-align: left;">Resit exam</td>
+<td style="text-align: left;">Exam</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

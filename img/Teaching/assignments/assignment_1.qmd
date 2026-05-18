@@ -1,0 +1,67 @@
+---
+title: "Assignment 1: Data extraction & integration"
+format:
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    callout-icon: false
+---
+
+## Introduction
+
+You are working with a trading company. The manager approached you to redesign the database. They have already 3 relations that represent 3 main entities:
+
+```
+  bill(bill_id, branch_id, amount, ...)
+  customer(customer_id, street, house_number, city, country, ...)
+  partner(company_name, country, products_and_services, ...)
+```
+:::{.callout-warning}
+## AI tools / ChatGPT
+
+This assignment assesses your capabilities in designing a database, extracting the required information, and understanding how to apply what you learned in the lectures on real world problems.
+
+__You may use AI tools such as ChatGPT only for generating a set of records to be stored in the database to test your queries or drawing the schema. However, you should describe the different components of the figure in your own words.__
+:::
+
+## Task  1: Database (re)design
+a. Add more attributes to the given relations (bill, customer, partner). 
+a. Add a minimum of two relations that represent entities. Make sure that there is at least one many-to-many relationship between the entities. 
+a. Draw the schema chart for the database.
+a. Identify the cardinalities of the relationships between the entities and explain how you can represent the relationships in your design. 
+a. List all the primary-key-foreign-key constraints in the database.
+a. Write the SQL code that creates the whole database in SQLite and save the file as `.sql` that can be run directly from the sqlite3 bash using the command `.read my_file.sql` 
+a. Pick one of the relations (tables) and explain if it is in the BCNF or not (**justify your answer**).
+
+
+## Task 2: Querying the database
+Using the database from **Task 1**, write queries in natural language, relational algebra and SQL that contains:
+
+a. Joining more than two tables
+a. Aggregate function
+a. Nested query
+
+To make sure that you queries can be run on the database, you need to enter a few records in the tables that are involved in your queries.
+
+## Task 3: Data extraction and entity resolution using Python 
+Using the database from **Task 1**, perform the following tasks using Python code:
+
+a. Write a Python code that allows you to connect to the database file, send SQL queries to the database and extract the results.
+a. Read the content of the customer relation (table) into Pandas DataFrame. 
+a. Using a similarity function that compares two records (similar to the one in the tutorial), report  the customers with similarity > 0.7. 
+
+
+## Submission
+You need to submit a zip file that includes:
+
+1. A pdf file that reports and explains how you solved the questions.
+1. An SQL file (with extension `.sql`) that contains all the code for creating the database, adding records in the selected relations and querying the database. 
+1. A Python notebook that includes the code for solving Task 3 with clear comments on the code. The explanation of the code should be included in the report (the pdf file). 
+
+Submission should be done on [BrightSpace](http://uu.brightspace.com) and only one submission per group is needed. 
+You can submit as many versions as you like but only the last submission before the deadline will be graded. 
+
+**Deadline:** as specified in the course website (2024-09-23	9:00AM).
+

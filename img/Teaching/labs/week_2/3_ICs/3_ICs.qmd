@@ -1,0 +1,51 @@
+---
+title: "Integrity constraints and database design"
+format: 
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    # callout-appearance: simple
+    callout-icon: false
+---
+
+Integrity constraints can be arbitrary predicates that ensure the consistency and the validity of the values in a database. They act as guards against any accidental damage that could happen to the database. During this lab, you will practice using a set of integrity constraints that have been studied during the lecture. 
+
+## Exercises
+
+1. Given the [University Database (`univdb-sqlite.db`)](https://www.db-book.com/university-lab-dir/sqlite-tips.html), identify the data type of each attribute (field) in the relation `takes`.
+1. identify the primary keys for each of the relations (student, instructor, department, takes and teaches).
+1. Identify the foreign keys in each of the relations in the previous question. 
+1. Create a table `country(ID, name, continent)`, where the values of continent is restricted to take a value of (`Asia`, `Africa`, `Europe`,  `North America`, `South America` and `Australia`).
+1. Add an attribute in each of the `student` and `instructor` relations called `home country` that is a foreign key referencing the `country` table. Check this [Link](https://database.guide/add-a-foreign-key-to-an-existing-table-in-sqlite/) for an example. 
+1. Write an `SQL` query to remove the record of the student with `ID` = 12345. 
+1. If you know that student with `ID` = 12345 is referenced in the advisor relation, how can we delete the record without receiving an error message?
+1. Now, try the code  `INSERT INTO advisor values(55555, 88888);` 
+1. Check if the referential integrity is forced or not then switch it and try the previous three exercises again. 
+1. According to the available data, identify the carnality of the relationships between `student` and `instructor`. Is there a better way to represent such relationship (justify your answer). 
+
+
+### Useful queries
+
+a. Display the schema of a relation using:
+```sql
+PRAGMA table_info(tab_name);
+```
+
+b. Check the policy for referential integrity using:
+```sql
+PRAGMA foreign_key_list(tab_name);
+```
+
+c. Check if the referential integrity is forced or not using:
+```sql
+PRAGMA foreign_keys;
+```
+
+d. Force the referential integrity in SQLite using:
+```sql
+PRAGMA foreign_keys = 1;     # use 0 to force no referential integrity 
+```
+
+You can also export the database to a `.sql` file and check the complete code of the database. 

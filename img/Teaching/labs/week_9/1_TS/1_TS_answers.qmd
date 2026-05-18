@@ -1,0 +1,712 @@
+---
+title: "Time Series Analysis and Demand Forecasting"
+format:
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    callout-appearance: simple
+    callout-icon: false
+  # pdf: 
+  #   toc: false
+  #   toc-depth: 2
+  #   documentclass: scrartcl
+  #   papersize: a4
+  #   number-sections: true
+  #   number-depth: 1
+  #   df-print: kable
+---
+
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pylab as plt
+from sklearn import linear_model
+from sklearn.linear_model import LinearRegression
+from sklearn import metrics
+import pylab as pl
+from sklearn.tree import DecisionTreeClassifier
+from matplotlib.colors import ListedColormap
+%matplotlib inline 
+import math
+```
+
+## Upload and explore the data 
+
+For the exercises in this lab, we will use the [oil price](https://www.kaggle.com/c/store-sales-time-series-forecasting/data) dataset from Kaggle.
+We will consider that you are using Google Colab so upload your data files to the directory sample_data.
+
+##### Read the data
+
+
+```python
+df_oil = pd.read_csv('sample_data/oil.csv', header = 0,
+                 quotechar='"',sep=",",
+                 na_values = ['na', '-', '.', ''], low_memory=False)
+```
+
+#### Explore the data
+We take a look at the data by plotting the whole data
+
+
+```python
+# Use scatter plot to plot the 'Oil Price' against the 'Date'
+plt.rcParams.update({'font.size': 16})
+fig, ax = plt.subplots()
+# Plot the data as scatter plot
+start = 0
+limit = len(df_oil)
+end = start + limit - 1
+ax.plot(df_oil.date[start:end], df_oil.dcoilwtico[start:end], '-')
+# Changing the labels on the x-axis
+x = [df_oil.date.iloc[start], df_oil.date.iloc[start + math.floor(limit / 4)], \
+     df_oil.date.iloc[start + math.floor(limit / 2)], df_oil.date.iloc[start + math.floor(3 * limit / 4)], \
+     df_oil.date.iloc[end]]
+ax.set_xticks(x)
+plt.xticks(rotation = 45)
+# put the label for the x-axis 'Date' and for the y-axis 'Oil Price'
+ax.set(xlabel='Date', ylabel='Oil Price')
+plt.savefig("oilData.pdf", format="pdf", bbox_inches="tight")
+plt.show()
+```
+
+#### Look at the details
+We cannot see a lot of details, let's consider a smaller period
+
+
+```python
+plt.rcParams.update({'font.size': 16})
+fig, ax = plt.subplots()
+start = 300
+limit = 300
+end = start + limit - 1
+ax.plot(df_oil.date[start:end], df_oil.dcoilwtico[start:end], '-')
+x = [df_oil.date.iloc[start], df_oil.date.iloc[start + math.floor(limit / 4)], \
+     df_oil.date.iloc[start + math.floor(limit / 2)], df_oil.date.iloc[start + math.floor(3 * limit / 4)], \
+     df_oil.date.iloc[end]]
+ax.set_xticks(x)
+plt.xticks(rotation = 45)
+ax.set(xlabel='Date', ylabel='Oil Price')
+plt.savefig("oilData_300.pdf", format="pdf", bbox_inches="tight")
+plt.show()
+```
+
+## Depicting the trend of the Oil Price
+
+A trend exists when there is a long-term increase or decrease in the data. It does not have to be linear. Researchers also refer to a trend as “changing direction”, when it might go from an increasing trend to a decreasing trend and vice versa.
+
+
+
+1- Using **semi-average**
+
+
+```python
+# TODO: use the semi-average technique from the slides to summarize the time series trend
+
+m1 = df_oil.dcoilwtico[0:math.floor(len(df_oil)/2)].mean()
+m2 = df_oil.dcoilwtico[math.floor(len(df_oil)/2)+1:len(df_oil)].mean()
+
+start = 0 
+first = math.floor(len(df_oil)/4)
+second = 3 * math.floor(len(df_oil)/4)
+limit = len(df_oil)
+end = start + limit - 1
+y_start = (m2 - m1) / (second - first) * (start - first) + m1
+y_end = (m2 - m1) / (second - first) * (end - first) + m1
+semi_avg = [y_start, m1, m2, y_end]
+x = [df_oil.date.iloc[start], df_oil.date.iloc[first], df_oil.date.iloc[second], df_oil.date.iloc[end]]
+fig, ax = plt.subplots()
+ax.plot(df_oil.date[start:end], df_oil.dcoilwtico[start:end], '.')
+ax.plot(x, semi_avg, 'r', '-')
+ax.set_xticks(x)
+plt.xticks(rotation = 45)
+ax.set(xlabel='Date', ylabel='Oil Price')
+plt.savefig("oilData_SemiAverage.pdf", format="pdf", bbox_inches="tight")
+plt.show()
+
+```
+
+2- Using **moving-average**
+
+Use the [rolling](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html) API for depicting the trend using the moving average method.  
+
+First: use rolling(window = 50)
+
+Second: use rolling(window = 50, min_periods = 1)
+
+Comment on the differences 
+
+
+
+
+```python
+# TODO: use pd.DataFrame.rolling(window = ma_win_size), comment on the output
+ma_win_size = 50
+df_oil_ma = df_oil.copy()
+df_oil_ma['ma_dcoilwtico'] = df_oil_ma['dcoilwtico'].rolling(window = ma_win_size).mean()
+
+
+start = ma_win_size
+limit = len(df_oil_ma) - ma_win_size
+end = start + limit - 1
+
+fig, ax = plt.subplots()
+
+ax.plot(df_oil_ma.date[start:end], df_oil_ma.ma_dcoilwtico[start:end], '-')
+x = [df_oil_ma.date.iloc[start], df_oil_ma.date.iloc[start + math.floor(limit / 4)], \
+     df_oil_ma.date.iloc[start + math.floor(limit / 2)], df_oil_ma.date.iloc[start + math.floor(3 * limit / 4)], \
+     df_oil_ma.date.iloc[end]]
+ax.set_xticks(x)
+plt.xticks(rotation = 45)
+ax.set(xlabel='Date', ylabel='Oil Price')
+
+plt.savefig("oilData_MovingAverageNA.pdf", format="pdf", bbox_inches="tight")
+plt.show()
+```
+
+
+```python
+# TODO: use pd.DataFrame.rolling(window = ma_win_size, min_periods = 1), comment on the output
+ma_win_size = 50
+df_oil_ma['ma_dcoilwtico'] = df_oil['dcoilwtico'].rolling(window = ma_win_size, min_periods = 1).mean()
+
+
+start = ma_win_size
+limit = len(df_oil_ma) - ma_win_size
+end = start + limit - 1
+
+fig, ax = plt.subplots()
+
+ax.plot(df_oil_ma.date[start:end], df_oil_ma.ma_dcoilwtico[start:end], '-')
+x = [df_oil_ma.date.iloc[start], df_oil_ma.date.iloc[start + math.floor(limit / 4)], \
+     df_oil_ma.date.iloc[start + math.floor(limit / 2)], df_oil_ma.date.iloc[start + math.floor(3 * limit / 4)], \
+     df_oil_ma.date.iloc[end]]
+ax.set_xticks(x)
+plt.xticks(rotation = 45)
+ax.set(xlabel='Date', ylabel='Oil Price')
+
+plt.savefig("oilData_MovingAverage.pdf", format="pdf", bbox_inches="tight")
+plt.show()
+```
+
+There is a problem because of the missing values. Check the documentation for **min_periods** at https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rolling.html
+
+---
+
+
+
+**Optional:** It might be useful sometime to show part of the data next to the figure, we can do that as follows:
+
+
+```python
+# Display part of the data next to figure
+df_oil_new = df_oil_ma
+start = ma_win_size
+limit = len(df_oil_new) - ma_win_size - 1
+end = start + limit
+
+fig, ax = plt.subplots()
+
+# TODO: Plot the trend of the data that was generated using moving average technique
+# in the previous cell
+
+ax.plot(df_oil_new.date[start:end], df_oil_new.ma_dcoilwtico[start:end], '-')
+x = [df_oil_new.date.iloc[start], df_oil_new.date.iloc[start + math.floor(limit / 4)], \
+     df_oil_new.date.iloc[start + math.floor(limit / 2)], df_oil_new.date.iloc[start + math.floor(3 * limit / 4)], \
+     df_oil_new.date.iloc[end]]
+ax.set_xticks(x)
+plt.xticks(rotation = 45)
+
+# Now, we plot a snippet of the data next to the figure
+a = df_oil_new.date[start:start + 10]
+b = [round(num, 2) for num in df_oil_new.dcoilwtico[start:start + 10]]
+data = [list(a), list(b)]
+numpy_array = np.array(data)
+data = numpy_array.T.tolist()
+tbl = plt.table(cellText = data,
+          colLabels=['Date', 'Oil Price'],
+          loc='left',
+          bbox=[-0.7, 0, 0.5, 1])
+
+ax.set(xlabel='Date', ylabel='Oil Price')
+plt.savefig("oilData_MovingAverageWData.pdf", format="pdf", bbox_inches="tight")
+plt.show()
+```
+
+3- Using **Linear Regression**
+
+We will start by testing the method of computing the coefficients of the linear regression as discussed in the lecture and compare the found coefficients with the coefficients that are computed using the built-in functions. 
+
+```python
+'''
+Our function for computing the linear regression coefficients.
+This function accepts only one dimensional data
+'''
+def mySimpleLinearRegression(x, y):
+    x_mean = np.mean(x)
+    y_mean = np.mean(y)
+
+    x_diff = x - x_mean
+    y_diff = y - y_mean
+
+    coef = sum(x_diff * y_diff) / sum(x_diff ** 2)
+    intercept = y_mean - coef * x_mean
+    return (intercept , coef)
+```
+
+
+```python
+'''
+Preprocess the dataframe by removing the missing values and re-indexing the data
+'''
+df_oil_nona = df_oil.dropna()
+df_oil_nona.reset_index(drop=True, inplace=True)
+offset = math.floor(len(df_oil_nona) / 2)
+df_oil_nona['x'] = df_oil_nona.index - offset
+'''
+TODO: use the function in the previous cell to compute the linear regression parameters
+'''
+xc = np.array(df_oil_nona.x)
+yc = np.array(df_oil_nona.dcoilwtico)
+a0, a1 = mySimpleLinearRegression(xc, yc)
+print('Using the formula from the slides: ')
+print('intercept = ', a0, '\nCoef. = ', a1)
+
+'''
+TODO: use the scikit learn LinearRegression class to compute the linear regression parameters
+'''
+myLR = LinearRegression()
+myLR.fit(xc.reshape(len(xc),1), yc.reshape(len(yc),1))
+# Print the intercept and the coefficient of the model
+print('\n\nUsing the scikit learn package:')
+print( "Intercept:", myLR.intercept_[0])
+print( "Coef.:", myLR.coef_[0][0])
+
+'''
+TODO: now Plot the data and the line that is generated by linear regression
+'''
+start = 0
+limit = len(df_oil_nona) - 1
+end = start + limit
+
+fig, ax = plt.subplots()
+
+ax.plot(df_oil_nona.x[start:end], df_oil_nona.dcoilwtico[start:end], '-')
+x = [df_oil_nona.x.iloc[start], \
+     df_oil_nona.x.iloc[start + math.floor(limit / 4)], \
+     df_oil_nona.x.iloc[start + math.floor(limit / 2)], \
+     df_oil_nona.x.iloc[start + math.floor(3 * limit / 4)], \
+     df_oil_nona.x.iloc[end]]
+xticks = [df_oil_nona.date.iloc[start], \
+     df_oil_nona.date.iloc[start + math.floor(limit / 4)], \
+     df_oil_nona.date.iloc[start + math.floor(limit / 2)], \
+     df_oil_nona.date.iloc[start + math.floor(3 * limit / 4)], \
+     df_oil_nona.date.iloc[end]]
+plt.xticks(x, xticks)
+plt.xticks(rotation = 45)
+
+model = [a0 + a1 * x for x in df_oil_nona.x]
+plt.plot(df_oil_nona.x, model, 'r');
+
+ax.set(xlabel='Date', ylabel='Oil Price')
+```
+
+4- Using **Exponential Smoothing**
+
+
+```python
+# TODO: Apply the exponential Smoothing on the data and display the resulting time series
+# use different values for alpha and comment on the results
+# TODO: Apply the exponential Smoothing on the data and display the resulting time series
+# use different values for alpha and comment on the results
+
+df_oil_nona = df_oil.dropna()
+df_oil_nona.reset_index(drop=True, inplace=True)
+
+alpha = 0.5
+exp_smoothing = np.zeros(len(df_oil_nona) - 1)
+exp_smoothing[0] = exp_smoothing[1] = np.NaN
+exp_smoothing[2] = alpha * df_oil_nona.loc[0, 'dcoilwtico'] \
+                + (1 - alpha) * df_oil_nona.loc[1, 'dcoilwtico'] 
+for i in range(2, len(df_oil_nona) - 2):
+  exp_smoothing[i+1] = alpha * df_oil_nona.loc[i, 'dcoilwtico'] \
+                + (1 - alpha) * exp_smoothing[i]
+
+start = 0
+limit = len(df_oil_nona) - 1
+end = start + limit
+
+fig, ax = plt.subplots()
+
+ax.plot(df_oil_nona.date[start:end], exp_smoothing, '-')
+x = [df_oil_nona.date.iloc[start], \
+     df_oil_nona.date.iloc[start + math.floor(limit / 4)], \
+     df_oil_nona.date.iloc[start + math.floor(limit / 2)], \
+     df_oil_nona.date.iloc[start + math.floor(3 * limit / 4)], \
+     df_oil_nona.date.iloc[end]]
+ax.set_xticks(x)
+plt.xticks(rotation = 45)
+
+ax.set(xlabel='Date', ylabel='Oil Price')
+plt.savefig("oilData_ExpSmoothing.pdf", format="pdf", bbox_inches="tight")
+plt.show()
+```
+
+
+```python
+# TODO: repeat the same smoothing as in the previous cell but with alpha = 0.001
+# Comment on the results
+
+# TODO: Apply the exponential Smoothing on the data and display the resulting time series
+# use different values for alpha and comment on the results
+
+df_oil_nona = df_oil.dropna()
+df_oil_nona.reset_index(drop=True, inplace=True)
+
+alpha = 0.05
+exp_smoothing = np.zeros(len(df_oil_nona) - 1)
+exp_smoothing[0] = exp_smoothing[1] = np.NaN
+exp_smoothing[2] = alpha * df_oil_nona.loc[0, 'dcoilwtico'] \
+                + (1 - alpha) * df_oil_nona.loc[1, 'dcoilwtico'] 
+for i in range(2, len(df_oil_nona) - 2):
+  exp_smoothing[i+1] = alpha * df_oil_nona.loc[i, 'dcoilwtico'] \
+                + (1 - alpha) * exp_smoothing[i]
+
+start = 0
+limit = len(df_oil_nona) - 1
+end = start + limit
+
+fig, ax = plt.subplots()
+
+ax.plot(df_oil_nona.date[start:end], exp_smoothing, '-')
+x = [df_oil_nona.date.iloc[start], \
+     df_oil_nona.date.iloc[start + math.floor(limit / 4)], \
+     df_oil_nona.date.iloc[start + math.floor(limit / 2)], \
+     df_oil_nona.date.iloc[start + math.floor(3 * limit / 4)], \
+     df_oil_nona.date.iloc[end]]
+ax.set_xticks(x)
+plt.xticks(rotation = 45)
+
+ax.set(xlabel='Date', ylabel='Oil Price')
+plt.savefig("oilData_ExpSmoothing.pdf", format="pdf", bbox_inches="tight")
+plt.show()
+```
+
+
+```python
+df_oil_nona
+```
+
+## Seasonal Component
+
+A seasonal pattern occurs when a time series is affected by seasonal factors such as the time of the year or the day of the week. Seasonality is always of a fixed and known frequency. 
+
+
+```python
+# Let's read the data again
+df_oil_SC = pd.read_csv('sample_data/oil.csv', header = 0,
+                 quotechar='"',sep=",",
+                 na_values = ['na', '-', '.', ''], low_memory=False)
+```
+
+
+```python
+from datetime import datetime
+
+date_str = [df_oil_SC.iloc[i,0] for i in range(len(df_oil_SC))]
+date_format = '%Y-%m-%d'
+date_obj = [datetime.strptime(d_str, date_format) for d_str in date_str]
+```
+
+
+```python
+df_oil_SC.index = pd.to_datetime(date_obj, format='%y-%m-%d %H:%M:%S')
+df_G = df_oil_SC.groupby(by = [df_oil_SC.index.month, df_oil_SC.index.year]).mean(numeric_only=True)
+df_MM = df_G.groupby(level = 0).mean()     # Monthly mean over the years
+df_MM
+
+```
+
+
+```python
+df_SMM.rename(columns = {'dcoilwtico':'Monthly mean'})
+```
+
+```python
+# Now, we compute the seasonal index by dividing the monthly mean over the mean of the means
+df_SI = df_MM/ (df_MM.mean()) * 100
+df_SI.rename(columns = {'dcoilwtico':'Seasonal Index'})
+```
+
+## Time series decomposition
+
+There are three types of time series patterns: trend, seasonality and cycles. When decomposing a time series into components, we usually combine the trend and cycle into a single trend-cycle component (sometimes called the trend for simplicity). Thus, we think of a time series as comprising three components: a trend-cycle (or trend) component, a seasonal component, and a remainder component (containing anything else in the time series).
+
+During the lecture, you learned about different techniques ('Additive', 'Multiplicative' and 'STL') for decomposing time series. Now, you need to apply them on the oil dataset and comment on your findings. 
+
+
+
+```python
+'''
+TODO: Apply the Additive time series decomposition on the oil dataset. 
+'''
+from pandas import Series
+from matplotlib import pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
+%matplotlib inline
+series = list(df_oil.dcoilwtico.dropna())
+result = seasonal_decompose(series, model='additive', period=100)
+result.plot()
+plt.savefig("oil_price.pdf", format="pdf", bbox_inches="tight")
+plt.show()
+
+```
+
+
+```python
+'''
+TODO: Apply the Multiplicative time series decomposition on the oil dataset. 
+'''
+from pandas import Series
+from matplotlib import pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
+%matplotlib inline
+series = list(df_oil.dcoilwtico.dropna())
+result = seasonal_decompose(series, model='multiplicative', period=100)
+result.plot()
+plt.savefig("oil_price.pdf", format="pdf", bbox_inches="tight")
+plt.show()
+
+```
+
+
+```python
+'''
+TODO: Apply the STL time series decomposition on the oil dataset. 
+'''
+from statsmodels.tsa.seasonal import STL
+df_oil_new = df_oil.dropna()
+dcoilwtico = list(df_oil_new.dcoilwtico)
+oil_data = pd.Series(
+dcoilwtico, index=df_oil_new.date, name="OIL")
+stl = STL(oil_data, period = 100)
+res = stl.fit()
+fig = res.plot()
+
+```
+
+## Demand Forecasting
+
+We will also use the oil dataset. We will remove the values of the last two weeks from the data and use it to check the different forecasting models. We will test forecasting using moving average, linear regression, ARIMA and Exponential Smoothing from the STL package. 
+
+We will start by reading the data and splitting the data into train and test (the test will contain the readings of the last two week in the time series). 
+
+
+```python
+# Let's read the data again
+df_oil_FC = pd.read_csv('sample_data/oil.csv', header = 0,
+                 quotechar='"',sep=",",
+                 na_values = ['na', '-', '.', ''], low_memory=False)
+```
+
+remove the last two weeks of the data and store it as test data
+
+
+```python
+'''
+TODO: store the last two weeks of the data in a test dataframe
+the data from all the weeks except the last two weeks in a dataframe train
+'''
+df_oil_FC = df_oil_FC.dropna()
+df_oil_FC.reset_index(drop=True, inplace=True)
+idx = df_oil_FC.index[df_oil_FC.date == '2017-08-16'].tolist()
+train = df_oil_FC.iloc[0:idx[0]]
+test = df_oil_FC.iloc[idx[0]:len(df_oil_FC)]
+test
+```
+
+### Perform demand forecasting using moving average
+
+
+```python
+'''
+TODO: predict the values of the last two weeks using the moving average with k = 5
+'''
+k = 5
+t = len(test)
+start = len(train) - k
+end = len(train)
+new_list = train.dcoilwtico.iloc[start:end].tolist()
+
+for item in test.date:
+    windowMA = round(np.mean(new_list[-k:]), 2)
+    new_list.append(windowMA)
+new_list[-t:]
+```
+
+
+```python
+'''
+Show the original test values
+'''
+test.dcoilwtico
+```
+
+
+```python
+'''
+TODO: measure the performance of your predictor by computing the MSE 
+between the predicted and the actual values
+'''
+t = len(test)
+MSE = np.mean((new_list[-t:] - test.dcoilwtico)**2)
+MSE
+```
+
+### Perform demand forecasting using Linear Regression
+
+
+```python
+'''
+TODO: predict the values of the last two weeks using the Linear Regression
+'''
+train = train.dropna()
+train.reset_index(drop=True, inplace=True)
+offset = math.floor(len(train) / 2)
+train['x'] = train.index - offset
+
+xc = np.array(train.x)
+yc = np.array(train.dcoilwtico)
+
+myLR = LinearRegression()
+myLR.fit(xc.reshape(len(xc),1), yc.reshape(len(yc),1))
+# Print the intercept and the coefficient of the model
+a0 = myLR.intercept_[0]
+a1 = myLR.coef_[0][0]
+new_list = list()
+xi = np.max(train.x) + 1
+for item in test.date:
+    yi = a0 + a1 * xi 
+    new_list.append(yi)
+    xi += 1
+new_list
+```
+
+
+```python
+'''
+TODO: measure the performance of your predictor by computing the MSE 
+between the predicted and the actual values
+'''
+MSE = np.mean((new_list - test.dcoilwtico)**2)
+MSE
+```
+
+
+```python
+'''
+TODO: predict the values of the last two weeks using the Linear Regression 
+but use the last n data points (n of your choice)
+'''
+train = train.dropna()
+train = train[-11:]
+train.reset_index(drop=True, inplace=True)
+offset = math.floor(len(train) / 2)
+train['x'] = train.index - offset
+
+xc = np.array(train.x)
+yc = np.array(train.dcoilwtico)
+
+myLR = LinearRegression()
+myLR.fit(xc.reshape(len(xc),1), yc.reshape(len(yc),1))
+# Print the intercept and the coefficient of the model
+a0 = myLR.intercept_[0]
+a1 = myLR.coef_[0][0]
+new_list = list()
+xi = np.max(train.x) + 1
+for item in test.date:
+    yi = a0 + a1 * xi 
+    new_list.append(yi)
+    xi += 1
+new_list
+```
+
+
+```python
+'''
+TODO: measure the performance of your predictor by computing the MSE 
+between the predicted and the actual values
+'''
+MSE = np.mean((new_list - test.dcoilwtico)**2)
+MSE
+```
+
+
+```python
+train = train.dropna()
+train
+```
+
+### Perform demand forecasting using STL forecasting
+
+We will re-read the data to make sure that the changes that we made earlier are not going to affect the analysis. We will also split the data intio training and testing
+
+
+```python
+'''
+TODO: Read the data again and split it into training and testing 
+where the testing contains the data from the last two weeks
+'''
+df_oil_FC = pd.read_csv('sample_data/oil.csv', header = 0,
+                 quotechar='"',sep=",",
+                 na_values = ['na', '-', '.', ''], low_memory=False)
+df_oil_FC = df_oil_FC.dropna()
+df_oil_FC.reset_index(drop=True, inplace=True)
+idx = df_oil_FC.index[df_oil_FC.date == '2017-08-16'].tolist()
+train = df_oil_FC.iloc[0:idx[0]]
+test = df_oil_FC.iloc[idx[0]:len(df_oil_FC)]
+```
+
+
+```python
+'''
+TODO: Use ARIMA from STL package for forecasting the oil prices for the last two weeks. 
+'''
+from statsmodels.tsa.api import STLForecast
+from statsmodels.tsa.arima.model import ARIMA
+
+oilData = train.fillna(method = 'pad')
+oilData.index = [i for i in range(oilData.shape[0])]
+
+stlf = STLForecast(oilData.dcoilwtico, ARIMA, \
+                   model_kwargs = dict(order = (1, 1, 0), trend = "t"), period = 100)
+res = stlf.fit()
+arima_forecasts = res.forecast(len(test))
+arima_forecasts
+```
+
+
+```python
+'''
+TODO: Use exponential_smoothing from STL package for forecasting the oil prices for the last two weeks. 
+'''
+from statsmodels.tsa.statespace import exponential_smoothing
+ES = exponential_smoothing.ExponentialSmoothing
+config = {"trend": True}
+stlf = STLForecast(oilData.dcoilwtico, ES, model_kwargs=config, period = 100)
+res = stlf.fit()
+es_forecasts = res.forecast(len(test))
+es_forecasts
+```
+
+
+```python
+'''
+TODO: measure the performance of your predictor by computing the MSE 
+between the predicted and the actual values
+'''
+MSE_ARIMA = np.mean((arima_forecasts - test.dcoilwtico)**2)
+MSE_ES = np.mean((es_forecasts - test.dcoilwtico)**2)
+print(MSE_ARIMA, MSE_ES)
+```

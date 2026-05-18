@@ -1,0 +1,430 @@
+---
+title: "Data Extraction in Python"
+format:
+  html:
+    css: "style.css"
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    callout-appearance: simple
+    callout-icon: false
+  # pdf: 
+  #   toc: false
+  #   toc-depth: 2
+  #   documentclass: scrartcl
+  #   papersize: a4
+  #   number-sections: true
+  #   number-depth: 1
+  #   df-print: kable
+---
+
+## SQL
+
+The exercises in this section are based on the university database from the Database System Concepts.
+
+![University database](DB_Schema.jpg)
+
+::: callout-note
+## Writing SQL queries with aggregate functions
+
+1. Write a query to return the names of students with the largest and smallest number of `tot_cred`. 
+```sql
+  SELECT name FROM student
+  WHERE tot_cred = (Select max(tot_cred) from student) 
+  OR tot_cred = (Select min(tot_cred) from student);
+```
+2. Write a query to return the number of departments that have STRICTLY more than one student.
+
+```sql
+SELECT DISTINCT dept_name 
+FROM (SELECT dept_name, count(*) AS num_students FROM student GROUP BY dept_name)
+WHERE num_students > 1
+
+```
+
+3. Write a query to return the number of students in the Comp. Sci., Physics, Finance and History.
+
+```sql
+  SELECT dept_name, num_students FROM
+  (SELECT dept_name, count (*) num_students FROM student S GROUP BY S.dept_name )
+  WHERE dept_name IN ('Comp. Sci.', 'Physics', 'Finance', 'History');
+```
+We can even write a simpler query using HAVING since we have GROUP BY. We can rewrite the query as:
+
+```sql
+  SELECT dept_name, count (*) num_students 
+  FROM student S GROUP BY S.dept_name
+  HAVING dept_name IN ('Comp. Sci.', 'Physics', 'Finance', 'History');
+```
+:::
+
+
+
+## Python
+
+In the following exercises, you will practice on working Pandas dataframes and how to extract part of the data using Python APIs. 
+You will also practice on connecting to an `SQLite` database, send `SQL` queries, and extract the results to a Pandas dataframe. There are parts where the code is available so you need to run the code, understand and comment on the output. There are also a set of exercises where you need to write the code yourself.
+
+First, we need to import the libraries that are required for our code. You can run the code on Google Colab or using your favorite IDE for Python.  
+
+```python
+import pandas as pd
+import csv
+```
+
+
+Run the code and comment on the output. After that, solve the exercises with the TODO. 
+
+### Creating dataframes
+
+::: callout-note
+## creating a dataframe from pandas series
+```python
+data = {'State': ['Ohio', 'Ohio', 'Ohio', 'Nevada', 'Nevada', 'Nevada'],
+ 'Year': [2000, 2001, 2002, 2001, 2002, 2003],
+ 'Population': [1.5, 1.7, 3.6, 2.4, 2.9, 3.2]}
+df = pd.DataFrame(data)
+df
+```
+:::
+
+::: callout-note
+## creating a dataframe from data matrix
+```python
+data = [['Ohio', 2000, 1.5], ['Ohio', 2001, 1.7], ['Ohio', 2002, 3.6],
+        ['Nevada', 2001, 2.4],['Nevada', 2002, 2.9], ['Nevada', 2003, 3.2]]
+cols = ['State', 'Year', 'Population']
+df = pd.DataFrame(data, columns = cols)
+df
+```
+:::
+
+::: callout-note
+## printing the number of columns and the number of rows in a dataframe
+```python
+print("number of columns = ", len(df.columns))
+print('number of rows = ', len(df))
+```
+:::
+
+::: callout-note
+## creating a dataframe using data stored in a csv file
+```python
+df = pd.read_csv(filepath_or_buffer = 'sample_data/california_housing_train.csv', 
+                 delimiter=',', doublequote=True, quotechar='"',
+                 na_values = ['na', '-', '.', ''], 
+                 quoting=csv.QUOTE_ALL, encoding = "ISO-8859-1")
+df
+```
+You may also use your own dataset or the movies dataset.
+:::
+
+### Extracting data from 
+::: callout-note
+## Extracting columns (attributes), rows or blocks of data
+- Extracting rows and blocks
+```python
+df.info() # index & data types
+n = 4
+dfh = df.head(n)             # get first n rows
+dft = df.tail(n)             # get last n rows
+top_left_corner_df = df.iloc[:5, :5]
+```
+
+```python
+# TODO: display the content of dfh, dft, top_left_corner_df
+```
+You can display the content of dfh, dft, top_left_corner_df using:
+```python
+dfh, dft, top_left_corner_df
+```
+However, the output will be hard to read. The output will be like:
+
+![dfh, dft, top_left_corner_df](2.png)
+
+
+It would be better to display each dataframe alone. Use multiple cells to dispay 
+them (one cell per dataframe)
+
+```python
+dfh
+```
+You will see the output as 
+
+![dfh](1.png)
+```python
+dft
+```
+Similarly, dft will be displayed as:
+
+![dft](3.png)
+```python
+top_left_corner_df
+```
+
+
+- Extracting columns  
+```python
+col_set = df.iloc[:, 5:9]
+col_set
+```
+This code extracts columns 6, 7, 8, 9 assuming the first column is numbered 1 not as the python index 0.
+
+For columns that are not in the same range, we separate the columns indexes with a comma. 
+```python
+cols_set2 = df[df.columns[[5, 6, 8]]][:] 
+cols_set2
+```
+- Extracting rows
+```python
+# TODO: write the code to extract ROWS 11, 13, and 15 from the dataframe.  
+```
+You can use the code:
+```python
+rows_set2 = df.iloc[[10, 12, 14], ]
+rows_set2
+```
+Note that Python starts the index from 0. 
+
+- Extracting rows that satisfy a specific condition
+```python
+df.loc[(df['total_rooms'] > 5000).values, ['longitude', 'latitude', 'total_rooms',  'median_house_value']]
+```
+Another way 
+```python
+df.iloc[(df['total_rooms'] > 5000).values, [0, 1, 3, 8]]
+```
+
+:::
+
+::: callout-note
+### Profiling the dataframes
+
+- Displaying the names of the attributes
+```python
+# TODO: print the names of the columns (attributes) of the dataframe.
+```
+You can access the name of the attributes using `df.columns`
+```python
+df.columns
+```
+OR
+```python
+for column in df.columns:
+  print(column)
+```
+
+- Displaying the datatype of each column. 
+
+```python
+dataTypeSeries = df.dtypes
+for col_idx in range(len(df.columns)):
+    print(df.columns[col_idx], 'has type (', dataTypeSeries[col_idx], ')')
+```
+
+- Displaying the names of the columns and the number of unique values in each column
+```python
+for col in  df.columns:
+    print(col, ' has (', len(df[col].unique()), ') unique values')
+```
+
+- displaying quantities of interest such as `min`, `max`, ...
+```python
+# TODO: print the min, max, average and standard deviation of the attributes with numerical datatype
+```
+
+```python
+dataTypeSeries = df.dtypes
+for col_idx in range(len(df.columns)):
+       if (not (dataTypeSeries[col_idx] == 'object')):
+            print(df.columns[col_idx], 'has Min = ', df[df.columns[col_idx]].min(), 
+                  'Max = ', df[df.columns[col_idx]].max(), 
+                  'Average = ', df[df.columns[col_idx]].mean(),
+                  'Standard Deviation = ', df[df.columns[col_idx]].std())
+```
+
+- counting the missing values
+```python
+# TODO: print the name of each column in the dataframe and 
+#    the number of missing values in that column.  
+
+s = df['longitude'].isnull()
+s.sum()
+```
+```python
+
+```
+You can use the following code:
+
+```python
+for column in df.columns:
+  s = df[column].isnull().sum()
+  print(column, 'has (', s, ') missing values')
+```
+You may try another dataset such as the movies dataset as this dataset is complete.
+:::
+
+
+### Connecting to an SQLite DB
+::: callout-note
+### importing the sqlite3 library
+
+First, we need to import the required library. The `sqlite3` library is installed by default on Google Colab. 
+
+```python
+import sqlite3
+from sqlite3 import Error
+```
+:::
+
+::: callout-note
+### The functions for connecting to the database and running SQL queries
+- Creating connection to the databse. The function receives the name of the 
+database file as input and returns a connector to the database. 
+```python
+def create_connection(db_file):
+    """ create a database connection to the SQLite database
+        specified by the db_file
+    :param db_file: database file
+    :return: Connection object or None
+    """
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+    except Error as e:
+        print(e)
+
+    return conn
+```
+- Sending the query to the database and receiving the resulting relation. 
+The function receives a connector and a query and returns the results of running the query. 
+```python
+def run_query(conn, query):
+    """
+    Query all rows in the tasks table
+    :param conn: the Connection object, 
+    query: the query that should be sent to the database
+    :return: The results of executing the query
+    """
+    # Create a cursor
+    cur = conn.cursor()
+    # Send the query to the database
+    cur.execute(query)
+    # Extract the results of the query
+    results = cur.fetchall()
+    # Return the results
+    return results
+```
+- Creating a dataframe from the resulting relation. 
+The function receives a connector and table name, 
+then it sends two queries to get the names of the columns and the data. 
+After receiving the contents, it creates a Pandas dataframe and returns it.  
+```python
+def convert_db_table_to_DF(conn, table):
+    # get the names of the attributes in the database table
+    header_query = "SELECT name FROM pragma_table_info('" + table + "') ORDER BY cid;"
+    cols_init = run_query(conn, header_query)
+    cols = [cols_init[i][0] for i in range(len(cols_init))]
+    # get the records of the table
+    content_query = "Select * from " + table
+    data = run_query(conn, content_query)
+    df = pd.DataFrame(data, columns = cols)
+    return df
+```
+:::
+
+::: callout-note
+## Simple query
+
+- Example for querying the database and getting the names of the tables in the database. 
+```python
+database = "sample_data/univdb-sqlite.db"
+
+# create a database connection
+conn = create_connection(database)    
+with conn:
+    query = 'SELECT name FROM sqlite_schema WHERE type="table"'
+    data = run_query(conn, query)
+    print(data)
+```
+:::
+
+::: callout-note
+### Writing your own query 
+```python
+# TODO: Write the code to read the data in the `student` table, store it in a dataframe and display the contents of the dataframe.
+
+```
+We will use the code:
+
+```python
+database = "sample_data/univdb-sqlite.db"
+
+# create a database connection
+conn_uni = create_connection(database)    
+with conn_uni:
+    tab_name = 'student'
+    student = convert_db_table_to_DF(conn_uni, tab_name)
+```
+In the next Figure you can see how we wrote the code and showed the results
+
+![The student table](student.png)
+:::
+
+::: callout-note
+
+### Merging dataframes
+This is equivalent to the `union` and `join` operator in RA and SQL.
+
+- Finding the union of two tables
+```python
+'''
+ TODO: read the contents of the files `california_housing_train.csv` and 
+ `california_housing_test.csv` and store them in `df_train` and  `df_test`. 
+ Find the union the two dataframes and store the results in a dataframe `df_cal_housing`.
+''' 
+df_train = pd.read_csv(filepath_or_buffer = 'sample_data/california_housing_train.csv', 
+                 delimiter=',', doublequote=True, quotechar='"',
+                 na_values = ['na', '-', '.', ''], 
+                 quoting=csv.QUOTE_ALL, encoding = "ISO-8859-1")
+df_test = pd.read_csv(filepath_or_buffer = 'sample_data/california_housing_test.csv', 
+                 delimiter=',', doublequote=True, quotechar='"',
+                 na_values = ['na', '-', '.', ''], 
+                 quoting=csv.QUOTE_ALL, encoding = "ISO-8859-1")
+                 
+union_df = pd.concat([df_train, df_test], axis=1)
+union_df
+```
+
+- Joining two tables
+```python
+'''
+TODO: connect to the University database and read the data in the `instructor` 
+and `department` relations and store their contents in two dataframes `df_inst` 
+and `df_dept` and join them into `df_in_dep` dataframe
+'''
+database = "sample_data/univdb-sqlite.db"
+
+# create a database connection
+conn = create_connection(database)    
+with conn:
+    inst_tab = 'instructor'
+    df_inst = convert_db_table_to_DF(conn, inst_tab)
+    dept_tab = 'department'
+    df_dept = convert_db_table_to_DF(conn, dept_tab)
+df_merge_col = pd.merge(df_inst, df_dept)
+df_merge_col
+```
+
+- 
+```python
+'''
+TODO: join `df_inst` and `df_dept` into `df_in_dep2` 
+dataframe but specify the joining attribute this time.
+'''
+df_merge_col = pd.merge(df_inst, df_dept, left_on='dept_name', right_on = 'dept_name')
+df_merge_col
+```
+
+:::

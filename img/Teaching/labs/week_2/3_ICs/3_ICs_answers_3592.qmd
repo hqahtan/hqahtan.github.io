@@ -1,0 +1,192 @@
+---
+title: "Integrity constraints and database design"
+format: 
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    # callout-appearance: simple
+    callout-icon: false
+  
+---
+
+Integrity constraints can be arbitrary predicates that ensure the consistency and the validity of the values in a database. They act as guards against any accidental damage that could happen to the database. During this lab, you will practice using a set of integrity constraints that have been studied during the lecture. 
+
+## Exercises
+
+1. Given the [University Database (`univdb-sqlite.db`)](https://www.db-book.com/university-lab-dir/sqlite-tips.html), identify the data type of each attribute (field) in the relation `takes`.
+
+```sql
+    ID  varchar(5),
+    course_id varchar(8),
+    sec_id    varchar(8),
+    semester  varchar(6),
+    year  numeric(4, 0),
+    grade varchar(2)
+```
+
+2. identify the primary keys for each of the relations (student, instructor, department, takes and teaches).
+
+| Relation   | PRIMARY KEY                             |
+|------------|-----------------------------------------|
+| student    | ID                                      |
+| instructor | ID                                      |
+| department | dept_name                               |
+| takes      | (ID, course_id, sec_id, semester, year) |
+| teaches    | (ID, course_id, sec_id, semester, year) |
+| section    | (course_id, sec_id, semester, year)     |
+| course     | course_id                               |
+| advisor    | s_id                            |
+| prereq     | (course_id, prereq_id)                  |
+| classroom  | (building, room_no)                     |
+
+The ID in table takes refers to the student id and the id in the teaches refers to the instructor id. 
+
+
+3. Identify the foreign keys in each of the relations in the previous question. 
+
+| Foreign Key    | Referencing Relation       | Referenced Relation   |
+| -------------- | ----------------- | ----------------- |
+| s_id           |  advisor          |  student     |
+| i_id           |  advisor          | instructor   |
+| ID             |  takes            | student      |
+| (course_id, sec_id, semester, year)  |  takes     | section   |
+| (course_id, sec_id, semester, year)  |  teaches   | section   |
+| (building, room_no)  |  section   | classroom    |
+| course_id            |  prereq    | course   |
+| prereq_id            |  prereq    | course   |
+| course_id            |  section   | course   |
+| dept_name            |  instructor   | department   |
+| dept_name            |  student   | department   |
+| dept_name            |  course   | department   |
+
+
+
+
+
+4. Create a table `country(ID, name, continent)`, where the values of continent is restricted to take a value of (`Asia`, `Africa`, `Europe`,  `North America`, `South America` and `Australia`).
+
+```sql
+  CREATE TABLE counttry (
+    ID VARCHAR (3) PRIMARY KEY,
+    name VARCHAR (8) NOT NULL,
+    continent VARCHAR (20) 
+    CHECK (continent IN ('Asia', 'Africa', 'Europe', 
+        'North America', 'South America', 'Australia'))
+    );
+```
+
+5. Add an attribute in each of the `student` and `instructor` relations called `home country` that is a foreign key referencing the `country` table. Check this [Link](https://database.guide/add-a-foreign-key-to-an-existing-table-in-sqlite/) for an example. 
+
+We can use:
+```sql
+  ALTER TABLE STUDENT ADD COLUMN home_country_id 
+  REFERENCES country
+```
+Similarly, 
+```sql
+  ALTER TABLE INSTRUCTOR ADD COLUMN home_country_id 
+  REFERENCES country
+```
+
+However, older versions of SQLite do not allow adding foreign keys to existing tables. We can use a workaround as follows. We create a new table 'student_new' with additional attribute 'home_country' 
+
+```sql
+  CREATE TABLE student_new( 
+    ID	varchar(5),
+	  name	varchar(20) NOT NULL,
+	  dept_name	varchar(20),
+	  tot_cred	numeric(3, 0) CHECK("tot_cred" >= 0),
+	  home_country_id char(3),
+	  PRIMARY KEY(ID),
+	  FOREIGN KEY(dept_name) REFERENCES department on delete set null,
+    FOREIGN KEY(home_country_id) REFERENCES country(ID) on delete set null
+  );
+```
+We add a new column into the student relation 
+```sql
+    ALTER TABLE student ADD COLUMN home_country_id;
+```
+Now, we copy the contents of the student relation into the student_new relation. 
+
+```sql
+  INSERT INTO student_new SELECT * FROM student;
+```
+Check if the contents were copied correctly using
+
+```sql
+    SELECT * FROM student_new;
+```
+Delete the old relation of student
+```sql
+    DROP TABLE student;
+```
+Rename the new relation from `student_new` to `student`
+```sql
+    ALTER TABLE student_new RENAME TO student;
+```
+
+6. Write an `SQL` query to remove the record of the student with `ID` = 12345. 
+
+```sql
+    DELETE FROM student 
+    WHERE ID = '12345';
+```
+
+7. If you know that student with `ID` = 12345 is referenced in the advisor relation, how can we delete the record without receiving an error message?
+
+This will depend on the referntial integrity policy. If the policy is `SET NULL`, `SET DEFAULT` or `CASCADE`, we will not receive an error message. If the policy is `No ACTION`,  we can turn the referential integrity off using 
+
+```sql
+  PRAGMA foreign_keys = OFF;
+```
+We can delete any records. The DBMS will not check for violations of the referential integrity. 
+
+8. Now, try the code  `INSERT INTO advisor values(55555, 88888);` 
+
+Since we turned off the referential integrity, the record will be inserted successfully. However, we cannot do that when the referential integrity is `on`. We will receive the error message 
+```
+  Execution finished with errors.
+  Result: FOREIGN KEY constraint failed
+```
+
+9. Check if the referential integrity is forced or not then switch it and try the previous three exercises again. 
+
+You can turn `on/off` the referential integrity in SQLite using 
+```sql
+  PRAGMA foreign_keys = OFF (or 0); (ON or 1)
+```
+
+10. According to the available data, identify the carnality of the relationships between `student` and `instructor`. Is there a better way to represent such relationship (justify your answer). 
+
+From the available data, we can see that a student can have only one advisor and the instructor can be an advisor for multiple students. The cardinality of the relationship is many-1 (many students - 1 instructor). 
+
+If a student is allowed to have only one advisor, then a better design would add the instructor id as a foreign key in the student table instead of creating a new relation `advisor`.
+
+
+
+
+### Useful queries
+
+a. Display the schema of a relation using:
+```sql
+PRAGMA table_info(tab_name);
+```
+
+b. Check the policy for referential integrity using:
+```sql
+PRAGMA foreign_key_list(tab_name);
+```
+
+c. Check if the referential integrity is forced or not using:
+```sql
+PRAGMA foreign_keys;
+```
+
+d. Force the referential integrity in SQLite using:
+```sql
+PRAGMA foreign_keys = 1;     # use 0 to force no referential integrity 
+```
+
+You can also export the database to a `.sql` file and check the complete code of the database. 

@@ -1,0 +1,129 @@
+---
+title: "INFOMDWR -- Assignment 2: Data Integration & Preparation"
+format:
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    callout-appearance: simple
+    callout-icon: false
+  # pdf:
+  #   toc: false
+  #   toc-depth: 2
+  #   documentclass: scrartcl
+  #   papersize: a4
+  #   number-sections: true
+  #   number-depth: 1
+  #   df-print: kable
+---
+
+
+## Introduction
+
+In this assignment, you will work on different tasks that are related to data preparation including data profiling, finding records that refer to same entity, and computing the correlation between different attributes. The datasets that you need to work on are available online (links are provided).  
+
+::: callout-note
+## Task  1: Profiling relational data 
+
+
+For this task, download and read the paper about [profiling relational data](https://link.springer.com/article/10.1007/s00778-015-0389-y), select a set of summary statistics about the data (minimum of 10 different values)  and write Python code to compute these quantities for a dataset of your choice. Preferably, you can use one of the csv files from the [road safety dataset](https://www.data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data). Explain the importance of each summary statistic that you selected in understanding the characteristics of the dataset. 
+
+**Note:** Computing the same statistical quantity on multiple columns of the dataset will be counted only once. 
+
+**Solution**: For prfiling the data we are going to consider the following summary statistics:
+
+| Statistics      | Description | Importance |
+| :----- | :---------- | :--------------- | 
+| num-rows     | Number of rows  | Reflects the size of the data if we have enough records for the anlysis and to lear the data patterns or not. |
+| value length |  Measurements of value lengths | Could help on deciding for the similarity measures of strings. |
+| null values  | Number or percentage of null values | Gives some ideas about the data completeness |
+| distinct | Number of distinct values | Attributes with large number of distinct values are not useful for analytics task as they reflect no patterns (unless they are continuous numerical values). |
+| uniqueness | Ratio of the distinct values to the size of the attribute | Similar to distinct |
+<!-- | histogram | Frequency histograms | Good indication about the distribution of the data. | -->
+| constancy | Ratio of number of occurrences of the most frequent value to the total number of rows | Shows if a specific value is dominating among the other values. Dominating values are interesting for the analysis. | 
+| first digit | First digit distribution for numeric values | Benford’s law states that in naturally occurring numbers the distribution of the first digit $d$ of a number approximately follows $P(d) = log_{10} (1 + d1)$. The law has been used tto uncover possible accounting fraud and other fraudulently created numbers. |
+| data type | Data type, such as numeric, alphabetic, alphanumeric, date, and time | Adding some semantics to the data. |
+| size | Maximum number of digits in numeric values | Determines the scale of your data. |
+| decimals | The number of digits to the right of the decimal point | Determines the precision of your computations. |
+
+<!-- | patterns | | | -->
+
+Computing the quantities:
+
+```python 
+
+```
+
+:::
+
+## Task 2: Entity resolution
+
+
+For this task, use the [DBLP-ACM](https://dbs.uni-leipzig.de/research/projects/object_matching/benchmark_datasets_for_entity_resolution). 
+
+
+::: callout-note
+### Part 1:
+
+Write a Python code to compare every single record in the dataset (ACM.csv) with all the records in (DBLP2.csv) and find the similar records (records that represent the same publication). To compare two records, follow the steps:
+
+a. Ignore the **pub_id**.
+a. Change all alphabetical characters into lowercase. 
+a. Convert multiple spaces to one.
+a. Use Levenshtein similarity ($L_{sim}(S_1, S_2) = 1 - \frac{MED(S_1, S_2)}{MAX(|S_1|,|S_2|)})$ for comparing the values in the **title** attribute and compute the score ($s_t$). (*MED refers to the minimum edit distance and $|S_i|$ is the number of characters in string $S_i$*).
+a. Use Jaro similarity to compare the values in the **authors** field and compute ($s_a$).
+a. Use a modified version of the affine similarity that is scaled to the interval [0, 1] for the **venue** attribute ($s_c$).  
+a. Use Match (1) / Mismatch (0) for the **year** ($s_y$).
+a. Use the formula $rec\_sim = \omega_1 * s_t + \omega_2 * s_a + \omega_3 * s_c + \omega_4 * s_y$ to combine the
+scores and compute the final score, where $\sum_{i=1}^4 \omega_i = 1$.
+a. Report the records with rec_sim > 0.7 as duplicate records by storing the ids of both
+records in a list.
+a. In the table `DBLP-ACM_perfectMapping.csv`, you can find the actual mappings (the ids of the correct
+duplicate records). Compute the **precision** of this method by counting the number of
+duplicate records that you discovered correctly. That is, among all the reported similar records by your method, how many pairs exist in the file `DBLP-ACM_perfectMapping.csv`. 
+a. Record the running time of the method. You can observe that the program takes a long time to get the results. What can you do to reduce the running time? (*Just provide clear discussion -- no need for implementing the ideas.*) 
+
+:::
+
+::: callout-note
+### Part 2:
+For this part, we will use the code about LSH from the tutorial. 
+
+1. Concatenate the values in each record into one single string.
+1. Change all alphabetical characters into lowercase. 
+1. Convert multiple spaces to one.
+1. Combine the records from both tables into one big list as we did during the lab.
+1. Use the functions in the tutorials from lab 5 to compute the shingles, the minhash signature and the similarity. 
+1. Extract the top $2224$ candidates from the LSH algorithm, compare them to the actual mappings in the file `DBLP-ACM_perfectMapping.csv` and compute the **precision** of the method.
+1. Record the running time of the method.
+1. Compare the **precision** and the running time in Parts 1 and 2. 
+:::
+
+## Task 3: Data preparation
+
+For this task, use the [Pima Indians Diabetes Database](https://www.kaggle.com/uciml/pima-indians-diabetes-database). 
+
+::: callout-note
+
+1. Compute the correlation between the different columns after removing the `outcome` column. 
+1. Remove the disguised values from the table. We need to remove the values that equal to `0` from columns `BloodPressure, SkinThickness and BMI` as these are missing values but they have been replaced by the value `0`. Remove the value but keep the record (i.e.) change the value to `null`.
+1. Fill the cells with `null` using the mean values of the records that have the same class label. 
+1. Compute the correlation between the different columns. 
+1. Compare the values from this step with the values in the first step (just mention the most important changes (if any)) and comment on your findings. 
+
+:::
+
+## Submission
+
+You need to submit a zip file that includes:
+
+1. A pdf file that reports and explains how you answered the questions.
+1. A Python notebook that includes the code with markdown boxes to specify the question under consideration. Use comments to explain the important steps in your code. The explanation of the methods in general with discussion about the most important steps in the code should be included in the report (the pdf file). 
+
+Submission should be done on blackboard and only one submission per group is needed. 
+You can submit as many versions as you like but only the last submission before the deadline will be graded. 
+
+**Deadline:** as specified in the course website (2023-10-09	10:00AM).
+
+

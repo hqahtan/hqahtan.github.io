@@ -1,0 +1,94 @@
+---
+title: "Assignment 3: Supervised learning competition"
+format:
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+---
+
+## Introduction
+
+In this assignment, you will try to predict student performance using various characteristics of the students. This assignment has the form of a "common task framework" or "benchmark" -- a kind of machine learning competition. Download the training and test data here:
+
+- Training data including the target variable (`score`): [train.rds](competition_files/train.rds)
+- Test data which does not include the target variable: [test.rds](competition_files/test.rds)
+
+Your task is to predict the variable `score` for the students in the test data. Our performance metric is mean squared error.
+
+:::{.callout-warning}
+## AI tools / ChatGPT
+
+The skills assessed in this assignment include your capability to write code, to communicate clearly about this code and its results, and to understand the components that go into model comparison.
+
+__Do not use AI tools such as ChatGPT for any part of this assignment. Also do not use AutoML systems.__
+:::
+
+## The assignment
+
+- Choose two or more appropriate prediction methods (e.g., linear regression, KNN, regression tree) to predict the `score` for the students. This can be any method, you don't have to limit yourself to the methods taught directly in this course.
+- Train and evaluate these models in terms of their predictive ability. Use the training data for this, and apply the techniques taught in the course.
+- Based on the evaluation and comparison study, select one model and create predictions for the test dataset. Store these predictions (a single vector with 79 numeric values) in a file called `predictions.rds` (e.g., `write_rds(pred_vec, "predictions.rds")`).
+- Produce a written report to communicate your work.
+
+
+## Written report
+
+Your written report should contain the following elements. You can use [this template](competition_files/report_template.html) for your report. Download the `.qmd` source [here](competition_files/report_template.qmd).
+
+:::{.callout-note}
+## YAML header
+
+when downloading the `.qmd` source, the header of the file gets lost. You can add the following header to the top of your file (include the dashes) to compile the file to a nicer `.html` file.
+
+```
+---
+title: "Supervised learning competition"
+author: 
+  - Author One
+  - Author Two
+  - Author Three
+date: last-modified
+format:
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: kable
+---
+```
+:::
+
+- Data description & exploration. Describe the data and use a visualization to support your story. More information about the columns can be found [here](competition_files/student.txt). (approx. one or two paragraphs)
+- Briefly describe which models you compare to perform prediction. (approx. two or three paragraphs)
+- Describe additional pre-processing steps you have used, if any (e.g., dealing with categorical data, scaling, feature engineering, etc.).
+- Describe how you compare the methods and why. (approx. two or three paragraphs)
+- Show which method is best and why. (approx. one paragraph)
+- Write down what each team member contributed to the project.
+
+## Hand-in
+
+Create a folder with:
+
+- Your report (.html or .pdf)
+- The qmd file that generates your report
+- All the resources needed (such as data) to generate the report from the `.qmd` file
+- Any additional code files you have used
+- Your generated predictions in a file called `predictions.rds`
+
+Zip this folder and upload it to Brightspace.
+
+:::{.callout-note}
+## Computational reproducibility
+
+This folder needs to be computationally reproducible. That is: if we download the folder, open the .qmd file and press "render", the report is generated without error (potentially after installing the necessary packages). Make sure to check this (i.e., try it on different computers).
+:::
+
+## Grading
+
+Your grade will be based on the following components:
+
+- Code quality: Including legibility, consistent style, computational reproducibility, comments. (20%)
+- Content: Whether all required components of the written report are complete, correct, and concise. (70%)
+- Performance: Your predictions should be better than a trivial baseline. If they're as good as a trivial baseline, you get half the points for this component. If they're on a par with a "good" model, you'll get all the points for this component. (10%)

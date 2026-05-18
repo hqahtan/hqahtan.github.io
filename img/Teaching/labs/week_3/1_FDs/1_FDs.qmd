@@ -1,0 +1,111 @@
+---
+title: "Functional dependency"
+format: 
+  html:
+    toc: true
+    self-contained: true
+    code-fold: true
+    df-print: paged
+    # callout-appearance: simple
+    callout-icon: false
+  
+---
+
+ 
+
+## Exercises
+
+::: callout-note
+### Lossless decomposition of relations
+
+* Suppose that we decompose the schema $R = (A, B, C, D, E)$ into 
+$$
+\begin{aligned}  
+& R_1 = (A, B, C) \\
+& R_2 = (A, D, E)
+\end{aligned}
+$$
+Show that this decomposition is a lossless decomposition if the following set $\mathcal{F}$
+of functional dependencies holds:
+$$  
+\begin{aligned}  
+&A \mapsto BC \\
+&CD \mapsto E \\
+&B \mapsto D \\
+&E \mapsto A 
+\end{aligned}
+$$
+
+:::
+
+
+
+
+::: callout-note
+### BCNF 
+
+* Show that if we combine the relations `instructor` and `department` into `in_dep (ID, name, salary, dept_name, building, budget)` then the resulting relation is not in Boyce–Codd normal form (BCNF).  
+
+:::
+
+::: callout-note
+### Alternative Definition of the Keys
+
+* The Functional dependencies $R(A,B,C,D,E,F,G)$ is given: 
+$$
+\begin{aligned}  
+\mathcal{F} =  &\{ \\ 
+&ABD \mapsto EG,\\
+&C \mapsto DG, \\
+&E \mapsto FG, \\
+&AB \mapsto C, \\
+&G \mapsto F\\
+&\}.\\
+\end{aligned}
+$$
+Find the candidate key for $R$.
+:::
+
+
+
+::: callout-note
+### Discovering FDs
+
+* Given the relation:
+
+| A  |  B |  C |
+| -- | -- | -- |
+| a1 | b1 | c3 |
+| a1 | b1 | c3 |
+| a2 | b1 | c1 |
+| a2 | b1 | c1 |
+| a3 | b1 | c1 |
+
+List all nontrivial functional dependencies satisfied by the relation. 
+
+:::
+
+::: callout-note
+### Practical example
+
+In the [University Database (`univdb-sqlite.db`)](https://www.db-book.com/university-lab-dir/sqlite-tips.html), perform the following tasks:
+
+- Join the relations  `instructor` and `department` into `in_dep (ID, name, salary, dept_name, building, budget)` and display the content of the new relation. 
+- Save the resulting relation in the database. 
+- Split the relation  back into two relation `instructor_1 (ID, name, dept_name, salary`) and `department_1(dept_name, building, budget)`. 
+- Compare the entries in the `department` relation with those in the `department_1` and those in the `instructor` with those in the `instructor_1`. Comment on your findings. 
+- Now, split the relation back into two relation `instructor_2 (ID, name, dept_name, salary, budget`) and `department_2(building, budget)`.
+- Join relations `instructor_2` and `department_2` into `in_dep_2 (ID, name, salary, dept_name, building, budget)`
+- Compare the `in_dep_2` relation with `in_dep`.
+- Split back the `in_dep_2` relation into `instructor_2 (ID, name, dept_name, salary`) and `department_2(dept_name, building, budget)`. 
+Compare the entries in the `department` relation with those in the `department_2` and those in the `instructor` with those in the `instructor_2`. Comment on your findings.
+
+:::
+
+## Discovering functional dependencies using Metanome
+
+::: callout-note
+### FD Discovery 
+
+Download the [Metanome profiler](https://hpi.de/naumann/projects/data-profiling-and-analytics/metanome-data-profiling.html) and a set of the functional dependency discovery algorithms, run one of the algorithms on csv file (you can find examples of datasets on the same website), and report the discovered FDs. Metanome is built using `JAVA`so you will need to install it on your computer.  
+::: 
