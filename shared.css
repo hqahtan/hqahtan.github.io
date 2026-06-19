@@ -410,6 +410,68 @@ ol li span {
   left: +100px;
 }
 
+ul {
+  margin: .5em 0 1.25em;
+  padding: 0;
+  list-style: none;
+  font-size: 1.1rem;
+}
+
+/* Direct children only — prevents this rule bleeding into nested levels */
+ul > li {
+  position: relative;
+  padding: 0 0 0 1.25em;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  margin-left: 1em;
+  font-size: 1.1rem;
+}
+
+ul > li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--ink-muted);
+}
+
+/* Level 2 */
+ul ul {
+  margin: .25em 0 .25em;
+  padding: 0;
+}
+
+ul ul > li {
+  position: relative;
+  padding: 0 0 0 1.25em;
+  margin-left: 1.75em;
+  margin-top: 3px;
+  margin-bottom: 2px;
+  font-size: 1rem;
+}
+
+ul ul > li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 1.2em;
+  line-height: 1.4;
+}
+
+/* Level 3 */
+ul ul ul > li {
+  margin-left: 1.75em;
+  font-size: 0.95rem;
+}
+
+ul ul ul > li::before {
+  content: '○';
+  font-size: .8em;
+  padding: 10px;
+  margin-left: 20px
+  color: var(--ink-muted);
+}
+
 
 /* ── SHARED BUTTONS ── */
 .btn {
@@ -512,11 +574,6 @@ table table-schedule {
 
 
 
-.pub-authorsT
-{
-    color: #660000;
-    font-weight: normal;
-}
 
 #to_top {
   display: none;
@@ -581,6 +638,7 @@ table table-schedule {
 
   /* Syntax highlight classes */
   .kw  { color: #a45af0; }
+  .wd  { color: SaddleBrown; font-size: 120%; font-weight:bold;}
   .str { color: var(--accent); }
   .cm  { color: var(--text-muted); font-style: italic; }
   .fn  { color: #008000; }
@@ -618,6 +676,121 @@ table table-schedule {
   }
   .note strong { color: var(--accent2); }
 
+  
+/* ── Quarto layout classes ── */
+  .page-columns {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .page-rows-contents {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .page-layout-article {
+    max-width: 900px;
+  }
+
+  .margin-sidebar {
+    width: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  main.content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ── Section levels (Quarto heading structure) ── */
+  section.level2 {
+    padding: 0;
+    border-top: none;
+  }
+
+  section.level2 + section.level2 {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  h2.anchored {
+    scroll-margin-top: 5rem; /* account for sticky nav */
+  }
+
+  /* ── Figures ── */
+  .quarto-figure {
+    margin: 1.5rem 0;
+  }
+
+  .quarto-figure-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  figure.figure {
+    margin: 0;
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  figure.figure img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+
+  .figure-caption {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* ── Code blocks with copy button ── */
+  .sourceCode {
+    position: relative;
+    margin: 1rem 0;
+  }
+
+  .code-with-copy {
+    padding-right: 3rem; /* room for the copy button */
+  }
+
+  .code-copy-button {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.5rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.2rem 0.45rem;
+    cursor: pointer;
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+    line-height: 1;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+
+  .code-copy-button:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(200, 169, 110, 0.07);
+  }
+
+  /* Bootstrap icon fallback — renders a clipboard symbol via CSS */
+  .bi::before {
+    content: '⧉';
+    font-style: normal;
+  }
 
 /* ── Callout cards ── */
   .callout {
@@ -645,7 +818,12 @@ table table-schedule {
   .callout-body { padding: 1.25rem 1.4rem; }
   .callout-body p { font-size: .93rem; }
 
-  
+.code2 {
+    font-family: "Verdana", "Helvetica", "Arial", sans-serif;
+    font-size: .84rem;
+    line-height: 1.65;
+    color: seagreen;
+  }
 
 
 
