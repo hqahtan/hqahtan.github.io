@@ -97,6 +97,18 @@
       </ul>
     </nav>
 
+    <!-- DOCUMENT OVERLAY: opens PDF (or other local) links in place, keeping nav + sidebar visible -->
+    <div id="doc-overlay" class="doc-overlay">
+      <div class="doc-toolbar">
+        <span id="doc-title" class="doc-title">Document</span>
+        <div class="doc-toolbar-actions">
+          <a id="doc-open-link" href="#" target="_blank" rel="noopener">Open in new tab</a>
+          <button type="button" id="doc-close-btn">✕ Close</button>
+        </div>
+      </div>
+      <iframe id="doc-frame" class="doc-frame" title="Document viewer"></iframe>
+    </div>
+
     <section id="Introduction">
       <!-- <p class="section-label">Teaching</p> -->
       <h1>Introduction</h1>
@@ -526,5 +538,6 @@
   </div>
 
   <script type="text/javascript" async="" src="button.js"></script>
+  <script type="text/javascript" async="" src="pdf_handling.js"></script>
 </body>
 </html>
