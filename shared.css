@@ -610,6 +610,30 @@ table table-schedule {
     margin: 1rem 0;
     position: relative;
   }
+  .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-family: inherit;
+      line-height: 1;
+      background: rgba(0, 120, 120, 0.3);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 4px;
+      cursor: pointer;
+      opacity: 0.75;
+      transition: opacity 0.2s ease, background 0.2s ease;
+    }
+    pre:hover .copy-btn { opacity: 1; }
+    .copy-btn:hover { background: rgba(0, 120, 230, 0.3); }
+    .copy-btn.copied {
+      background: #2ecc71;
+      border-color: #2ecc71;
+      color: #fff;
+      opacity: 1;
+    }
   pre .lang-label {
     position: absolute;
     top: .45rem; right: .7rem;
