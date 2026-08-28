@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Teaching</title>
+  <link rel="stylesheet" href="https://hqahtan.github.io/shared.css">
+  <link rel="stylesheet" href="https://hqahtan.github.io/teaching.css">
+</head>
+<body>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="https://hqahtan.github.io/img/top.png" width="30"/></button>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="https://hqahtan.github.io/img/DW.png" alt="INFOMDW">
+    </div>
+    <div class="sidebar-name">INFOMDW</div>
+    <div class="sidebar-title"><a href="https://www.uu.nl/en/masters/applied-data-science">Applied Data Science Program</a></div>
+    <div class="sidebar-dept"><a href="https://ics.uu.nl/">Dept. of Information and Computing Sciences</a></div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a></div>
+    <div class="sidebar-divider"></div>
+      Materials for the ADS course <br/>
+      (INFOMDW) <br/>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Useful Links</div>
+    <div class="sidebar-contact-list">
+      <a href="https://mytimetable.uu.nl/schedule" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/rooster.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>My Timetable</div>
+      </a>
+      <a href="https://uu.brightspace.com/d2l/home" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/BS.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>BrightSpace</div>
+      </a>
+    </div>
+    <div class="sidebar-socials">
+      <a href="https://creativecommons.org/licenses/by/4.0/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="https://hqahtan.github.io/img/cc.svg" width="20"/><img src="https://hqahtan.github.io/img/by.svg" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+    <p>
+      The materials on this website are <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> licensed.
+    </p>
+  </aside>
+
+
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="https://hqahtan.github.io/infomdw.html" class="nav-logo">Data Wrangling (INFOMDW)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="https://hqahtan.github.io/index.html">Home</a>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/research.html#book_chapters">Book Chapters</a>
+            <a href="https://hqahtan.github.io/research.html#research_papers">Research Papers</a>
+            <a href="https://hqahtan.github.io/research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/teaching.html#current-courses">Current courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#past-courses">Past courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#admin">Administration</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/infomdw.html" class="active">INFOMDW<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/infomdw.html#Introduction">Introduction</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Policy">Policy</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Material">Material</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Schedule">Schedule</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+
+    <section id="Introduction">
+      <h1>Data Extraction</h1>
+
+      <h2>Overview</h2>
+      <p class="page-course">
+        In this lab, you will work on creating tables (relations) and adding/deleting records to/from the tables. You will learn also how to modify a database by altering the tables (adding/deleting attributes) or even deleting the whole table. When writing the SQL queries, it is good to keep a copy of the queries in a plain text document so you can use them later (if needed).
+
+      </p>
+      <p class="page-course">
+
+        Moreover, you will work on querying databases using relational algebra and SQL. The exercises in this lab are similar to the examples that you studied during the lecture. The purpose of the lab sessions is to get the hands-on experience that is required for future career.
+      </p>
+      <p class="page-course">
+        <b>Note:</b> we will use table and relation exchangeable unless something else is specified.
+      </p>
+      <p class="page-course">
+        The exercises in this lab are based on the following schema and the data is available as <code>.csv</code> files, which can be downloaded using this <a href="https://hqahtan.github.io/Teaching/infomdw/labs/week_2/data.zip">LINK</a>. The database schema is:
+      </p>
+      <p class="page-course">
+        <img src="https://hqahtan.github.io//Teaching/infomdw/labs/week_2/DB_Schema.jpg"/>
+    </p>
+    </section>
+    <section>
+      <h2>Table Manipulation</h2>
+      <div class="callout">
+        <div class="callout-header"> Creating Tables</div>
+        <div class="callout-body">
+          
+        <p class="page-course">
+
+        Write the <code>SQL</code> query that creates the three tables in the Figure. For now, you don’t need to specify the primary/foreign keys or any additional constraints. Just the data type of each attribute. Insert some records to the tables or import the data in the <code>csv</code> files into the tables.
+
+        </p>
+      </div>
+    </div>
+
+      <div class="callout">
+        <div class="callout-header"> Modifying Tables</div>
+        <div class="callout-body">
+        <ol type="1">
+          <li> <li> <p class="page-course">You might have noticed that when importing the <code>csv</code>, some of the values in the tables table are missing or incorrect. Update those records by adding the values from the <code>csv</code> file. </p></li>
+          <li><p class="page-course">If you have inserted a few records in the <code>goal</code> table before, display the records of the table and check the values in the <code>assist_provider</code> attribute.</p></li>
+          <li><p class="page-course">Before performing the next tasks, make sure that you have the query for creating the tables that you will work on and you have the queries for inserting the records again.</p>
+            <ol>
+            <li><p class="page-course">Delete all the records from the table. Make sure that the table itself is not deleted.</p></li>
+            <li><p class="page-course">Delete the table and its content. Comment on the differences between the two queries.</p></li>          
+        </ol>
+        </li>
+
+        </ol>
+
+        </p>
+      </div>
+    </div>
+
+
+    </section>
+
+    <section>
+      <h2>Relational Algebra</h2>
+      <p class="page-course">
+      Write the following queries in relational algebra:
+      </p>
+      <ol type="1">
+      <li><p class="page-course">Find the names of the stadiums where the Netherlands national team played a game.</p></li>
+      <li><p class="page-course">Find the names of the players who scored a goal in all the games when Poland was playing.</p></li>
+      <li><p class="page-course">Find the name of the top scorer.</p></li>
+    </ol>
+    </section>
+    <section>
+      <h2>Data Extraction with SQL</h2>
+      <p class="page-course">
+      For SQL, we will have two types of exercises. Type1, you need to interpret and understand the outcomes of an SQL Query. Type2, You will need to write your SQL query to extract specific piece of data.
+    </p>
+
+      <div class="callout">
+        <div class="callout-header"> Running SQL Queries </div>
+        <div class="callout-body">
+          <p class="page-course">
+            To run these queries, you need to have the data inserted to the three tables from the <code>csv</code> files.
+            </p> 
+            <p class="page-course">
+            You can also write more <code>SQL</code> queries on the university database <code>univdb-sqlite.db</code>, which can be downloaded from <a href="https://www.db-book.com/university-lab-dir/sqlite-tips.html">here</a>. Try to run the queries that we discussed during the lecture. 
+          </p>
+          <p class="page-course">
+          <h4>Q1. SELECT-FROM-WHERE</h4>
+        </p>
+          <pre><code><span class="kw">SELECT</span> teamname, coach <span class="kw">FROM</span> teams
+<span class="kw">WHERE</span> id <span class="op">=</span><span class="str"> 'FRA'</span>;</code></pre>
+          <p class="page-course">
+          <h4>Q2. Using DISTINCT</h4>
+        </p>
+            <pre><code><span class="kw">SELECT DISTINCT</span> player <span class="kw">FROM</span> goal;</code></pre>
+
+            <p class="page-course">
+              <h4>Q3. Using ALL</h4>
+            </p>
+            
+            <pre><code><span class="kw">SELECT ALL</span> player <span class="kw">FROM</span> goal;</code></pre>
+
+            <p class="page-course">
+              <h4>Q4. Using named literal attribute</h4>
+            </p>
+            <pre><code><span class="kw">SELECT</span> 'ABC' <span class="kw">AS</span> 'V1';</code></pre>
+
+            <p class="page-course">
+              <h4>Q5. Using named literal attribute with <code>FROM</code></h4>
+            </p>
+            <pre><code><span class="kw">SELECT</span> 'ABC' <span class="kw">FROM</span> teams;</code></pre>
+
+            <p class="page-course">
+              <h4>Q6. Join</h4>
+            </p>
+            <pre><code><span class="kw">SELECT</span> player, stadium <span class="kw">FROM</span> goal, teams
+<span class="kw">WHERE</span> matchid <span class="op">=</span> id;</code></pre>
+
+            <p class="page-course">
+              <h4>Q7. Self-join</h4>
+            </p>
+            <pre><code><span class="kw">SELECT</span> g1.matchid, g1.player, g1.teamid, g2.player, g2.teamid <span class="kw">FROM</span> goal <span class="kw">AS</span> g1, goal <span class="kw">AS</span> g2
+<span class="kw">WHERE</span> g1.matchid <span class="op">=</span> g2.matchid <span class="kw">AND</span> g1.player <span class="op"><></span> g2.player;</code></pre>
+            
+            <p class="page-course">
+              <h4>Q7. Left-outer join</h4>
+            </p>
+            <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> goal 
+<span class="kw">LEFT OUTER JOIN</span> game 
+<span class="kw">WHERE</span> goal.matchid <span class="op">=</span> game.id;</code></pre>
+          
+
+        </div>
+      </div>
+      <div class="callout">
+        <div class="callout-header"> Writing SQL Queries </div>
+        <div class="callout-body">
+          <p class="page-course">
+            In this part, you will write your own <code>SQL</code> queries to perform the following tasks.
+          </p>
+          <p class="page-course">
+            <ol>
+              <li><p class="page-course"> Write a query that returns the information of the teams that played at least one game.</p></li>
+
+
+              
+              <li><p class="page-course"> Older versions of SQLite support <code>LEFT OUTER JOIN</code> only. How do we rewrite the following query to be able to run on those versions?</p></li>
+              <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> goal 
+<span class="kw">RIGHT OUTER JOIN</span> game 
+<span class="kw">WHERE</span> goal.matchid <span class="op">=</span> game.id;</code></pre>
+
+            <li><p class="page-course"> Older versions of SQLite support <code>LEFT OUTER JOIN</code> only. How do we rewrite the following query to be able to run on those versions?</p></li>
+              <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> goal 
+<span class="kw">FULL OUTER JOIN</span> game 
+<span class="kw">WHERE</span> goal.matchid <span class="op">=</span> game.id;</code></pre>
+          </p>
+
+          <li><p class="page-course"> Write a query that finds the names of all players that contain the substring <b>“an”</b> in their names. </p></li>
+          
+          <li><p class="page-course"> Write a query that finds the names of all players that contain the substring <b>“an”</b> in their names. Show the name of the player only once.</p></li>
+          <li><p class="page-course">
+          Write a query that returns the names of the players from the Netherlands, Spain and Poland who scored at least a goal. Show the name of the player only once. </p></li>
+          <li><p class="page-course">
+            Given the query below, answer the following questions:
+            <ol type="A">
+                <li><p class="page-course">What does this query do?</p></li>
+                <li><p class="page-course">Why we used <code>HAVING</code>?</li>
+                <li><p class="page-course">What do we need to do in order to replace <code>HAVING</code> by <code>WHERE</code>?</li>
+              </ol>
+          </p></li>
+          <p class="page-course">
+            <pre><code><span class="kw">SELECT</span> player, count(*) as number_of_goals 
+<span class="kw">FROM</span> goal 
+<span class="kw">GROUP BY</span> player 
+<span class="kw">HAVING</span> number_of_goals <span class="op"> > </span> 2;</code></pre>
+          </p>
+            
+
+        </div>
+      </div>
+    
+    </section>
+
+    
+
+  </div>
+
+  <!-- <script type="text/javascript" async="" src="https://hqahtan.github.io/button.js"></script> -->
+  <script type="text/javascript" async="" src="button.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('pre').forEach(function (preEl) {
+        var codeEl = preEl.querySelector('code');
+        if (!codeEl) return;
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+
+        btn.addEventListener('click', function () {
+          var text = codeEl.innerText;
+          navigator.clipboard.writeText(text).then(function () {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 1500);
+          }).catch(function () {
+            btn.textContent = 'Failed';
+            setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+          });
+        });
+
+        preEl.appendChild(btn);
+      });
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+  <!--           <pre><code><span class="kw">SELECT DISTINCT</span> player <span class="kw">FROM</span> goals
+            <span class="kw">WHERE</span> id <span class="op">=</span><span class="str">'GER'</span> <span class="kw">AND</span>
+            name <span class="kw">NOT</span> <span class="kw">LIKE</span> <span class="str">'sqlite_%'</span>;</code></pre> -->
