@@ -347,24 +347,6 @@ h1 {
   margin-bottom: 0.75rem;
 }
 
-.page-intro {
-  max-width: 800px;
-  color: var(--ink-muted);
-  line-height: 1.8;
-  font-size: 0.97rem;
-}
-
-.page-course {
-  max-width: 800px;
-  color: black;
-  line-height: 1.8;
-  font-size: 1.1rem;
-}
-
-/* ── SHARED SECTION CHROME ── */
-section { padding: 4rem 3.5rem; }
-section + section { border-top: 1px solid var(--border); padding-top: 3.5rem; }
-
 h2 {
   font-family: 'DM Serif Display', serif;
   font-size: 1.4rem;
@@ -376,32 +358,72 @@ h2 {
 }
 
 
+h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  margin-top: 0.75rem;
+  padding-bottom: 0.25rem;
+  /*border-bottom: 1px solid var(--border);*/
+}
+
+h4 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  margin-top: 0.75rem;
+  padding-bottom: 0.25rem;
+  /*border-bottom: 1px solid var(--border);*/
+}
+
+
+.page-intro {
+  max-width: 800px;
+  color: var(--ink-muted);
+  line-height: 1.8;
+  font-size: 0.97rem;
+}
+
+.page-course {
+  max-width: 900px;
+  color: black;
+  line-height: 1.8;
+  font-size: 1.2rem;
+}
+
+/* ── SHARED SECTION CHROME ── */
+section { padding: 4rem 3.5rem; }
+section + section { border-top: 1px solid var(--border); padding-top: 3.5rem; }
+
+
 ol {
   margin:.5em 0 1.25em;
   padding:0 0px;
   list-style:none;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   }
 
 ol li li
 {
-  background:url("img/icon_star_sm.jpg") no-repeat 1px .2em;
+  background:url("https://hqahtan.github.io/img/icon_star_sm.jpg") no-repeat 1px .2em;
   margin:0;
   padding:0 0 0px 16px;
   margin-top: 4px;
   margin-bottom: 2px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-left:30px;
 }
 
 ol li
 {
-  background:url("img/icon_arrow_bk.jpg") no-repeat 1px .2em;
+  background:url("https://hqahtan.github.io/img/icon_arrow_bk.jpg") no-repeat 1px .2em;
   margin:0;
   margin-top: 4px;
   padding:0 0 0px 16px;
   margin-bottom: 2px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-left:10px
 }
 
@@ -414,7 +436,7 @@ ul {
   margin: .5em 0 1.25em;
   padding: 0;
   list-style: none;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 /* Direct children only — prevents this rule bleeding into nested levels */
@@ -424,7 +446,7 @@ ul > li {
   margin-top: 4px;
   margin-bottom: 2px;
   margin-left: 1em;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 ul > li::before {
@@ -446,7 +468,7 @@ ul ul > li {
   margin-left: 1.75em;
   margin-top: 3px;
   margin-bottom: 2px;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 ul ul > li::before {
@@ -454,14 +476,14 @@ ul ul > li::before {
   position: absolute;
   left: 0;
   color: var(--accent);
-  font-size: 1.2em;
+  font-size: 1.2rem;
   line-height: 1.4;
 }
 
 /* Level 3 */
 ul ul ul > li {
   margin-left: 1.75em;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
 }
 
 ul ul ul > li::before {
@@ -669,7 +691,9 @@ table table-schedule {
   .fn  { color: #008000; }
   .op  { color: #f05a8a; }
   .nb  { color: #5a9ef0; }
+  .ct  { color: #555; }
   .sh  { color: #800080; font-weight:bold; }   /* shell prompt */
+  .tx  { color: brown; }
 
 /* ── Table list (table names) ── */
   .table-list {
@@ -831,7 +855,7 @@ table table-schedule {
     gap: .6rem;
     padding: .75rem 1.2rem;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: .78rem;
+    font-size: 1rem;
     font-weight: 600;
     letter-spacing: .06em;
     text-transform: uppercase;
@@ -842,6 +866,41 @@ table table-schedule {
   .callout-header .icon { font-size: 1rem; }
   .callout-body { padding: 1.25rem 1.4rem; }
   .callout-body p { font-size: .93rem; }
+
+  /* Callout type variants — set the accent color used by header + left border */
+  .callout-note      { --callout-color: var(--accent); }
+  .callout-tip        { --callout-color: #4CAF7D; }
+  .callout-warning    { --callout-color: var(--accent2, #E0A458); }
+  .callout-important  { --callout-color: #D1554A; }
+
+  .callout {
+    border-left: 3px solid var(--callout-color, var(--accent));
+  }
+  .callout-header {
+    background: color-mix(in srgb, var(--callout-color, var(--accent)) 10%, transparent);
+  }
+  .callout-header .icon { color: var(--callout-color, var(--accent)); }
+
+  /* ── Nested callouts ── */
+  /* A callout dropped inside another callout's body loses its own outer
+     margin/radius so it reads as "inside" the parent, and its border
+     narrows slightly so nesting depth is legible at a glance. */
+  .callout .callout {
+    margin: 1rem 0;
+    border-left-width: 2px;
+  }
+  .callout .callout .callout {
+    border-left-width: 1px;
+  }
+  .callout .callout .callout-header {
+    font-size: .82rem;
+    padding: .6rem 1rem;
+  }
+  .callout .callout .callout-body {
+    padding: 1rem 1.1rem;
+  }
+  .callout .callout .callout .callout-header { font-size: .74rem; }
+
 
 .code2 {
     font-family: "Verdana", "Helvetica", "Arial", sans-serif;

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Teaching</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="https://hqahtan.github.io/teaching.css">
+</head>
+<body>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="https://hqahtan.github.io/img/top.png" width="30"/></button>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="https://hqahtan.github.io/img/DW.png" alt="INFOMDW">
+    </div>
+    <div class="sidebar-name">INFOMDW</div>
+    <div class="sidebar-title"><a href="https://www.uu.nl/en/masters/applied-data-science">Applied Data Science Program</a></div>
+    <div class="sidebar-dept"><a href="https://ics.uu.nl/">Dept. of Information and Computing Sciences</a></div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a></div>
+    <div class="sidebar-divider"></div>
+      Materials for the ADS course <br/>
+      (INFOMDW) <br/>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Useful Links</div>
+    <div class="sidebar-contact-list">
+      <a href="https://mytimetable.uu.nl/schedule" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/rooster.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>My Timetable</div>
+      </a>
+      <a href="https://uu.brightspace.com/d2l/home" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/BS.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>BrightSpace</div>
+      </a>
+    </div>
+    <div class="sidebar-socials">
+      <a href="https://creativecommons.org/licenses/by/4.0/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="https://hqahtan.github.io/img/cc.svg" width="20"/><img src="https://hqahtan.github.io/img/by.svg" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+    <p>
+      The materials on this website are <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> licensed.
+    </p>
+  </aside>
+
+
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="https://hqahtan.github.io/infomdw.html" class="nav-logo">Data Wrangling (INFOMDW)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="https://hqahtan.github.io/index.html">Home</a>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/research.html#book_chapters">Book Chapters</a>
+            <a href="https://hqahtan.github.io/research.html#research_papers">Research Papers</a>
+            <a href="https://hqahtan.github.io/research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/teaching.html#current-courses">Current courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#past-courses">Past courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#admin">Administration</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/infomdw.html" class="active">INFOMDW<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/infomdw.html#Introduction">Introduction</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Policy">Policy</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Material">Material</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Schedule">Schedule</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+
+    <section id="Introduction">
+      <h1>Data Extraction &amp; Integrity Constraints</h1>
+
+      <!-- <h2>Overview</h2> -->
+      <p class="page-course">
+        In this lab, we will use the football datasets. 
+
+      </p>
+      
+      <p class="page-course">
+        <img src="https://hqahtan.github.io//Teaching/infomdw/labs/week_2/DB_Schema.jpg"/>
+    </p>
+    </section>
+    <section>
+      <h2>Data Extraction with SQL &amp; Python </h2>
+      <section id="SQL"> <h3> DE with SQL (continued)</h3>
+      <div class="callout callout-warning">
+        <div class="callout-header"> SQL Queries with Aggregate Functions</div>
+        <div class="callout-body">
+
+        <ol type="1">
+          <li> <p class="page-course">Write an <code>SQL</code> query that returns the names of the teams and the total number of goals scored by the players of that team. </p></li>
+          <li> <p class="page-course">Assuming that every match lasts for 90 minutes, write an <code>SQL</code> query that returns the average scoring time for the Spanish team (total number of minutes played divided by the total number of goals scored). </p></li>
+          <li> <p class="page-course">Write an <code>SQL</code> query that returns the number of players who scored goals from the <font color="red">Spanish, Dutch, Polish, and Greek</font> teams.  </p></li> 
+        </ol>
+
+      </div>
+    </div>
+  </section>
+      <section id="PYTHON"> <h3>DE with PYTHON</h3>
+        <p class="page-course">
+          In the following exercises, you will practice on working with Pandas DataFrames. You will practice on how to extract parts of the data using Python APIs. You will also practice on connecting to an SQLite database, send SQL queries, and extract the results to a Pandas DataFrame. There are parts where the code is available so you need to run the code, understand and comment on the output. There are also a set of exercises where you need to write the code yourself.
+        </p>
+        <p class="page-course">
+          First, we need to import the libraries that are required for our code. You can run the code on Google Colab or using your favorite IDE for Python.
+        </p>
+        <pre><code><span class="kw">import</span> <span class="str">Pandas</span><span class="kw"> as </span> <span class="str">pd</span>
+<span class="kw">import </span> <span class="str"> csv </span></code></pre>
+      <p class="page-course">
+      Run the code and comment on the output. After that, solve the exercises with the <span class="tx">TODO</span>.
+    </p>
+      <div class="callout callout-warning">
+        <div class="callout-header"> Creating DataFrames</div>
+        <div class="callout-body">
+          <div class="callout callout-note">
+        <div class="callout-header"> Creating a DataFrame from Pandas Series</div>
+        <div class="callout-body">
+        <pre><code><span class="kw">data</span> <span class="op">=</span> <span class="kw">{</span><span class="fn">'State':</span> <span class="fn">['Ohio', 'Ohio', 'Ohio', 'Nevada', 'Nevada', 'Nevada']</span>, 
+          <span class="fn">'Year':</span> [2000, 2001, 2002, 2001, 2002, 2003],
+          <span class="fn">'Population':</span> [1.5, 1.7, 3.6, 2.4, 2.9, 3.2]<span class="kw">}</span>
+<span class="kw">df</span> <span class="op">=</span> <span class="kw">pd.DataFrame(data)</span>
+<span class="kw">df   </span>     
+        </code></pre>
+      </div>
+    </div>
+      <div class="callout callout-note">
+        <div class="callout-header"> Creating a DataFrame from Data Matrix</div>
+        <div class="callout-body">
+        <pre><code><span class="kw">data</span> <span class="op">=</span> [[<span class="fn">'Ohio'</span>, 2000, 1.5], [<span class="fn">'Ohio'</span>, 2001, 1.7], [<span class="fn">'Ohio'</span>, 2002, 3.6],
+        [<span class="fn">'Nevada'</span>, 2001, 2.4],[<span class="fn">'Nevada'</span>, 2002, 2.9], [<span class="fn">'Nevada'</span>, 2003, 3.2]]
+<span class="kw">cols</span> <span class="op">=</span> <span class="fn">['State', 'Year', 'Population']</span>
+<span class="kw">df</span> <span class="op">=</span> <span class="kw">pd.DataFrame(</span><span class="fn">data, columns </span><span class="op">=</span> <span class="fn">cols)</span>
+<span class="kw">df   </span>     
+        </code></pre>
+      </div>
+    </div>
+    <div class="callout callout-note">
+        <div class="callout-header"> Printing the number of columns and the number of rows in a DataFrame</div>
+        <div class="callout-body">
+        <pre><code><span class="kw">print(</span><span class="fn">"number of columns = "</span><span class="kw">, len(df.columns))</span>
+<span class="kw">print(</span><span class="fn">"number of rows = "</span><span class="kw">, len(df))</span></code></pre>
+      </div>
+    </div>
+
+    <div class="callout callout-note">
+        <div class="callout-header"> Creating a DataFrame using data stored in a csv file</div>
+        <div class="callout-body">
+        <pre><code><span class="fn">df</span><span class="op"> =</span> <span class="kw">pd.read_csv(</span> <span class="fn">filepath_or_buffer</span> <span class="op">= </span><span class="str">'sample_data/california_housing_train.csv'</span><span class="kw">,</span> 
+    <span class="fn">delimiter</span> <span class="op">= </span><span class="str">','</span><span class="kw">,</span> <span class="fn">doublequote</span> <span class="op"> =</span> <span class="str">True</span><span class="kw">,</span>
+    <span class="fn">quotechar</span> <span class="op"> = </span><span class="fn">'"'</span>,<span class="fn">na_values</span> <span class="op">= </span><span class="str">['na', '-', '.', '']</span><span class="kw">,</span>
+    <span class="fn">quoting</span> <span class="op">= </span> <span class="str">csv.QUOTE_ALL</span><span class="kw">,</span> <span class="fn">encoding</span> <span class="op">= </span><span class="str">"ISO-8859-1"</span><span class="kw">)</span>
+<span class="fn">df</span></code></pre>
+
+    <p class="page-course">
+    You may also use your own dataset or the <span class="nb">movies</span> dataset that can be downloaded from this <a href="https://hqahtan.github.io/Teaching/infomdw/labs/week_3/movies.csv">LINK</a>.
+  </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div class="callout callout-warning">
+        <div class="callout-header"> Extracting Data from Pandas DataFrames</div>
+        <div class="callout-body">
+          <p class="page-course">
+          Use the <code>california_housing_train</code> dataset in the following exercises:
+        </p>
+          <div class="callout callout-note">
+        <div class="callout-header"> Extracting rows and blocks</div>
+        <div class="callout-body">
+        <pre><code><span class="kw">df.info()</span>    <span class="op">#</span><span class="cm"> index & data types</span>
+<span class="fn">n</span> <span class="op">=</span> 4
+<span class="fn">dfh</span> <span class="op">=</span> <span class="kw">df.head(</span><span class="fn">n</span><span class="kw">)</span>            <span class="op">#</span> <span class="cm">get first n rows </span>
+<span class="fn">dft</span> <span class="op">=</span> <span class="kw">df.tail(</span><span class="fn">n</span><span class="kw">)</span>             <span class="op">#</span> <span class="cm">get last n rows</span>
+<span class="fn">top_left_corner_df</span> <span class="op">=</span> <span class="kw">df.iloc</span>[:5, :5]
+        </code></pre>
+
+       <code> TODO:</code> <span class="ct">display the content of</span><span class="fn">dfh, dft, top_left_corner_df</span>
+      </div>
+        </div>
+      
+        <div class="callout callout-note">
+        <div class="callout-header"> Extracting columns</div>
+        <div class="callout-body">
+        <pre><code><span class="fn">col_set</span> <span class="op">=</span> <span class="kw">df.iloc</span>[:, 5:9]
+<span class="fn">col_set</span>    
+</code></pre>
+
+       <p class="page-course">
+       This code extracts columns 6, 7, 8, 9 assuming the first column is numbered 1 not as the python index 0.</p>
+        <p class="page-course">
+      For columns that are not in the same range, we separate the columns indexes with a comma.
+       </p>
+
+      </div>
+        </div>
+
+        <div class="callout callout-note">
+        <div class="callout-header"> Extracting rows</div>
+        <div class="callout-body">
+         <code>TODO:</code> <span class="ct">write the code to extract ROWS 11, 13, and 15 from the DataFrame. </span>
+       
+      </div>
+        </div>
+
+        <div class="callout callout-note">
+        <div class="callout-header"> Extracting rows that satisfy a specific condition</div>
+
+        <div class="callout-body">
+         <pre><code><span class="kw">df.loc</span>[(<span class="kw">df</span>[<span class="fn">'total_rooms'</span>] <span class="op">></span> 5000)<span class="kw">.values</span>, 
+        [<span class="fn">'longitude', 'latitude', 'total_rooms',  'median_house_value'</span>]]</code></pre>
+
+        <p class="page-course">
+          Another way:
+          <pre><code><span class="kw">df.loc</span>[(<span class="kw">df</span>[<span class="fn">'total_rooms'</span>] <span class="op">></span> 5000)<span class="kw">.values</span>, [0, 1, 3, 8]]</code></pre>
+        </p>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="callout callout-warning">
+        <div class="callout-header"> Profiling the DataFrames</div>
+        <div class="callout-body">
+          <p class="page-course">
+          We will also use the <code>california_housing_train</code> dataset in the following exercises:
+        </p>
+          <div class="callout callout-note">
+        <div class="callout-header"> Displaying the names of the attributes</div>
+        <div class="callout-body">
+            <code>TODO:</code> <span class="ct">print the names of the columns (attributes) of the dataframe.</span>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <div class="callout callout-warning">
+        <div class="callout-header"> Connecting to an SQLite DB</div>
+        <div class="callout-body">
+          <p class="page-course">
+          First, we need to import the required library. The <span class="kw">sqlite3</span> library is installed by default on <span class="kw">Google Colab</span>.
+        </p>
+        <div class="callout callout-note">
+        <div class="callout-header"> Creating connection to the databse</div>
+        <div class="callout-body">
+          <p class="page-course">
+            The following function receives the name of the database file as input and returns a connector to the database.
+          </p>
+            <pre><code><span class="kw">def create_connection</span>(<span class="fn"> db_file</span>):
+    <span class="ct">""" create a database connection to the SQLite database specified by the db_file </span>
+    <span class="fn">:param db_file:</span><span class="ct"> database file</span>
+    <span class="fn">:return:</span><span class="ct"> Connection object or None</span>
+    <span class="ct">"""</span>
+    <span class="fn">conn</span> <span class="op">=</span> <span class="kw">None</span>
+    <span class="kw">try:</span>
+        <span class="kw">conn</span> <span class="op">=</span> <span class="kw">sqlite3.connect</span>(<span class="fn">db_file</span>)
+    <span class="kw">except Error as e:</span>
+        <span class="kw">print</span>(<span class="fn">e</span>)
+    <span class="kw">return</span> <span class="fn">conn</span></code></pre> 
+    </div>
+    </div>
+
+          <div class="callout callout-note">
+        <div class="callout-header"> Querying the database</div>
+        <div class="callout-body">
+        <p class="page-course">  
+          Sending a query to the database and receiving the resulting relation can be done through the following function, which receives a connector and a query and returns the results after running the query.
+        </p>
+        <pre><code> <span class="kw">def run_query</span>(<span class="fn">conn, query</span>):
+    <span class="ct">"""</span>
+    <span class="ct">Query all rows in the teams table</span>
+    <span class="fn">:param conn:</span> <span class="ct">the Connection object</span>
+    <span class="fn">:return:</span><span class="ct"> the results of executing the query</span>
+    <span class="ct">"""</span>
+    <span class="ct"> # Create a cursor </span>
+    <span class="kw">cur</span> <span class="op">=</span><span class="kw"> conn.cursor</span>()    
+    <span class="ct"># Send the query to the database</span>
+    <span class="kw">cur.execute</span>(<span class="fn">query</span>)
+    <span class="ct"># Extract the results of the query</span>
+    <span class="kw">results</span> <span class="op">=</span> <span class="kw">cur.fetchall</span>()
+    <span class="ct"># Return the results </span>
+    <span class="kw">return</span> <span class="fn">results</span>
+        </code></pre>
+        </div>
+      </div>
+    <div class="callout callout-note">
+        <div class="callout-header"> Creating a DataFrame from the query results</div>
+        <div class="callout-body">
+        <p class="page-course">  
+          The following function receives a connector and table name, then it sends two queries to get the names of the columns and the data. After receiving the query output, it creates a Pandas dataframe and returns it.
+        </p>
+        <pre><code> <span class="kw">def convert_db_table_to_DF</span>(<span class="fn">conn, table):</span>):
+    <span class="ct"># get the names of the attributes in the database table</span>
+    <span class="kw">header_query</span> <span class="op">=</span> "<span class="fn">SELECT</span> name <span class="fn">FROM</span> <span class="kw">pragma_table_info</span>('" <span class="op">+</span> table <span class="op">+</span> "') <span class="fn">ORDER BY</span> cid;"
+    <span class="kw">cols_init</span> <span class="op">=</span> <span class="kw">run_query</span>(<span class="fn">conn, header_query</span>)
+    <span class="kw">cols</span> <span class="op">=</span> [<span class="kw">cols_init</span>[i][0] <span class="fn">for</span> i <span class="fn">in</span> <span class="kw">range</span>(<span class="fn">len(cols_init)</span>)]
+    <span class="ct"># get the records of the table</span>
+    <span class="kw">content_query</span> <span class="op">=</span> "<span class="fn">Select</span> * <span class="fn">FROM</span> " <span class="op">+</span> table
+    <span class="kw">data</span> <span class="op">=</span> <span class="kw">run_query</span>(<span class="fn">conn, content_query</span>)
+    <span class="kw">df</span> <span class="op">=</span> <span class="kw">pd.DataFrame</span>(<span class="fn">data, columns</span><span class="op"> =</span> <span class="fn">cols</span>)
+    <span class="kw">return</span> <span class="fn">df</span> </code></pre>
+        </div>
+      </div>
+    <div class="callout callout-note">
+        <div class="callout-header">Example </div>
+        <div class="callout-body">
+        <p class="page-course">  
+          Querying the database to get the names of the tables in the database.
+        </p>
+        <pre><code><span class="kw">database</span> <span class="op">=</span> "<span class="fn">sample_data/football.db</span>"
+<span class="ct"># create a database connection</span>
+<span class="kw">conn</span> <span class="op">=</span> <span class="kw">create_connection</span>(<span class="fn">database</span>)    
+<span class="kw">with</span> <span class="fn">conn</span>:
+    <span class="kw">query</span> <span class="op">=</span> '<span class="fn">SELECT</span> name <span class="fn">FROM</span> sqlite_schema <span class="fn">WHERE</span> <span class="kw">type</span><span class="op"> = </span> "table"'
+    <span class="kw">data</span> <span class="op">=</span> <span class="kw">run_query</span>(<span class="fn">conn, query</span>)
+    <span class="kw">print</span>(<span class="fn">data</span>) </code></pre>
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-header">Exercise </div>
+        <div class="callout-body">
+        <p class="page-course">  
+          Write your own query
+        </p>
+        <pre><code><span class="ct">'''</span>
+<span class="tx">TODO:</span> <span class="ct">Write the code to read the data in the game table, store it in </span>
+<span class="ct">a DataFrame and display the contents of the DataFrame.</span>
+<span class="ct">'''</span>  </code></pre>
+        </div>
+      </div>
+
+    </div>
+    </div>
+
+
+    <div class="callout callout-warning">
+        <div class="callout-header"> Merging DataFrames</div>
+        <div class="callout-body">
+          <p class="page-course">
+          This is equivalent to the <code>union</code> and <code>join</code> operator in <span class="kw">RA</span> and <span class="kw">SQL</span>.  
+        </p>
+          <div class="callout callout-note">
+        <div class="callout-header"> Finding the union of two tables</div>
+        <div class="callout-body">
+          <p class="page-course">
+            <code>TODO:</code> <span class="ct">read the contents of the files</span> <span class="kw">california_housing_train.csv</span> <span class="ct">and </span> <span class="kw">california_housing_test.csv</span> <span class="ct">and store them in</span> <span class="kw">df_train</span> <span class="ct">and</span> <span class="kw">df_test</span>. <span class="ct">Find the</span> <code>union</code> <span class="ct">the two dataframes and store the results in a DataFrame </span><span class="kw">`df_cal_housing</span>.
+          </p>
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-header"> Joining two tables</div>
+        <div class="callout-body">
+          <p class="page-course">
+            <code>TODO:</code> <span class="ct">connect to the </span> <span class="kw">football</span> <span class="ct">database and read the data in the</span> <span class="kw">goals</span> <span class="ct">and</span> <span class="kw">game</span> <span class="ct">relations. Store their contents in two DataFrames </span><span class="kw">df_goal</span> <span class="ct">and</span> <span class="kw">df_game</span> <span class="ct">and</span> <code>join</code> <span class="ct">them into</span> <span class="kw">df_goal_game</span> <span class="ct">dataframe</span>.
+          </p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    </section>
+
+    </section>
+
+    <section>
+      <h2>Integrity Constraints &amp; Database Design </h2>
+      <p class="page-course">
+      Integrity constraints are arbitrary predicates that ensure the consistency and the validity of the values in a database. They act as guards against any accidental damage that could happen to the database. In the following exercises, you will practice using a set of integrity constraints that have been studied during the lecture.
+      </p>
+      <ol type="1">
+      <li><p class="page-course">Identify and define the <font color="green">PRIMARY KEYS</font> for each of the relations (<font color="brown">goal, game, teams</font>).</p></li>
+      <li><p class="page-course">Identify and define the <font color="green">FOREIGN KEYS</font> in each of the relations in the previous question. Define how you would like to enforce the <font color="green">Referential Integrity</font>. </p></li>
+      <li><p class="page-course">Add an attribute <font color="brown">Confederation</font> in the table <font color="brown"> teams</font>, where the values are restricted to be from the list (<font color="brown">UEFA, CONMEBOL, CAF, AFC, CONCACAF, OFC</font> and <font color="brown">CONIFA</font>).</p></li>
+      <li><p class="page-course">Write an <font color="brown">SQL</font> query to remove the record of the <font color="brown">teams</font> with <font color="brown">id = "ESP"</font>. Will the query work by default or not. If it didn't work, what do you need to do?</p></li>
+      <li><p class="page-course">Try the following query: <font color="green">INSERT INTO</font> <font color="brown">teams</font> <font color="green">values</font>(<font color="brown">"FRA", "France", "Zidane"</font>). Will the query work or not and why?</p></li>
+    </ol>
+
+    <div class="callout callout-warning">
+        <div class="callout-header"> Useful Queries</div>
+        <div class="callout-body">
+          <div class="callout callout-note">
+        <div class="callout-header"> Display the schema of a relation</div>
+        <div class="callout-body">          
+            <pre><code><span class = "fn">PRAGMA</span> <span class = "kw">table_info</span>(<span class = "fn">tab_name</span>)</code></pre>    
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-header"> Display the schema of a relation</div>
+        <div class="callout-body">          
+            <pre><code><span class = "fn">PRAGMA</span> <span class = "kw">table_info</span>(<span class = "fn">tab_name</span>)</code></pre>    
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-header">Check if the referential integrity is forced or not</div>
+        <div class="callout-body">          
+            <pre><code><span class = "fn">PRAGMA</span> <span class = "kw">foreign_keys;</span></code></pre>    
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-header">Force the referential integrity</div>
+        <div class="callout-body">          
+            <pre><code><span class = "fn">PRAGMA</span> <span class = "kw">foreign_keys</span> <span class="op">=</span> 1;</code></pre>    
+        </div>
+      </div>
+
+    </div>
+  </div>
+    </section>
+    </div>
+
+  <!-- <script type="text/javascript" async="" src="https://hqahtan.github.io/button.js"></script> -->
+  <script type="text/javascript" async="" src="button.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('pre').forEach(function (preEl) {
+        var codeEl = preEl.querySelector('code');
+        if (!codeEl) return;
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+
+        btn.addEventListener('click', function () {
+          var text = codeEl.innerText;
+          navigator.clipboard.writeText(text).then(function () {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 1500);
+          }).catch(function () {
+            btn.textContent = 'Failed';
+            setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+          });
+        });
+
+        preEl.appendChild(btn);
+      });
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+  <!--           <pre><code><span class="kw">SELECT DISTINCT</span> player <span class="kw">FROM</span> goals
+            <span class="kw">WHERE</span> id <span class="op">=</span><span class="str">'GER'</span> <span class="kw">AND</span>
+            name <span class="kw">NOT</span> <span class="kw">LIKE</span> <span class="str">'sqlite_%'</span>;</code></pre> -->
