@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Teaching</title>
+  <link rel="stylesheet" href="https://hqahtan.github.io/shared.css">
+  <link rel="stylesheet" href="https://hqahtan.github.io/teaching.css">
+</head>
+<body>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="https://hqahtan.github.io/img/top.png" width="30"/></button>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="https://hqahtan.github.io/img/DW.png" alt="INFOMDW">
+    </div>
+    <div class="sidebar-name">INFOMDW</div>
+    <div class="sidebar-title"><a href="https://www.uu.nl/en/masters/applied-data-science">Applied Data Science Program</a></div>
+    <div class="sidebar-dept"><a href="https://ics.uu.nl/">Dept. of Information and Computing Sciences</a></div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a></div>
+    <div class="sidebar-divider"></div>
+      Materials for the ADS course <br/>
+      (INFOMDW) <br/>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Useful Links</div>
+    <div class="sidebar-contact-list">
+      <a href="https://mytimetable.uu.nl/schedule" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/rooster.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>My Timetable</div>
+      </a>
+      <a href="https://uu.brightspace.com/d2l/home" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/BS.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>BrightSpace</div>
+      </a>
+    </div>
+    <div class="sidebar-socials">
+      <a href="https://creativecommons.org/licenses/by/4.0/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="https://hqahtan.github.io/img/cc.svg" width="20"/><img src="https://hqahtan.github.io/img/by.svg" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+    <p>
+      The materials on this website are <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> licensed.
+    </p>
+  </aside>
+
+
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="https://hqahtan.github.io/infomdw.html" class="nav-logo">Data Wrangling (INFOMDW)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="https://hqahtan.github.io/index.html">Home</a>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/research.html#book_chapters">Book Chapters</a>
+            <a href="https://hqahtan.github.io/research.html#research_papers">Research Papers</a>
+            <a href="https://hqahtan.github.io/research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/teaching.html#current-courses">Current courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#past-courses">Past courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#admin">Administration</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/infomdw.html" class="active">INFOMDW<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/infomdw.html#Introduction">Introduction</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Policy">Policy</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Material">Material</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Schedule">Schedule</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+
+    <section id="Introduction">
+      <h1>Functional Dependency &amp; Hashing and Indexing</h1>
+
+      <h2>Overview</h2>
+      <p class="page-course">
+        In this lab, we will work on functional dependencies and how can we use them to decide on relation decomposition. We will also work with indices and evaluate how they speed-up the process of querying databases. </p>
+    </section>
+    <section>
+      <h2>Functional Dependency</h2>
+      <p class="page-course">Functional dependency is a constraint between the attributes that represents a tool for measuring whether the grouping of the attributes into relation schemas is appropriate or not.</p>
+      <div class="callout callout-warning">
+        <div class="callout-header">Lossless decomposition of relations</div>
+        <div class="callout-body">
+          <p class="page-course">Suppose that we decompose the schema $R(A, B, C,D, E)$ into $$R_1 = (A, B, C),$$ $$R_2 = (A, D, E)$$</p>
+          <p class="page-course">Show that this decomposition is a lossless decomposition if the following set $\mathfrak{F}$ of functional dependencies holds:</p>
+          <p class="page-course">$A\longmapsto BC$</p>
+          <p class="page-course">$CD\longmapsto E$</p>
+          <p class="page-course">$B\longmapsto D$</p>
+          <p class="page-course">$E\longmapsto A$</p>
+      </div>
+    </div>
+
+      <div class="callout callout-note">
+        <div class="callout-header">BCNF</div>
+        <div class="callout-body">
+        <p class="page-course">Show that if we combine the relations <font color="brown">goal</font> and <font color="brown">teams</font> into <font color="brown">teams_goals (matchid, teamid, teamname, player, coach, gtime)</font> then the resulting relation is not in <font color="blue">Boyce–Codd</font> normal form <font color="blue">(BCNF)</font>.</p>
+      </div>
+    </div>
+    <div class="callout callout-note">
+        <div class="callout-header">Alternative Definition of the Keys</div>
+        <div class="callout-body">
+        <p class="page-course">Given the relation $R(A, B, C, D, E, F, G)$, the following functional dependencies are non-trivial FDs over $R$:</p>
+        <p class="page-course">$\mathfrak{F}= \{ $</p>
+        <p class="page-course">$\ \ \ \ ABD\longmapsto EG,$</p>
+        <p class="page-course">$\ \ \ \ C\longmapsto DG,$</p>
+        <p class="page-course">$\ \ \ \ E\longmapsto FG,$</p>
+        <p class="page-course">$\ \ \ \ AB\longmapsto C,$</p>
+        <p class="page-course">$\ \ \ \ G\longmapsto F$</p>
+        <p class="page-course">$\}$.</p>
+        <p class="page-course">Find the candidate key for $R$.</p>
+      </div>
+    </div>
+    <div class="callout callout-warning">
+        <div class="callout-header">Practical Example</div>
+        <div class="callout-body">
+        <p class="page-course">In the <font color="brown">Football</font> Database that we have been using, perform the following tasks:</p>
+        <ul>
+        <li><p class="page-course">Join the relations <font color="brown">goal</font> and <font color="brown">game</font> into <font color="brown">goal_game (matchid, teamid, player, gtime, mdate, stadium, team1, team2)</font> and display the content of the new relation.</p></li>
+        <li><p class="page-course">Save the resulting relation in the database.</p></li>
+        <li><p class="page-course">Split the relation  <font color="brown"> goal_game</font> back into two relations <font color="brown">goal_1 (matchid, teamid, player, gtime)</font> and <font color="brown">game_1(id, mdate, stadium, team1, team2)</font>.</p></li>
+          <li><p class="page-course">Compare the entries in the <font color="brown"> goal</font> relation with those in the <font color="brown"> goal_1</font> and those in the <font color="brown">game</font> with those in the <font color="brown">game_1</font>. Comment on your findings.</p></li>
+          <li><p class="page-course">Now, split the relation <font color="brown">goal_game</font> back into two relations: <font color="brown">goal_2 (matchid, teamid, player, gtime, stadium)</font> and <font color="brown">game_2 (id, mdate, team1, team2)</font>.</p></li>
+          <li><p class="page-course">Join the relations <font color="brown">goal_2</font> and <font color="brown">game_2</font> into <font color="brown">goal_game_2 (matchid, teamid, player, gtime, mdate, stadium, team1, team2)</font>.</p></li>
+          <li><p class="page-course">Compare the relation <font color="brown">goal_game</font> with the relation <font color="brown">goal_game_2</font>.</p></li>
+          <li><p class="page-course">Split the relation <font color="brown">goal_game_2</font> back into two relations: <font color="brown">goal_3 (matchid, teamid, player, gtime)</font> and <font color="brown">game_3 (id, mdate, stadium, team1, team2)</font>. Compare the entries in the <font color="brown">goal</font> relation with those in the <font color="brown">goal_3</font> and those in the <font color="brown">game</font> with those in the <font color="brown">game_3</font>. Comment on your findings.</p></li>
+        </ul>
+      </div>    
+    </div>
+    </section>
+    <section>
+      <h2>Hashing and Indexing</h2>
+      <p class="page-course">
+      In databases, indexes are used to speed up the retrieval of rows by creating a data structure that allows the database engine to quickly locate the required data. There are several types of indexes:</p>
+      <div class="callout callout-warning">
+        <div class="callout-header">Single-Column Index</div>
+        <div class="callout-body">
+        <p class="page-course">
+          The most common type of index, created on a single column in a table. This index is useful for answering frequent queries on that specific column.
+        </p>
+        <pre><code><span class="kw">CREATE INDEX</span> <span class="fn">idx_name</span> <span class="kw">ON</span> <span class="fn">table_name(column_name)</span>; </code></pre>
+      </div>
+    </div>
+    <div class="callout callout-warning">
+        <div class="callout-header">Multiple-Column (Composite) Index</div>
+        <div class="callout-body">
+        <p class="page-course">
+          An index that is created on multiple columns. It’s beneficial when queries involve multiple columns in the WHERE clause. It can be created using:
+        </p>
+        <pre><code><span class="kw">CREATE INDEX</span> <span class="fn">idx_name</span> <span class="kw">ON</span> <span class="fn">table_name(column1, column2)</span>; </code></pre>
+      </div>
+    </div>
+    <div class="callout callout-warning">
+        <div class="callout-header">Unique Index</div>
+        <div class="callout-body">
+        <p class="page-course">
+          Index to enforce uniqueness of the indexed column(s). This ensures that no two rows can have the same values for the indexed column(s). It can be created using:
+        </p>
+        <pre><code><span class="kw">CREATE UNIQUE INDEX</span> <span class="fn">idx_name</span> <span class="kw">ON</span> <span class="fn">table_name(column_name)</span>; </code></pre>
+      </div>
+    </div>
+    <div class="callout callout-warning">
+        <div class="callout-header">Implicit Index</div>
+        <div class="callout-body">
+        <p class="page-course">
+          Index that is automatically created by the Database Management System (DBMS) when you define a PRIMARY KEY or UNIQUE constraint on a table.
+        </p>
+      </div>
+    </div>
+    <div class="callout callout-warning">
+        <div class="callout-header">Creating and Deleting Indices</div>
+        <div class="callout-body">
+        <p class="page-course">
+          In this exercise, you will practice on creating and deleting indexes in a database. 
+        </p>
+        <div class="callout callout-tip">
+        <div class="callout-header">Listing the available indices</div>
+        <div class="callout-body">
+        <p class="page-course">
+          After uploading the database, list the available indexes for a given table using the code:
+        </p>
+        <pre><code><span class="kw">PRAGMA</span> <span class="fn">index_list('goal')</span>; </code></pre>
+        <p class="page-course"><font color="brown">#TODO:</font> Check the type of the indexes that you will see.</p>
+      </div>
+      </div>
+      <div class="callout callout-tip">
+        <div class="callout-header">Creating an index</div>
+        <div class="callout-body">
+        <p class="page-course">
+          Create an index using the code:
+        </p>
+        <pre><code><span class="kw">CREATE INDEX</span> <span class="fn">idx_player</span> <span class="kw">ON</span> <span class="fn">goal(player)</span>; </code></pre>
+        <p class="page-course"><font color="brown">#TODO:</font> Try to create multiple indexes on different tables.</p>
+      </div>
+      </div>
+      <div class="callout callout-tip">
+        <div class="callout-header">Deleting an index</div>
+        <div class="callout-body">
+        <p class="page-course">
+          Delete indexes from those that you have created using the code:
+        </p>
+        <pre><code><span class="kw">DROP INDEX</span> <span class="fn">idx_name</span>; </code></pre>
+        <p class="page-course"><font color="brown">#TODO:</font> Try to delete multiple indexes on different tables.</p>
+      </div>
+      </div>
+      </div>
+    </div>
+    <div class="callout callout-warning">
+        <div class="callout-header">Query Performance with and without indexes</div>
+        <div class="callout-body">
+        <p class="page-course">For this exercise, we will create a database with only one big table of synthetic data about employees.
+        </p>
+      <div class="callout callout-tip">
+        <div class="callout-header">Generating the data</div>
+        <div class="callout-body">
+        <p class="page-course">
+          Copy this code to <font color="green">Google Colab</font> and run it (You don’t have to fully understand how it works).
+        </p>
+        <pre><code><span class="kw">import</span> <span class="fn">sqlite3</span>
+<span class="kw">import</span> <span class="fn">random</span>
+<span class="kw">import</span> <span class="fn">datetime</span>
+<span></span>
+<span class="fn">NUM_ROWS</span> <span class="op">=</span> 5_000_000
+<span class="fn">conn</span><span class="op"> = </span><span class="kw">sqlite3.connect</span>(<span class="fn">f'employees_{NUM_ROWS}.db'</span>) 
+<span class="fn">cur</span><span class="op"> = </span><span class="kw">conn.cursor</span>()
+<span></span>
+<span class="fn">cur.execute</span>('''
+<span>CREATE TABLE IF NOT EXISTS Employees (</span>
+    <span>EmployeeID INTEGER PRIMARY KEY,</span>
+    <span>FirstName TEXT,</span>
+    <span>LastName TEXT,</span>
+    <span>Email TEXT UNIQUE,</span>
+    <span>DepartmentID char(6),</span>
+    <span>Salary REAL,</span>
+    <span>HireDate DATE</span>
+<span>);</span>
+<span>''')</span>
+<span class="nb">def</span> <span class="kw">random_date</span>(<span class="fn">start, end</span>):
+    <span class="kw">return</span> <span class="fn">start</span><span class="op"> + </span><span class="fn">datetime.timedelta</span>(
+        <span class="fn">days</span><span class="op">=</span><span class="fn">random.randint</span>(0, <span class="kw">int</span>((<span class="fn">end</span><span class="op"> -</span> <span class="fn">start</span>)<span class="fn">.days</span>)))
+<span class="fn">first_names</span> <span class="op">=</span> [
+    <span class="fn">"John", "Jane", "Michael", "Emily", "James", "Patricia", "Robert", "Linda", "William", "Barbara",</span>
+    <span class="fn">"David", "Elizabeth", "Joseph", "Susan", "Charles", "Margaret", "Thomas", "Dorothy", "Christopher", "Nancy",</span>
+    <span class="fn">"Daniel", "Karen", "Matthew", "Betty", "Anthony", "Helen", "Mark", "Sandra", "Paul", "Ashley",</span>
+    <span class="fn">"Steven", "Deborah", "Andrew", "Jessica", "Kenneth", "Sarah", "Joshua", "Laura", "Kevin", "Anna",</span>
+    <span class="fn">"Brian", "Kimberly", "George", "Melissa", "Edward", "Michelle", "Ronald", "Emily", "Timothy", "Amanda",</span>
+    <span class="fn">"Jason", "Angela", "Jeffrey", "Rebecca", "Ryan", "Cynthia", "Jacob", "Stephanie", "Gary", "Katherine",</span>
+    <span class="fn">"Nicholas", "Shirley", "Eric", "Brenda", "Jonathan", "Catherine", "Stephen", "Christine", "Larry", "Marie",</span>
+    <span class="fn">"Justin", "Janet", "Scott", "Samantha", "Brandon", "Carolyn", "Frank", "Rachel", "Gregory", "Heather",</span>
+    <span class="fn">"Raymond", "Diane", "Benjamin", "Virginia", "Patrick", "Julie", "Alexander", "Joyce", "Jack", "Victoria",</span>
+    <span class="fn">"Dennis", "Olivia", "Jerry", "Christina", "Tyler", "Kelly", "Aaron", "Emma", "Jose", "Lauren"</span>
+]
+<span class="fn">last_names</span> <span class="op">=</span> [
+    <span class="fn">"Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",</span>
+    <span class="fn">"Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin",</span>
+    <span class="fn">"Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson",</span>
+    <span class="fn">"Walker", "Young", "Allen", "King", "Wright", "Scott", "Torres", "Nguyen", "Hill", "Flores", "Green",</span>
+    <span class="fn">"Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts", "Gomez",</span>
+    <span class="fn">"Phillips", "Evans", "Turner", "Diaz", "Parker", "Cruz", "Edwards", "Collins", "Reyes", "Stewart",</span>
+    <span class="fn">"Morris", "Morales", "Murphy", "Cook", "Rogers", "Gutierrez", "Ortiz", "Morgan", "Cooper", "Peterson",</span>
+    <span class="fn">"Bailey", "Reed", "Kelly", "Howard", "Ramos", "Kim", "Cox", "Ward", "Richardson", "Watson",</span>
+    <span class="fn">"Brooks", "Chavez", "Wood", "James", "Bennett", "Gray", "Mendoza", "Ruiz", "Hughes", "Price",</span>
+    <span class="fn">"Alvarez", "Castillo", "Sanders", "Patel", "Myers", "Long", "Ross", "Foster", "Jimenez", "Powell"</span>
+]
+<span class="fn">domains</span> <span class="op">=</span> [<span class="fn">'example.com', 'test.com', 'demo.com'</span>]
+<span class="fn">start_date</span> <span class="op">=</span> <span class="fn">datetime.date</span>(2000, 1, 1)
+<span class="fn">end_date</span> <span class="op">=</span> <span class="fn">datetime.date</span>(2023, 12, 31)
+<span class="fn">locations</span> <span class="op">=</span> [<span class="fn">'AM', 'UT', 'RT', 'EN'</span>]
+<span></span>
+<span class="kw">for</span><span class="fn"> i</span> <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">NUM_ROWS</span>):
+    <span class="fn">first_name</span> <span class="op">=</span> <span class="fn"> f'{random.choice(first_names)}_{i%10000}'</span>
+    <span class="fn">last_name</span> <span class="op">=</span><span class="fn"> f'{random.choice(last_names)}_{i%10000}'</span>
+    <span class="fn">email</span> <span class="op">=</span> <span class="fn">f"{first_name.lower()}.{last_name.lower()}{i}@{random.choice(domains)}"</span>
+    <span class="fn">department_id</span> <span class="op">=</span> <span class="fn">locations</span>[<span class="fn">random.randint</span>(0, 3)] <span class="op">+</span> <span class="fn">str</span>(<span class="fn">random.randint</span>(1, 100))
+    <span class="fn">salary</span> <span class="op">=</span> <span class="fn">round</span>(<span class="fn">random.uniform</span>(30000, 150000), 2)
+    <span class="fn">hire_date</span> <span class="op">=</span> <span class="fn">random_date</span>(<span class="fn">start_date, end_date</span>)<span class="fn">.isoformat</span>()
+
+    <span class="fn">cur.execute</span>('''
+    <span>INSERT INTO Employees (FirstName, LastName, Email, DepartmentID, Salary, HireDate)</span>
+    <span>VALUES (?, ?, ?, ?, ?, ?);</span>
+    <span>''', (first_name, last_name, email, department_id, salary, hire_date))</span>
+
+    <span class="kw">if</span> <span class="fn">i</span> % 100000 <span class="op">==</span> 0:
+        <span class="kw">print</span>(<span class="fn">f"inserted numberd of rows {i}"</span>)
+        <span class="fn">conn.commit</span>()
+
+<span class="fn">conn.commit</span>()
+<span class="fn">conn.close</span>()
+<span class="kw">print</span>(<span class="fn">f"Database with {NUM_ROWS} rows created successfully!"</span>)
+        </code></pre>
+        <p class="page-course"><font color="brown">#TODO:</font> Download the generated database and upload it to<font color="brown"> DB-Browser</font>.</p>
+      </div>
+      </div>
+      <div class="callout callout-tip">
+        <div class="callout-header">Testing the performance of the queries</div>
+        <div class="callout-body">
+        <p class="page-course">
+          <font color="brown">#TODO: </font>For each of the following queries perform the following list of tasks:
+        </p>
+        <ol>
+        <li><p class="page-course">Run the query and record its running time.</p></li>
+        <li><p class="page-course">Create an index on the column that is specified in the query.</p></li>
+        <li><p class="page-course">Run the query again with the indexed column and record the running time.</p></li>
+      </ol>
+        <p class="page-course">
+        The queries:
+        </p>
+        <h4>Q1:</h4>
+        <pre><code><span class="kw">SELECT</span> <span class="op"> *</span> <span class="kw">FROM</span> <span class="fn">Employees</span> <span class="kw">WHERE</span> <span class="fn">LastName</span> <span class="op">=</span> <span class="fn">"Adams_278"</span>;</code></pre>
+        <h4>Q2:</h4>
+        <pre><code><span class="kw">SELECT</span> <span class="op"> *</span> <span class="kw">FROM</span> <span class="fn">Employees</span> <span class="kw">WHERE</span> <span class="fn">Salary</span> <span class="op">=</span> 66355.3;</code></pre>
+        <p class="page-course">Since the salary is randomly generated, this value might not be in your database. You may start by displaying a few records from the <font color="brown">Employees</font> table and pick one of the values in the salary column. You can use the query below to display the first 100 records.</p>
+        <pre><code><span class="kw">SELECT</span> <span class="op">*</span> <span class="kw">FROM</span> <span class="fn">Employees</span> <span class="kw">LIMIT</span> 100 </code></pre>
+        <h4>Q3:</h4>
+        <pre><code><span class="kw">SELECT DISTINCT</span> <span class="fn"> DepartmentID</span> <span class="kw">FROM</span> <span class="fn">Employees</span> <span class="kw">WHERE</span> <span class="fn">DepartmentID</span> <span class="op">=</span> <span class="fn">'EN98'</span> <span class="op">AND</span> <span class="fn">Salary</span><span class="op"> = </span>93255.3;</code></pre>
+        <p class="page-course">Similar to the previous query, you may display a few records first and select values that are in the same record for the <font color="brown">DepartmentID</font> and the <font color="brown">Salary</font>.</p>
+        <h4>Q4:</h4>
+        <pre><code><span class="kw">SELECT DISTINCT</span> <span class="fn"> DepartmentID</span> <span class="kw">FROM</span> <span class="fn">Employees</span></code></pre>
+        <p class="page-course"><span class="wd"> Additionally, </span> try more queries in you own.</p>
+      </div>
+      </div>
+      </div>
+    </div>
+  </section>
+    
+
+  </div>
+
+  <!-- <script type="text/javascript" async="" src="https://hqahtan.github.io/button.js"></script> -->
+  <script type="text/javascript" async="" src="button.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('pre').forEach(function (preEl) {
+        var codeEl = preEl.querySelector('code');
+        if (!codeEl) return;
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+
+        btn.addEventListener('click', function () {
+          var text = codeEl.innerText;
+          navigator.clipboard.writeText(text).then(function () {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 1500);
+          }).catch(function () {
+            btn.textContent = 'Failed';
+            setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+          });
+        });
+
+        preEl.appendChild(btn);
+      });
+    });
+  </script>
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      jax: ["input/TeX", "output/HTML-CSS"],
+      extensions: ["tex2jax.js"],
+      "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+      tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+      TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+      messageStyle: "none"
+    });
+    </script>    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
+</body>
+</html>
+
+
+
+  <!--           <pre><code><span class="kw">SELECT DISTINCT</span> player <span class="kw">FROM</span> goals
+            <span class="kw">WHERE</span> id <span class="op">=</span><span class="str">'GER'</span> <span class="kw">AND</span>
+            name <span class="kw">NOT</span> <span class="kw">LIKE</span> <span class="str">'sqlite_%'</span>;</code></pre> -->
