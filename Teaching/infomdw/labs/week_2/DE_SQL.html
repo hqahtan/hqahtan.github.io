@@ -209,7 +209,7 @@
             </p>
             <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> goal 
 <span class="kw">LEFT OUTER JOIN</span> game 
-<span class="kw">WHERE</span> goal.matchid <span class="op">=</span> game.id;</code></pre>
+<span class="kw">ON</span> goal.matchid <span class="op">=</span> game.id;</code></pre>
           
 
         </div>
@@ -229,12 +229,12 @@
               <li><p class="page-course"> Older versions of SQLite support <code>LEFT OUTER JOIN</code> only. How do we rewrite the following query to be able to run on those versions?</p></li>
               <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> goal 
 <span class="kw">RIGHT OUTER JOIN</span> game 
-<span class="kw">WHERE</span> goal.matchid <span class="op">=</span> game.id;</code></pre>
+<span class="kw">ON</span> goal.matchid <span class="op">=</span> game.id;</code></pre>
 
             <li><p class="page-course"> Older versions of SQLite support <code>LEFT OUTER JOIN</code> only. How do we rewrite the following query to be able to run on those versions?</p></li>
               <pre><code><span class="kw">SELECT</span> * <span class="kw">FROM</span> goal 
 <span class="kw">FULL OUTER JOIN</span> game 
-<span class="kw">WHERE</span> goal.matchid <span class="op">=</span> game.id;</code></pre>
+<span class="kw">ON</span> goal.matchid <span class="op">=</span> game.id;</code></pre>
           </p>
 
           <li><p class="page-course"> Write a query that finds the names of all players that contain the substring <b>“an”</b> in their names. </p></li>
