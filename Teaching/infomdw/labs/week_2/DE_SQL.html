@@ -195,14 +195,14 @@
             <p class="page-course">
               <h4>Q6. Join</h4>
             </p>
-            <pre><code><span class="kw">SELECT</span> player, stadium <span class="kw">FROM</span> goal, teams
-<span class="kw">WHERE</span> matchid <span class="op">=</span> id;</code></pre>
+            <pre><code><span class="kw">SELECT</span> player, stadium <span class="kw">FROM</span> goal, game
+<span class="kw">ON</span> matchid <span class="op">=</span> id;</code></pre>
 
             <p class="page-course">
               <h4>Q7. Self-join</h4>
             </p>
             <pre><code><span class="kw">SELECT</span> g1.matchid, g1.player, g1.teamid, g2.player, g2.teamid <span class="kw">FROM</span> goal <span class="kw">AS</span> g1, goal <span class="kw">AS</span> g2
-<span class="kw">WHERE</span> g1.matchid <span class="op">=</span> g2.matchid <span class="kw">AND</span> g1.player <span class="op"><></span> g2.player;</code></pre>
+<span class="kw">ON</span> g1.matchid <span class="op">=</span> g2.matchid <span class="kw">AND</span> g1.player <span class="op"><></span> g2.player;</code></pre>
             
             <p class="page-course">
               <h4>Q7. Left-outer join</h4>
