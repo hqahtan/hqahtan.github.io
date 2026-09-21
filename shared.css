@@ -397,8 +397,29 @@ h4 {
 section { padding: 4rem 3.5rem; }
 section + section { border-top: 1px solid var(--border); padding-top: 3.5rem; }
 
-
 ol {
+  margin: .5em 0 1.25em;
+  padding-left: 2em;          /* room for the numbers (your * reset zeroes padding) */
+  list-style: decimal;
+  font-size: 1.2rem;
+}
+
+ol li {
+  margin: 4px 0 2px;
+  padding-left: .25em;
+}
+
+/* Nested ordered lists: a, b, c... then i, ii, iii... */
+ol ol {
+  list-style: lower-alpha;
+  margin: .25em 0;
+}
+ol ol ol {
+  list-style: lower-roman;
+}
+
+
+/*ol {
   margin:.5em 0 1.25em;
   padding:0 0px;
   list-style:none;
@@ -431,7 +452,7 @@ ol li span {
   position: relative;
   left: +100px;
 }
-
+*/
 ul {
   margin: .5em 0 1.25em;
   padding: 0;
@@ -472,7 +493,7 @@ ul ul > li {
 }
 
 ul ul > li::before {
-  content: '○';
+  content: '·';
   position: absolute;
   left: 0;
   color: var(--accent);
@@ -487,7 +508,7 @@ ul ul ul > li {
 }
 
 ul ul ul > li::before {
-  content: '*';
+  content: '○';
   font-size: .8em;
   padding: 10px;
   margin-left: 20px
