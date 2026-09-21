@@ -242,22 +242,6 @@
           <li><p class="page-course"> Write a query that finds the names of all players that contain the substring <b>“an”</b> in their names. Show the name of the player only once.</p></li>
           <li><p class="page-course">
           Write a query that returns the names of the players from the Netherlands, Spain and Poland who scored at least a goal. Show the name of the player only once. </p></li>
-          <li><p class="page-course">
-            Given the query below, answer the following questions:
-            <ol type="A">
-                <li><p class="page-course">What does this query do?</p></li>
-                <li><p class="page-course">Why we used <code>HAVING</code>?</li>
-                <li><p class="page-course">What do we need to do in order to replace <code>HAVING</code> by <code>WHERE</code>?</li>
-              </ol>
-          </p></li>
-          <p class="page-course">
-            <pre><code><span class="kw">SELECT</span> player, count(*) as number_of_goals 
-<span class="kw">FROM</span> goal 
-<span class="kw">GROUP BY</span> player 
-<span class="kw">HAVING</span> number_of_goals <span class="op"> > </span> 2;</code></pre>
-          </p>
-            
-
         </div>
       </div>
     
