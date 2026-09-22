@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HQ — Teaching</title>
-  <link rel="stylesheet" href="https://hqahtan.github.io/shared.css">
+  <link rel="stylesheet" href="shared.css">
   <link rel="stylesheet" href="https://hqahtan.github.io/teaching.css">
 </head>
 <body>
@@ -105,7 +105,7 @@
         <ol type="1">
           <li> <p class="page-course">Write an <code>SQL</code> query that returns the names of the teams and the total number of goals scored by the players of that team. </p></li>
           <li> <p class="page-course">Assuming that every match lasts for 90 minutes, write an <code>SQL</code> query that returns the average scoring time for the Spanish team (total number of minutes played divided by the total number of goals scored). </p></li>
-          <li> <p class="page-course">Write an <code>SQL</code> query that returns the number of players who scored goals from the <font color="red">Spanish, Dutch, Polish,</font> and <font color="red">Greek</font> teams.  </p></li> 
+          <li> <p class="page-course">Write an <code>SQL</code> query that returns the number of players who scored goals from the <font color="red">Spanish, Dutch, Polish, and Greek</font> teams.  </p></li> 
           <li><p class="page-course">
             Given the query below, answer the following questions:
             <ol type="A">
@@ -203,7 +203,7 @@
 <span class="fn">top_left_corner_df</span> <span class="op">=</span> <span class="kw">df.iloc</span>[:5, :5]
         </code></pre>
 
-       <code> TODO:</code> <span class="ct">display the content of</span><span class="fn">dfh, dft, top_left_corner_df</span>
+       <font color="brown"> TODO:</font> display the content of <font color="green">dfh, dft, top_left_corner_df</font>.
       </div>
         </div>
       
@@ -256,6 +256,35 @@
         <div class="callout-header"> Displaying the names of the attributes</div>
         <div class="callout-body">
             <code>TODO:</code> <span class="ct">print the names of the columns (attributes) of the dataframe.</span>
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-header"> Displaying the datatype of each column</div>
+        <div class="callout-body">
+        <pre><code><span class="fn">dataTypeSeries</span> <span class="op">=</span> <span class="fn">df.dtypes</span>
+<span class="kw">for</span> <span class="fn">col_idx</span> <span class="kw">in</span> <span class="fn">range(len(df.columns))</span>:
+    <span class="fn">print(df.columns[col_idx], </span><span class="kw">'has type ('</span><span class="fn">, dataTypeSeries[col_idx], </span><span class="kw">')'</span><span class="fn">)</span></code></pre>
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-header"> Displaying the number of unique values in each column </div>
+        <div class="callout-body">
+        <pre><code><span class="kw">for</span> <span class="fn">col</span> <span class="kw">in</span>  <span class="fn">df.columns:</span>
+    <span class="fn">print(col, </span><span class="kw">' has ('</span><span class="fn">, len(df[col].unique()), </span><span class="kw">') unique values'</span><span class="fn">)</span></code></pre>
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-header"> displaying quantities of interest such as <font color="brown">min, max, …</font> </div>
+        <div class="callout-body">
+        <code># TODO:</code> print the <font color="brown">min, max, average</font> and <font color="brown">standard deviation</font> of the attributes with numerical datatype
+        </div>
+      </div>
+      <div class="callout callout-note">
+        <div class="callout-header"> counting the missing values </div>
+        <div class="callout-body">
+          <pre><code><span class="fn">s</span> <span class="op">=</span> <span class="fn">df[</span><span class="kw">'longitude'</span><span class="fn">].isnull()</span>
+<span class="fn">s.sum()</span> </code></pre>
+        <code># TODO:</code> print the name of each column in the dataframe and the number of missing values in that column.  
         </div>
       </div>
     </div>
@@ -469,7 +498,7 @@
       });
     });
   </script>
-  
+
 </body>
 </html>
 
