@@ -173,10 +173,10 @@
     <div class="callout callout-note">
         <div class="callout-header"> Creating a DataFrame using data stored in a csv file</div>
         <div class="callout-body">
-        <pre><code><span class="fn">df</span><span class="op"> =</span> <span class="kw">pd.read_csv(</span> <span class="fn">filepath_or_buffer</span> <span class="op">= </span><span class="str">'sample_data/california_housing_train.csv'</span><span class="kw">,</span> 
-    <span class="fn">delimiter</span> <span class="op">= </span><span class="str">','</span><span class="kw">,</span> <span class="fn">doublequote</span> <span class="op"> =</span> <span class="str">True</span><span class="kw">,</span>
-    <span class="fn">quotechar</span> <span class="op"> = </span><span class="fn">'"'</span>,<span class="fn">na_values</span> <span class="op">= </span><span class="str">['na', '-', '.', '']</span><span class="kw">,</span>
-    <span class="fn">quoting</span> <span class="op">= </span> <span class="str">csv.QUOTE_ALL</span><span class="kw">,</span> <span class="fn">encoding</span> <span class="op">= </span><span class="str">"ISO-8859-1"</span><span class="kw">)</span>
+        <pre><code><span class="fn">df</span><span class="op"> =</span> <span class="kw">pd.read_csv(</span> <span class="fn">filepath_or_buffer</span> <span class="op">= </span><span class="kw">'sample_data/california_housing_train.csv'</span><span class="kw">,</span> 
+    <span class="fn">delimiter</span> <span class="op">= </span><span class="str">','</span><span class="kw">,</span> <span class="fn">doublequote</span> <span class="op"> =</span> <span class="kw">True</span><span class="kw">,</span>
+    <span class="fn">quotechar</span> <span class="op"> = </span><span class="fn">'"'</span>,<span class="fn">na_values</span> <span class="op">= </span><span class="kw">['na', '-', '.', '']</span><span class="kw">,</span>
+    <span class="fn">quoting</span> <span class="op">= </span> <span class="kw">csv.QUOTE_ALL</span><span class="kw">,</span> <span class="fn">encoding</span> <span class="op">= </span><span class="kw">"ISO-8859-1"</span><span class="kw">)</span>
 <span class="fn">df</span></code></pre>
 
     <p class="page-course">
@@ -284,7 +284,7 @@
         <div class="callout-body">
           <pre><code><span class="fn">s</span> <span class="op">=</span> <span class="fn">df[</span><span class="kw">'longitude'</span><span class="fn">].isnull()</span>
 <span class="fn">s.sum()</span> </code></pre>
-        <code># TODO:</code> print the name of each column in the dataframe and the number of missing values in that column.  
+        <code># TODO:</code> print the name of each column in the dataframe and the number of missing values in that column.
         </div>
       </div>
     </div>
