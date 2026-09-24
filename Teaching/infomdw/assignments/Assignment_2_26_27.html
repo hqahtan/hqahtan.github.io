@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HQ — Teaching</title>
-  <link rel="stylesheet" href="https://hqahtan.github.io/shared.css">
+  <link rel="stylesheet" href="shared.css">
   <link rel="stylesheet" href="https://hqahtan.github.io/teaching.css">
 </head>
 <body>
@@ -83,96 +83,96 @@
 
 
     <section id="Introduction">
-      <h1>Assignment 1: Data Extraction &amp; Integration</h1>
+      <h1>Assignment 2: Paper Summarization--Data Preparation</h1>
 
       <!-- <h2>Overview</h2> -->
       <p class="page-course"> 
-        In this assignment, you need to design a database for one of the following events:
+        In this assignment, you need to review a paper about one of the data-preparation technique, and reproduce the main results reported in the paper:
       </p>
-        <ol type="1">
-          <li> <p class="page-course"> FIFA world cup 2026</p></li>
-          <li> <p class="page-course"> Grand Slam &amp; ATP 1000 tennis tournaments
-        </ol>
-        <p class="page-course">
-        Your database should be as complete/realistic as possible. It should contain relations that represent entities and relations that represent relationships. 
-      </p>
+        
       <div class="callout callout-warning">
         <div class="callout-header"> <span class="icon">&#9888;</span>Generative AI tools</div>
         <div class="callout-body">
           <p class="page-course">
-          This assignment assesses your capabilities in designing a database, extracting the required information, and understanding how to apply what you learned in the lectures on real world problems.
+          This assignment assesses your ability to understand research work and provide informed feedback on it.
         </p>
         <p class="page-course">
-          You may use AI tools such as ChatGPT only for generating a set of records to be stored in the database to test your queries or drawing the schema. However, you should describe the different components of the figure in your own words.
+          You may not use generative AI tools, such as<font color="Green"> ChatGPT</font> or <font color="Green">Claude</font>, to summarize the paper or to write feedback or criticism of the proposed technique. You may use such tools to help implement the algorithm if no suitable code is available online. However, you are fully responsible for the correctness of the implementation. You must understand the code, verify its results, and fix any errors it may contain. 
         </p>
     </div>
     </div>
     </section>
     <section>
-      <h2>Task 1: Database Design </h2>
+      <h2>Task 1: paper review (50% for tasks 1 and 2)</h2>
       <ol type="1">
-      <li><p class="page-course">Draw the schema chart for the database or the ER-diagram.</p></li>
-      <li><p class="page-course">Identify the cardinalities of the relationships between the entities and explain how do you represent the relationships in your design. </p></li>
-      <li><p class="page-course">List all the primary-key-foreign-key and referential integrity constraints in the database. What policies do you use to define the referential integrity? </p></li>
-      <li><p class="page-course">Write the <font color="brown">SQL</font> code that creates the whole database in <font color="brown">SQLite</font> and save the file as <font color="brown">.sql</font> that can be run directly from the sqlite3 bash using the command <font color="brown">.read my_file.sql</font></p></li>
-      <li><p class="page-course">List all the relations (tables) that represent entities and state whether they are in the <font color="brown">BCNF</font> or not. Justify your answer.  </p></li>
+      <li><p class="page-course">Select a paper that proposes an algorithms for a data-preparation technique. Possible topics include: </p>
+      <ol>
+        <li><p class="page-course"><b>Data cleaning:</b> outlier detection, functional dependencies for data cleaning, missing value imputation, disguised missing values, entity resolution.</p></li>
+        <li><p class="page-course"><b>Data reduction:</b> principal component analysis, independent component analysis, matrix factorization, locally linear embedding (LLE), isomap, UMAP, and sampling.</p></li>
+        <li><p class="page-course"><b>Data transformation:</b> Trifacta, and OpenRefine.</p></li>
+        <li><p class="page-course">Data profiling.</p></li>
+        <li><p class="page-course">Schema matching and alignment.</p></li>
+      </ol></li>
+      <li><p class="page-course">Read the paper carefully and write a summary of no more than two pages. Your summary should include:</p>
+        <ol>
+          <li><p class="page-course">The main problem addressed in the paper. </p></li>
+          <li><p class="page-course">The proposed solution. </p></li>
+          <li><p class="page-course">Any optimization techniques or special cases discussed in the paper.</p></li>
+          <li><p class="page-course">The strengths and limitations in the paper.</p></li>
+          <li><p class="page-course">The evaluation methodology.</p></li>
+        </ol>
+      </li>
+      <li><p class="page-course">Highlight the sections of the paper that contain the information used in your summary. The summary must be written in your own words and must not reproduce sentences from the paper. Copying complete sentences constitutes plagiarism and will result in zero points for this assignment. Submit the highlighted paper together with your summary.  </p></li>
     </ol>
 
     </section>
 
     <section>
-      <h2>Task 2: Querying the database </h2>
+      <h2>Task 2: Reproducing the results </h2>
       <p class="page-course">
-      Using the database from <font color="brown">Task 1</font>, write queries in natural language, relational algebra and SQL that cannot (or it is too hard to) be answered unless you:
+      To complete this task, you need an implementation of the main algorithm described in the paper. If the authors have not made their code available and no suitable implementation exists in a Python library, you must implement the algorithm yourself. You may use generative AI tools to assist with the implementation. Make sure that the implementation is correct and produces results that can be meaningfully compared with those reported in the paper. 
       </p>
       <ol type="1">
-      <li><p class="page-course">join two or more tables.</p></li>
-      <li><p class="page-course">use aggregate function. </p></li>
-      <li><p class="page-course">use nested query.</p></li>
-      <li><p class="page-course">use self join.</p></li>
-      <li><p class="page-course">use set operation.</p></li>
+      <li><p class="page-course">Select and reproduce the main experiment reported in the paper.  </p></li>
+      <li><p class="page-course">Compare your results with the results reported in the original paper. </p></li>
+      <li><p class="page-course">List all parameters required to run the code and specify the values used. </p></li>
+      <li><p class="page-course">If there are substantial differences between your results and those reported in the original paper, explain the possible reasons for those differences. </p></li>
     </ol>
-    <p class="page-course"><font color="brown">NOTE:</font> write a different query for every condition. By different, you can use different tables or different attributes. 
-    </p>
-    <p class="page-course">      
-    To make sure that your queries can be run on the database, you need to include, in your <font color="brown">.sql</font> file, a set of queries to enter a few records in the tables that are involved.
-  </p>
-    
     </section>
     <section>
-      <h2>Task 3: Data extraction in Python </h2>
+      <h2>Task 3: Providing feedback to other students (50%)</h2>
       <p class="page-course">
-      Using the database from <font color="brown">Task 1</font>, write <font color="brown">Python</font> code that performs the following tasks:
+      Each student will receive three submissions selected at random. You must review these submissions and provide constructive feedback. Consider the following aspects:
       </p>
       <ul type="1">
-      <li><p class="page-course">creates a connection to the database file that was created in <font color="brown">Task 1</font>, sends <font color="brown">SQL</font> queries to the database and extracts the results.</p></li>
-      <li><p class="page-course">reads one of the relations that contains an attribute with strings (e.g. names) and store it in a Pandas DataFrame (<font color="brown">df_sim</font>). </p></li>
-      <li><p class="page-course">Define a <font color="green">Hashing Function</font> that hashes the strings into indexes between <code>0</code> and <code>m-1</code>, where <code>m</code> is the table cardinality. Report the collision rate of the function on the available data. </p></li>
-      <!-- <li><p class="page-course"> defines a similarity function based on the <font color="brown">Levenshtein edit distance</font> that has values between <font color="brown">0</font> and <font color="brown">1</font>. Let us call it <font color="brown"> Edit similarity</font>.
-      <li><p class="page-course">uses <font color="brown">Jaro similarity</font> and the <font color="brown">Edit similarity</font> to compare the values in the attribute with strings in the DataFrame (<font color="brown">df_sim</font>). If two strings have similarity according to any of these similarity functions, report that value and the similarity score by <font color="brown">Jaro</font> and by the <font color="brown">Edit similarity</font>.</p></li>
-      <ul>
-        <li><p class="page-course"> which similarity function works better in your opinion. Justify your answer.</p></li>
-      </ul> -->
+      <li><p class="page-course">The quality of the report, including English usage, critical discussion, and the soundness of the results.</p></li>
+      <li><p class="page-course">The depth of the discussion</p></li>
+      <li><p class="page-course">The completeness of the instructions for running the code, including commands and parameter settings.</p></li>
+      <li><p class="page-course">An overall grade for the submission on a scale from 1 to 10.</p></li>
     </ul>
-    <p class="page-course">
-    To make sure that your queries and the code can be run and tested, you need to include queries that enters a set of records in the table that you will read in this task. Make sure to include strings that have values with high similarity.
-  </p>
+</section>
+<section>
+      <h2>Task 4: Responding to the received feedback</h2>
+      <p class="page-course">
+      After receiving the feedback, provide a response for the comments from the evaluators of your work. You need also to mention if the comments are useful or not and to what extend. 
+      </p>
 </section>
 <section>
       <h2>Submission </h2>
       <p class="page-course">
-      Submit a <font color="brown">zip</font> file that contains:
+      This assignment consists of multiple submissions:
       </p>
       <ol type="1">
-      <li><p class="page-course">A <font color="brown">pdf</font> file that reports and explains how you answered the questions.</p></li>
-      <li><p class="page-course">An <font color="brown">SQL</font> file (with extension <font color="brown">.sql</font>) that contains all the code for creating the database, adding records in the selected relations and querying the database.</p></li>
-      <li><p class="page-course">A <font color="brown">Python</font> notebook that includes the code for solving <font color="brown">Task 3</font> with clear comments on the code. The explanation of the logic behind the code should be included in the report (the <font color="brown">pdf</font> file).
+      <li><p class="page-course"><b>Report submission:</b> Submit a<font color="brown"> PDF</font> file containing a paper summary of no more than two pages, followed by no more than two pages presenting the reproduced results, discussion, parameter settings, and a link to the code. If you reimplement the algorithm, upload the code to a GitHub repository and include the repository link in your report. </p></li>
+      <li><p class="page-course"><b>Feedback submission:</b> You will be randomly assigned three submissions to review. Submit your feedback through <a href="https://uu.brightspace.com/d2l/home">BrightSpace</a>. </p></li>
+      <li><p class="page-course"><b>Feedback-on-feedback submission:</b> After receiving feedback, you may submit a response to each review and evaluate the quality and usefulness of the feedback.</p></li>
       </ol>
     <p class="page-course">
-    Submission should be done on <a href="https://uu.brightspace.com/d2l/home">BrightSpace</a> and only one submission per group is needed. You can submit as many versions as you like but only the last submission before the deadline will be graded.</p>
     <h2>Deadline</h2> 
     <p class="page-course">
-    As specified on the <a href="https://uu.brightspace.com/d2l/home">BrightSpace</a>, the deadline is (02-10-2026 11:59PM).  
+    As specified on <a href="https://uu.brightspace.com/d2l/home">BrightSpace</a>, the deadlines are:
+    <ul> <li>Paper summary submission: 24 October 2026 at 23:59.</li>
+    <li> <li>Feedback submission: 28 October 2026 at 23:59.</li>
   </p>
 </section>
 <footer>      
