@@ -205,7 +205,9 @@ On <code>DB Browser</code>, you can select <code>import -> Table from CSV file .
       <li><p class="page-course">Find the names of the players who scored a goal in all the games when Poland was playing.</p></li>
       $\ \ \ \ \pi_{player}\left(goal \bowtie_{goal.matchid\ \ =\ game.id}\left(\sigma_{team1 = `POL'\ \  \vee \ \ team2 = `POL'}(game)\right)\right)$
       <li><p class="page-course">Find the name of the top scorer.</p></li>
-        $\ \ \ \ \ \pi_{player}\left(\gamma_{\max(goals)\rightarrow max\_goals}\left(_{player}\gamma_{count(matchid)\rightarrow goals}(goal)\right)\right)$      
+        $$\ \ \ \ \ \ goal\_count \leftarrow_{player}\gamma_{count(matchid)\rightarrow P\_goals}(goal)$$
+        $$\ \ \ \ \ \ max\_goals \leftarrow \gamma_{\max(goals)\rightarrow max\_goals}(goal\_count)$$
+        $$\ \ \ \ \ \pi_{player}\left(goal_count\bowtie_{goal\_count.P\_goals = max\_goals} max\_goals\right)$$      
     </ol>
     </section>
     <section>
