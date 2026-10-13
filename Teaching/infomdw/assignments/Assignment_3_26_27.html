@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Teaching</title>
+  <link rel="stylesheet" href="https://hqahtan.github.io/shared.css">
+  <link rel="stylesheet" href="https://hqahtan.github.io/teaching.css">
+</head>
+<body>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="https://hqahtan.github.io/img/top.png" width="30"/></button>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="https://hqahtan.github.io/img/DW.png" alt="INFOMDW">
+    </div>
+    <div class="sidebar-name">INFOMDW</div>
+    <div class="sidebar-title"><a href="https://www.uu.nl/en/masters/applied-data-science">Applied Data Science Program</a></div>
+    <div class="sidebar-dept"><a href="https://ics.uu.nl/">Dept. of Information and Computing Sciences</a></div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a></div>
+    <div class="sidebar-divider"></div>
+      Materials for the ADS course <br/>
+      (INFOMDW) <br/>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Useful Links</div>
+    <div class="sidebar-contact-list">
+      <a href="https://mytimetable.uu.nl/schedule" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/rooster.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>My Timetable</div>
+      </a>
+      <a href="https://uu.brightspace.com/d2l/home" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/BS.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>BrightSpace</div>
+      </a>
+    </div>
+    <div class="sidebar-socials">
+      <a href="https://creativecommons.org/licenses/by/4.0/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="https://hqahtan.github.io/img/cc.svg" width="20"/><img src="https://hqahtan.github.io/img/by.svg" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+    <p>
+      The materials on this website are <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> licensed.
+    </p>
+  </aside>
+
+
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="https://hqahtan.github.io/infomdw.html" class="nav-logo">Data Wrangling (INFOMDW)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="https://hqahtan.github.io/index.html">Home</a>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/research.html#book_chapters">Book Chapters</a>
+            <a href="https://hqahtan.github.io/research.html#research_papers">Research Papers</a>
+            <a href="https://hqahtan.github.io/research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/teaching.html#current-courses">Current courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#past-courses">Past courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#admin">Administration</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/infomdw.html" class="active">INFOMDW<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/infomdw.html#Introduction">Introduction</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Policy">Policy</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Material">Material</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Schedule">Schedule</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+
+    <section id="Introduction">
+      <h1>Assignment 3: Data Integration &amp; Data Preparation</h1>
+
+      <div class="callout callout-warning">
+        <div class="callout-header"> <span class="icon">&#9888;</span>Generative AI tools</div>
+        <div class="callout-body">
+          <p class="page-course">
+          In this assignment, you may use AI tools such as ChatGPT and/or Claude for solving the assignment. However, you need to submit an AI disclosure statement in which you specify how you used the tools. Moreover, you need to provide the prompts that you sent to the LLM models. For more information, look at the <a href="https://www.uu.nl/en/organisation/ai-policy/students"> UU-AI Policy</a> where you can find the <a href="https://www.uu.nl/en/organisation/ai-policy/students/model-ai-disclosure-statement">AI disclosure statement</a>
+        </p>
+    </div>
+    </div>
+    </section>
+    <section>
+      <h2>Task 1: Record Matching </h2>
+      <p class="page-course">Use the <a href="https://dbs.uni-leipzig.de/research/projects/benchmark-datasets-for-entity-resolution">DBLP-ACM</a> dataset. Write Python code to compare every record in <font color="brown">ACM.csv</font> with every record in <font color="brown">DBLP2.csv</font> and identify candidate pairs that may describe the same publication. Retain the record IDs for evaluation, but do not use pub_id when calculating similarity.To compare two records, follow the steps:</p>
+      <ol type="1">
+      <li><p class="page-course">Ignore the <font color="brown">pub_id</font>.</p></li>
+      <li><p class="page-course">Change all alphabetical characters into lowercase.</p></li>
+      <li><p class="page-course">Eliminate extra spaces by trimming leading and trailing spaces and replacing consecutive whitespaces with a single space. </p></li>
+      <li><p class="page-course">Use Levenshtein similarity $\left(L_{sim}(S_1, S_2) = 1- \frac{MED(S_1, S_2)}{Max(|S_1|, |S_2|)}\right)$ for comparing the values in the title attribute and compute the score ($s_t$). MED refers to the minimum edit distance and $|S_i|$ is the number of characters in the string $S_i$.</p></li>
+      <li><p class="page-course">Use Jaro similarity to compare the values in the authors field and compute ($s_a$).</p></li>
+      <li><p class="page-course">Use the affine-gap similarity that is computed based on the affine-gap edit distance and scaled to the interval $[0, 1]$ for the venue attribute ($s_c$). A good implementation of the affine-gap edit distance can be found in the <a href="https://biopython.org/docs/latest/Tutorial/chapter_pairwise.html">Biopython</a> library. After computing the affine-gap edit distance $d_{aff}(S_1, S_2)$, you can compute a similarity metric as $sim_{aff}(S_1, S_2) = \frac{1}{1+\frac{d_{aff}(S_1, S_2)}{max(|S_1|, |S_2|)}}$. You can use the <font color="brown">extend_gap_score = -0.1</font>, the <font color="brown">mismatch_score = -2</font>, and the <font color="brown">open_gap_score = -1</font>.</p></li>.
+      <li><p class="page-course">Use Match (1) / Mismatch (0) for the year ($s_y$).</p></li>
+      <li><p class="page-course">Use the formula $sim_{rec}(r_i, r_j) = \omega_1 s_t + \omega_2 s_a + \omega_3 s_c + \omega_4 s_y$ to combine the scores and compute the final score. You should choose $\omega_i, 1 \le i \le 4$ such that $\omega_i > 0$ and $\sum_{i=1}^4\omega_i = 1$. Here, $r_i$ represents a record in the ACM table and $r_j$ represents a record in the DBLP2 table. </p></li>
+      <li><p class="page-course">Report the records $r_k$ and $r_l$ as duplicate records if their $sim_{rec}(r_k, r_l) > 0.7$ and store the ids of both records in a list.</p></li>
+      <li><p class="page-course">In the file <font color="brown">DBLP-ACM_perfectMapping.csv</font>, you can find the actual mappings (the ids of the correct duplicate records). Compute the precision of this method as the ratio of duplicate records that you discovered correctly to the total number of duplicates that you reported. That is, among all the reported similar records by your method, how many pairs exist in the file <font color="brown">DBLP-ACM_perfectMapping.csv</font>.</p></li>
+      <li><p class="page-course">Record the running time of the method. You can observe that the program takes a long time to get the results. What can you do to reduce the running time? (Just provide clear discussion – no need to implement the ideas.)</p></li>
+    </ol>
+    </section>
+
+    <section>
+      <h2>Task 2: Data Integration </h2>
+      <p class="page-course">
+      Choose either a data warehouse or virtual integration approach. Create two SQLite databases and add a few sample records to every table. Implement your chosen approach and demonstrate it:</p>
+
+      <p class="page-course"><span class="sh">For a data warehouse:</span> show how you copy and prepare data from the source databases in a central database, then query the warehouse.</p>
+      <p class="page-course"><span class="sh">For virtual integration:</span> show a user query, the subqueries sent to the source databases, and how their results are combined.</p>
+      </p>
+    </section>
+    <section>
+      <h2>Task 3: Data profiling and preparation </h2>
+      <p class="page-course">
+      Preferably, use one <font color="brown">CSV</font> file from the road_safety_dataset. 
+      For this task, it is preferable to use one the <font color="brown">CSV</font> files from the <a href="https://www.gov.uk/government/statistical-data-sets/road-safety-open-data"> road safety dataset</a>.
+      <ol type="1">
+      <li><p class="page-course">
+        Read the paper on <a href="https://link.springer.com/article/10.1007/s00778-015-0389-y">profiling relational data</a>. Select at least 10 distinct summary statistics, write Python code to compute them, and explain what each statistic reveals about the dataset. Calculating the same statistic for several columns counts as one statistic.</p>
+      </li>
+      <li><p class="page-course">Compute the correlation between the numerical columns and ignore categorical attributes such as the <font color="brown">collision_year</font>. You can select a maximum of eight attributes from the table to compute the correlation. </p></li>
+      <li><p class="page-course">Remove the disguised missing values from the eight attributes that you selected for computing the correlation. For example, if you are using the table <font color="brown">dft-road-casualty-statistics-collision-2025.csv</font>, you can see the value (-1) in the attribute <font color="brown">lsoa_of_accident_location</font>, which is a fake value that replaces the missing values. Remove the fake values but keep the records (i.e.) change each fake value into a <font color="brown">null</font>.</p></li>
+      <li><p class="page-course">Use a data imputation technique to fill the cells with <font color="brown">null</font> values. You can use one of the techniques that we studied. </p></li>
+      <li><p class="page-course">Compute the correlation between the columns after imputing the missing values.</p></li>
+      <li><p class="page-course">Compare the values from this step with the values you computed earlier. Just mention the most important changes (if any) and comment on your findings.</p></li>
+    </ol>
+</section>
+<section>
+      <h2>Submission </h2>
+      <p class="page-course">
+      Submit a <font color="brown">ZIP</font> file that contains:
+      </p>
+      <ol type="1">
+      <li><p class="page-course">A <font color="brown">PDF</font> file that reports and explains how you answered the questions.</p></li>
+      <li><p class="page-course">A <font color="brown">Python notebook</font> that includes the code with markdown boxes to specify the question under consideration. Use comments to explain the important steps in your code. The explanation of the methods in general with discussion about the most important steps in the code should be included in the report (the <font color="brown">PDF</font> file).</p></li>
+      <li><p class="page-course">Any additional files that you generated for creating the databases and their integration.</p></li>
+      <li><p class="page-course">The AI disclosure statement in <font color="brown">PDF</font> format.</p></li>
+      </ol>
+    <p class="page-course">
+    Submission should be done on <a href="https://uu.brightspace.com/d2l/home">BrightSpace</a> and only one submission per group is needed. You can submit as many versions as you like but only the last submission before the deadline will be graded.</p>
+    <h2>Deadline</h2> 
+    <p class="page-course">
+    as specified on the <a href="https://uu.brightspace.com/d2l/home">BrightSpace</a>, the deadline is (1 November 2026 11:59PM).  
+  </p>
+</section>
+
+</div>
+
+  <!-- <script type="text/javascript" async="" src="https://hqahtan.github.io/button.js"></script> -->
+  <script type="text/javascript" async="" src="button.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('pre').forEach(function (preEl) {
+        var codeEl = preEl.querySelector('code');
+        if (!codeEl) return;
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+
+        btn.addEventListener('click', function () {
+          var text = codeEl.innerText;
+          navigator.clipboard.writeText(text).then(function () {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 1500);
+          }).catch(function () {
+            btn.textContent = 'Failed';
+            setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+          });
+        });
+
+        preEl.appendChild(btn);
+      });
+    });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      jax: ["input/TeX", "output/HTML-CSS"],
+      extensions: ["tex2jax.js"],
+      "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+      tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+      TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+      messageStyle: "none"
+    });
+    </script>    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
+
+</body>
+</html>
+
+
+
+  
