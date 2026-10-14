@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Teaching</title>
+  <link rel="stylesheet" href="https://hqahtan.github.io/shared.css">
+  <link rel="stylesheet" href="https://hqahtan.github.io/teaching.css">
+</head>
+<body>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="https://hqahtan.github.io/img/top.png" width="30"/></button>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="https://hqahtan.github.io/img/DW.png" alt="INFOMDW">
+    </div>
+    <div class="sidebar-name">INFOMDW</div>
+    <div class="sidebar-title"><a href="https://www.uu.nl/en/masters/applied-data-science">Applied Data Science Program</a></div>
+    <div class="sidebar-dept"><a href="https://ics.uu.nl/">Dept. of Information and Computing Sciences</a></div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a></div>
+    <div class="sidebar-divider"></div>
+      Materials for the ADS course <br/>
+      (INFOMDW) <br/>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Useful Links</div>
+    <div class="sidebar-contact-list">
+      <a href="https://mytimetable.uu.nl/schedule" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/rooster.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>My Timetable</div>
+      </a>
+      <a href="https://uu.brightspace.com/d2l/home" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/BS.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>BrightSpace</div>
+      </a>
+    </div>
+    <div class="sidebar-socials">
+      <a href="https://creativecommons.org/licenses/by/4.0/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="https://hqahtan.github.io/img/cc.svg" width="20"/><img src="https://hqahtan.github.io/img/by.svg" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+    <p>
+      The materials on this website are <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> licensed.
+    </p>
+  </aside>
+
+
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="https://hqahtan.github.io/infomdw.html" class="nav-logo">Data Wrangling (INFOMDW)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="https://hqahtan.github.io/index.html">Home</a>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/research.html#book_chapters">Book Chapters</a>
+            <a href="https://hqahtan.github.io/research.html#research_papers">Research Papers</a>
+            <a href="https://hqahtan.github.io/research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/teaching.html#current-courses">Current courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#past-courses">Past courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#admin">Administration</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/infomdw.html" class="active">INFOMDW<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/infomdw.html#Introduction">Introduction</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Policy">Policy</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Material">Material</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Schedule">Schedule</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+
+    <section id="Introduction">
+      <h1>Assignment 4: Paper Review and Algorithm Evaluation—Algorithmic Fairness</h1>
+
+      <!-- <h2>Overview</h2> -->
+      <p class="page-course"> 
+        In this assignment, you need to study a bias mitigation algorithm, review the paper that proposed the algorithm, and evaluate the effectiveness of the algorithm on three publicly available datasets:
+      </p>
+        
+      <div class="callout callout-warning">
+        <div class="callout-header"> <span class="icon">&#9888;</span>Generative AI tools</div>
+        <div class="callout-body">
+          <p class="page-course">
+          This assignment assesses your ability to understand research work and provide informed feedback on it.
+        </p>
+        <p class="page-course">
+          You are not allowed to use generative AI tools, such as<font color="Green"> ChatGPT</font> or <font color="Green">Claude</font>, in any component of this assignment.  
+        </p>
+    </div>
+    </div>
+    </section>
+    <section>
+      <h2>Task 1: Paper review (35%)</h2>
+      <p class="page-course">Select one bias-mitigation algorithm and read the paper that introduced it. Write a summary of no more than two pages. Include the algorithm’s category (pre-processing, in-processing, or post-processing); the fairness measure it targets, if applicable; any optimization techniques or special cases; and its strengths and limitations. </p>
+      <p class="page-course">Highlight the sections of the paper that contain the information used in your summary. The summary must be written in your own words and must not reproduce sentences from the paper. Copying complete sentences constitutes plagiarism and will result in zero points for this assignment. Submit the highlighted paper together with your summary.  </p>
+    </section>
+
+    <section>
+      <h2>Task 2: Evaluating the effectiveness of the algorithm (35%)</h2>
+      <p class="page-course">
+      To complete this task, you need an implementation of the main algorithm described in the paper. Many bias-mitigation algorithms are available in libraries such as IBM's AI Fairness 360 (<a href="https://github.com/Trusted-AI/AIF360">AIF360</a>), <a href="https://fairlearn.org/">Fairlearn</a>, and <a href="https://github.com/cosmicBboy/themis-ml">Themis-ML</a>. 
+      </p>
+      <ol type="1">
+      <li><p class="page-course">Select three datasets to perform your analysis on. For example, you can use the <a href="https://www.kaggle.com/datasets/uciml/adult-census-income"> Adult</a>, <a href="https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data"> German</a>, and <a href="https://www.kaggle.com/datasets/danofer/compass">COMPAS</a> datasets. </p></li>
+      <li><p class="page-course">Compute the demographic parity difference (DP_Diff), the disparate impact ratio (DIR), and the consistency from the original labels of the dataset before mitigation and training any classifiers. </p></li>
+      <li><p class="page-course">Perform a train/test split with stratification. </p></li>
+      <li><p class="page-course">Follow the appropriate procedure for the selected method: pre-processing methods modify training data, in-processing methods are used during model training, and post-processing methods modify predictions after training.</p></li>
+      <li><p class="page-course">On the held-out test data, report the demographic parity difference (DP_Diff), the disparate impact ratio (DIR), the consistency, and at least one predictive-performance measure from the final predictions after applying the complete mitigation pipeline.</p></li>
+        <li><p class="page-course">Compare the values of the fairness measures before and after the bias mitigation. </p></li>
+      </ul></li>
+      
+    </ol>
+    </section>
+    <section>
+      <h2>Task 3: Peer review of other students’ submissions (30%)</h2>
+      <p class="page-course">
+      Each student will be randomly assigned three submissions to review. You must review these submissions and provide constructive feedback. Consider the following aspects:
+      </p>
+      <ul type="1">
+      <li><p class="page-course">The quality of the report, including English usage, critical discussion, and the soundness of the results.</p></li>
+      <li><p class="page-course">The depth of the discussion</p></li>
+      <li><p class="page-course">The completeness of the instructions for running the code, including commands and parameter settings.</p></li>
+      <li><p class="page-course">An overall grade for the submission on a scale from 1 to 10.</p></li>
+    </ul>
+</section>
+<section>
+      <h2>Submission </h2>
+      <p class="page-course">
+      This assignment consists of multiple submissions:
+      </p>
+      <ol type="1">
+      <li><p class="page-course"><b>Report submission:</b> Submit one <font color="brown">PDF</font> file containing a paper summary of no more than two pages, followed by no more than two pages presenting the results of applying the bias-mitigation algorithm to the three datasets, including the discussion and parameter settings. Submit the highlighted version of the selected paper as a separate <font color="brown">PDF</font> file together with the report. Furthermore, submit a <font color="brown">Python Notebook</font> that contains the written code to run the mitigation pipeline. </p></li>
+      <li><p class="page-course"><b>Feedback submission:</b> You will be randomly assigned three submissions to review. Submit your feedback through <a href="https://uu.brightspace.com/d2l/home">BrightSpace</a>. </p></li>
+      </ol>
+    <p class="page-course">
+    <h2>Deadline</h2> 
+    <p class="page-course">
+    As specified on <a href="https://uu.brightspace.com/d2l/home">BrightSpace</a>, the deadlines are:
+    <ul> <li>Paper and algorithm summary submission: 14 November 2026 at 23:59.</li>
+    <li> <li>Feedback submission: 18 November 2026 at 23:59.</li>
+  </p>
+</section>
+<footer>      
+      <span>© 2026 Hakim Qahtan</span>
+      <span><img src="https://hqahtan.github.io/img/UU-logo.png", width = 120> </span>
+      <span>Utrecht, NL</span>
+    </footer>
+</div>
+
+  <!-- <script type="text/javascript" async="" src="https://hqahtan.github.io/button.js"></script> -->
+  <script type="text/javascript" async="" src="button.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('pre').forEach(function (preEl) {
+        var codeEl = preEl.querySelector('code');
+        if (!codeEl) return;
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+
+        btn.addEventListener('click', function () {
+          var text = codeEl.innerText;
+          navigator.clipboard.writeText(text).then(function () {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 1500);
+          }).catch(function () {
+            btn.textContent = 'Failed';
+            setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+          });
+        });
+
+        preEl.appendChild(btn);
+      });
+    });
+  </script>
+
+</body>
+</html>
+
+
+
+  <!--           <pre><code><span class="kw">SELECT DISTINCT</span> player <span class="kw">FROM</span> goals
+            <span class="kw">WHERE</span> id <span class="op">=</span><span class="str">'GER'</span> <span class="kw">AND</span>
+            name <span class="kw">NOT</span> <span class="kw">LIKE</span> <span class="str">'sqlite_%'</span>;</code></pre> -->
