@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Teaching</title>
+  <link rel="stylesheet" href="https://hqahtan.github.io/shared.css">
+  <link rel="stylesheet" href="https://hqahtan.github.io/teaching.css">
+  <style>
+    /* Let wide code/outputs scroll inside their own box instead of stretching the page */
+    #main { min-width: 0; }
+    /* Notebook cell outputs (the only styles not provided by shared.css / teaching.css) */
+    .nb-out { margin: 1rem 0; padding-left: .9rem; border-left: 3px solid var(--accent); overflow-x: auto; }
+    .nb-out-label { display: block; margin-bottom: .35rem; font-family: 'IBM Plex Mono', monospace;
+                    font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; color: rosybrown; }
+    .nb-out pre { margin: 0; background: var(--white); }
+    .nb-out code { color: var(--ink); }
+    .nb-out table { border-collapse: collapse; font-size: .85rem; width: auto; }
+  </style>
+</head>
+<body>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="https://hqahtan.github.io/img/top.png" width="30"/></button>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="https://hqahtan.github.io/img/DW.png" alt="INFOMDW">
+    </div>
+    <div class="sidebar-name">INFOMDW</div>
+    <div class="sidebar-title"><a href="https://www.uu.nl/en/masters/applied-data-science">Applied Data Science Program</a></div>
+    <div class="sidebar-dept"><a href="https://ics.uu.nl/">Dept. of Information and Computing Sciences</a></div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a></div>
+    <div class="sidebar-divider"></div>
+      Materials for the ADS course <br/>
+      (INFOMDW) <br/>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Useful Links</div>
+    <div class="sidebar-contact-list">
+      <a href="https://mytimetable.uu.nl/schedule" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/rooster.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>My Timetable</div>
+      </a>
+      <a href="https://uu.brightspace.com/d2l/home" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/BS.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>BrightSpace</div>
+      </a>
+    </div>
+    <div class="sidebar-socials">
+      <a href="https://creativecommons.org/licenses/by/4.0/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="https://hqahtan.github.io/img/cc.svg" width="20"/><img src="https://hqahtan.github.io/img/by.svg" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+    <p>
+      The materials on this website are <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> licensed.
+    </p>
+  </aside>
+
+
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="https://hqahtan.github.io/infomdw.html" class="nav-logo">Data Wrangling (INFOMDW)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="https://hqahtan.github.io/index.html">Home</a>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/research.html#book_chapters">Book Chapters</a>
+            <a href="https://hqahtan.github.io/research.html#research_papers">Research Papers</a>
+            <a href="https://hqahtan.github.io/research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/teaching.html#current-courses">Current courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#past-courses">Past courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#admin">Administration</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/infomdw.html" class="active">INFOMDW<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/infomdw.html#Introduction">Introduction</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Policy">Policy</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Material">Material</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Schedule">Schedule</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+
+    
+<section id="Introduction">
+<h1>Data Reduction, Normalization, and Discretization</h1>
+<h2>Overview</h2>
+<p class="page-course">We assume that you work on Google Colab. If you are using a different IDE, then you should pay attention to the parts that needs modifications before you write your code.</p>
+<p class="page-course">For most of the parts, we are going to use the <a href="https://archive.ics.uci.edu/dataset/850/raisin">raisin</a>. We will also use the <a href="https://scikit-learn.org/stable/modules/preprocessing.html">preprocessing</a> module from sklearn package for performing most of the tasks. For the affinity gap similarity, it is highly recommended to use the <a href="https://biopython.org/docs/latest/Tutorial/chapter_pairwise.html">Biopython Package</a>.</p>
+<pre><code><span class="cm"># !pip install Biopython</span></code></pre>
+<p class="page-course">Now, we import the required libraries that will be used to solve the exercises.</p>
+<pre><code><span class="kw">import </span>pandas <span class="kw">as </span>pd
+<span class="kw">import </span>numpy <span class="kw">as </span>np
+
+<span class="kw">from </span>sklearn.preprocessing <span class="kw">import </span>StandardScaler <span class="kw">as </span>ss
+<span class="kw">from </span>sklearn.preprocessing <span class="kw">import </span>MinMaxScaler <span class="kw">as </span>mms
+<span class="kw">import </span>matplotlib.pyplot <span class="kw">as </span>plt
+<span class="kw">from </span>sklearn.decomposition <span class="kw">import </span>PCA
+<span class="kw">from </span>Bio.Align <span class="kw">import </span>PairwiseAligner
+<span class="kw">import </span>requests
+<span class="kw">from </span>io <span class="kw">import </span>StringIO
+<span class="kw">from </span>IPython.display <span class="kw">import </span>display
+<span class="kw">from </span>random <span class="kw">import </span>shuffle
+<span class="kw">from </span>itertools <span class="kw">import </span>combinations
+<span class="kw">from </span>numpy.testing <span class="kw">import </span>assert_array_almost_equal</code></pre>
+</section>
+
+<section id="1-data-reduction">
+<h2>1. Data Reduction</h2>
+<p class="page-course">For the following exercises, we will use the <a href="https://archive.ics.uci.edu/dataset/850/raisin">Rainsin Dataset</a>. We will start by creating a pandas dataframe by reading the dataset. </p>
+<p class="page-course"><b>Note:</b> the dataset is in 'XLSX' format, so I converted it to 'CSV'. You may do the same. </p>
+<pre><code>df <span class="op">= </span>pd<span class="op">.</span>read_csv(<span class="str">'Raisin_Dataset.csv'</span>, header <span class="op">= </span><span class="ct">0</span>,
+                 quotechar <span class="op">= </span><span class="str">'"'</span>,sep <span class="op">= </span><span class="str">","</span>,
+                 na_values <span class="op">= </span>[<span class="str">'na'</span>, <span class="str">'-'</span>, <span class="str">'.'</span>, <span class="str">''</span>])
+df</code></pre>
+<div class="callout callout-warning">
+  <div class="callout-header">3.1 Sampling</div>
+  <div class="callout-body">
+<p class="page-course">To select a random subset without replacement, one way is to slice off the first k elements of the array returned by permutation, where k is the desired subset size. Here, we use the 'take' method, which retrieves elements along a given axis at the given indices. Using this function, we slice off the first three elements:</p>
+<pre><code><span>'''</span>
+<span>TODO: perform permutation over the index of the dataframe and take the first three records</span>
+<span>'''</span></code></pre>
+<pre><code><span>'''</span>
+<span>TODO: sample the dataframe to extract three records without replacement</span>
+<span>'''</span></code></pre>
+<p class="page-course">To generate a sample with replacement, we can draw random integers and put the 'replace' to 'True'.</p>
+<pre><code><span>'''</span>
+<span>TODO: draw three random integer values from the index values of the dataframe</span>
+<span>(Note that the default index of the dataframe starts from 0)</span>
+<span>'''</span></code></pre>
+<p class="page-course">OR you can generate a set of random integer samples of size three</p>
+<p class="page-course">These random integers can be used as input for the 'take' method, which is then used to sample the data. Since the random integers consistuting the array may be repeated, the rows sampled by this method may also be repeated -- or, in other words, sampled with <b>replacement</b>.</p>
+<pre><code><span>'''</span>
+<span>TODO: generate 3 random integers in the range of the df index and</span>
+<span>extract the rows with indexes equal to those integer values.</span>
+<span>'''</span></code></pre>
+<pre><code><span>'''</span>
+<span>TODO: Create a dataframe with random number of 5 rows and 4 columns.</span>
+<span>Sample the data without replacement and create an index with ['een', 'twee', 'drie', 'vier', 'vijf']</span>
+<span>'''</span></code></pre>
+  </div>
+</div>
+<div class="callout callout-warning">
+  <div class="callout-header">3.2 Principal Component Analysis</div>
+  <div class="callout-body">
+<p class="page-course">If you have done a lot of modifications on the dataframe, re-read the dataset again.</p>
+<pre><code>df_raisin <span class="op">= </span>pd<span class="op">.</span>read_csv(<span class="str">'Raisin_Dataset.csv'</span>, header <span class="op">= </span><span class="ct">0</span>,
+                 quotechar <span class="op">= </span><span class="str">'"'</span>,sep <span class="op">= </span><span class="str">","</span>,
+                 na_values <span class="op">= </span>[<span class="str">'na'</span>, <span class="str">'-'</span>, <span class="str">'.'</span>, <span class="str">''</span>])
+df_raisin</code></pre>
+<p class="page-course"><a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html">PCA</a> is affected by scale so you need to scale the features in your data before applying PCA. Use StandardScaler to help you standardize the dataset’s features (mean = 0 and variance = 1) which is a requirement for the optimal performance of many machine learning algorithms.</p>
+<pre><code><span>'''</span>
+<span>TODO: create a new dataframe X that contains the features with the class label column.</span>
+<span>i.e. (delete the last column).</span>
+<span>Use standard normalization to normalize the data</span>
+<span>'''</span></code></pre>
+<p class="page-course">Original data has more than two columns (execluding the class label column), we would like to project the data into 2 dimensional data</p>
+<pre><code><span>'''</span>
+<span>TODO: create a new PCA object and specify the number of PCs to 2.</span>
+<span>'''</span></code></pre>
+<p class="page-course">Extract and display the eigenvectors, eigenvalues. Note that we already eliminated the PCs with small eigenvalues. We only extraced two PCs.</p>
+<pre><code><span>'''</span>
+<span>TODO: extract the eigenvectors and eigenvalues of the two PCs</span>
+<span>'''</span></code></pre>
+<p class="page-course">We can also start by computing all the PCs and discard the ones that are not required later.</p>
+<pre><code><span>'''</span>
+<span>TODO:</span>
+<span>1. Create a new PCA object and specify the number of PCs to the number of columns in the dataframe.</span>
+<span>2. Extract the first two PCs into a dataframe and compare it the dataframe in the previous step</span>
+<span>    (Hint: use the numpy function `assert_array_almost_equal`).</span>
+<span>You should be able to confirm that the dataframes generated in both ways are the same.</span>
+<span>'''</span></code></pre>
+<p class="page-course">We can plot the values of the eigenvalues and make sure that the discarded components have eigenvalues smaller than 1.</p>
+<pre><code><span>'''</span>
+<span>TODO: plot the eigenvalues as bar plot.</span>
+<span>'''</span></code></pre>
+<p class="page-course">We can also plot the projected data on the two components with the eigenvectors in the same plot to see the directions of the eigenvectors. An example code can be found <a href="http://bebi103.caltech.edu.s3-website-us-east-1.amazonaws.com/2016/tutorials/aux4_pca.html">here</a>.</p>
+<pre><code><span>'''</span>
+<span>TODO: plot the data of the first two PCs (the PCs with the hieghest eigen values)</span>
+<span>together with the eigen vector on the same plot</span>
+<span>'''</span></code></pre>
+  </div>
+</div>
+<div class="callout callout-warning">
+  <div class="callout-header">Exercise:</div>
+  <div class="callout-body">
+
+<pre><code><span>'''</span>
+<span>TODO: Now, use other diemensionality reduction techniques such as LLE, ISOMap, t-SNE</span>
+<span>'''</span></code></pre>
+<p class="page-course">Now, let's apply the same concept on synthetic data from two dimensional normal distribution</p>
+<pre><code>mean <span class="op">= </span>[<span class="ct">1</span>, <span class="ct">1</span>]
+cov <span class="op">= </span>[[<span class="ct">1</span>, <span class="ct">0.9</span>], [<span class="ct">0.9</span>, <span class="ct">1</span>]]
+db <span class="op">= </span>np<span class="op">.</span>random<span class="op">.</span>multivariate_normal(mean, cov, <span class="ct">5000</span>)<span class="op">.</span>T
+db <span class="op">= </span>db<span class="op">.</span>transpose()
+syntheticDF <span class="op">= </span>pd<span class="op">.</span>DataFrame(data <span class="op">= </span>db, columns <span class="op">= </span>[<span class="str">'x'</span>, <span class="str">'y'</span>])
+plt<span class="op">.</span>plot(syntheticDF[<span class="str">'x'</span>], syntheticDF[<span class="str">'y'</span>], <span class="str">'x'</span>)
+plt<span class="op">.</span>axis(<span class="str">'equal'</span>)
+plt<span class="op">.</span>show()</code></pre>
+<p class="page-course">Apply the same steps as we did for the iris data but at the end, plot the orginal data (not the projected data)</p>
+<p class="page-course"><b>First</b>, compute the 2 PCs</p>
+<p class="page-course">Extract and display the eigenvalues, eigenvectors</p>
+<p class="page-course">Plot the original data with the eigenvectors</p>
+  </div>
+</div>
+<div class="callout callout-warning">
+  <div class="callout-header">Correlation Analysis</div>
+  <div class="callout-body">
+<pre><code><span>'''</span>
+<span>TODO: Compute the correlation between every two variables in the data.</span>
+<span>Which variables are highly correlated?</span>
+<span>'''</span></code></pre>
+  </div>
+</div>
+</section>
+
+<section id="2-data-transformation-normalization-or-standardization">
+<h2>2. Data Transformation (Normalization or Standardization)</h2>
+<p class="page-course">We begin by defining a pandas dataframe that contains some cells with missing values. Note that pandas, in addition to allowing us to create dataframes from a variety of files, also supports explicit declaration.</p>
+<div class="callout callout-warning">
+  <div class="callout-header">Create dataframe</div>
+  <div class="callout-body">
+<pre><code>df_raisin <span class="op">= </span>pd<span class="op">.</span>read_csv(<span class="str">'Raisin_Dataset.csv'</span>, header <span class="op">= </span><span class="ct">0</span>,
+                 quotechar <span class="op">= </span><span class="str">'"'</span>,sep <span class="op">= </span><span class="str">","</span>,
+                 na_values <span class="op">= </span>[<span class="str">'na'</span>, <span class="str">'-'</span>, <span class="str">'.'</span>, <span class="str">''</span>])
+df_raisin</code></pre>
+<pre><code>df_raisin<span class="op">.</span>columns</code></pre>
+<pre><code><span>'''</span>
+<span>Drop the class label column</span>
+<span>'''</span></code></pre>
+<p class="page-course">Normalize the data such that the summation of the values in each attribute (column) is 1.</p>
+<pre><code><span>'''</span>
+<span>TODO: normalize the values in each column of the df_pid by dividing the values of each column over</span>
+<span>the sum of the values in that column.</span>
+<span>'''</span></code></pre>
+<pre><code><span class="kw">for </span>c <span class="kw">in </span>df_norm<span class="op">.</span>columns:
+    <span class="nb">print</span>(c, df_norm[c]<span class="op">.</span>sum())</code></pre>
+<pre><code><span>'''</span>
+<span>TODO: write your own code normalize the data in the df_pid by mapping the values to the interval [-5,5]</span>
+<span>'''</span></code></pre>
+<pre><code><span>'''</span>
+<span>TODO: normalize the data between [-5, 5] using the MinMaxScaler from sklearn</span>
+<span>and compare the resulting dataframe with the one from the previous exercise</span>
+<span>use df.equals(new_df) to make the comparison.</span>
+<span>What do you think about the comparison?</span>
+<span>'''</span></code></pre>
+<p class="page-course">Standardize features (columns) by removing the mean and scaling to unit variance.</p>
+<p class="page-course">The standard score of a sample $x$ is calculated as:</p>
+<p class="page-course">$$z = \frac{(x - \mu)}{\sigma}$$</p>
+<p class="page-course">Where $\mu$ is the mean of the values in $x$ and $\sigma$ is the standard deviation.
+The new data should have a mean of 0 and a standard deviation of 1.</p>
+<pre><code><span>'''</span>
+<span>TODO: write your own code to normalize the data in the df by mapping the values of each column</span>
+<span>to a set of values with mean = 0 and standard deviation = 1</span>
+<span>'''</span></code></pre>
+<pre><code><span>'''</span>
+<span>TODO: use the StandardScaler from the sklearn to normalize the data and</span>
+<span>compare the results with values that were normaized using your own code.</span>
+<span>'''</span></code></pre>
+  </div>
+</div>
+</section>
+
+<section id="3-entity-resolution">
+<h2>3. Entity Resolution</h2>
+<p class="page-course">We will use the <a href="https://biopython.org/docs/latest/Tutorial/chapter_pairwise.html">Biopython</a> library. Since we haven't used the affine GAP distance before during the lab, we start by simple exercise about using it from the Biopython library.</p>
+<pre><code><span>'''</span>
+<span>You have:</span>
+<span>s1 = "Advances in Instrumentation and Control"</span>
+<span>s2 = "Adv. Instrum. Control"</span>
+
+<span>Use affine gap similarity to compare the strings</span>
+<span>Use the extend gap cost as 0.1</span>
+<span>'''</span>
+
+<span class="kw">def </span><span class="fn">affine_gap_distance</span>(s1, s2, mismatch <span class="op">= </span><span class="op">-</span><span class="ct">2</span>, open_gap <span class="op">= </span><span class="op">-</span><span class="ct">1</span>, gap_ext <span class="op">= </span><span class="op">-</span><span class="ct">0.1</span>):
+    aligner <span class="op">= </span>PairwiseAligner()
+    aligner<span class="op">.</span>mode <span class="op">= </span><span class="str">"global"</span>
+    aligner<span class="op">.</span>match_score <span class="op">= </span><span class="ct">0</span>
+    aligner<span class="op">.</span>mismatch_score <span class="op">= </span>mismatch
+    aligner<span class="op">.</span>open_gap_score <span class="op">= </span>open_gap   
+    aligner<span class="op">.</span>extend_gap_score <span class="op">= </span>gap_ext
+    
+    best_score <span class="op">= </span>aligner<span class="op">.</span>score(s1, s2)     
+    distance <span class="op">= </span><span class="nb">round</span>(<span class="op">-</span>best_score, <span class="ct">2</span>)       
+    <span class="kw">return </span>distance
+
+s1 <span class="op">= </span><span class="str">"Advances in Instrumentation and Control"</span>
+s2 <span class="op">= </span><span class="str">"Adv. Instrum. Control"</span>
+distance <span class="op">= </span>affine_gap_distance(s1, s2, <span class="op">-</span><span class="ct">2</span>, <span class="op">-</span><span class="ct">1</span>, <span class="op">-</span><span class="ct">0.1</span>)
+<span class="nb">print</span>(<span class="str">"Distance:"</span>, distance)
+<span>'''</span>
+<span>TODO: check the outcomes of the code with the examples from the lecture</span>
+<span>s3 = "Knowledge and Data"</span>
+<span>s4 = "Knowl. Data"</span>
+<span>'''</span></code></pre>
+<pre><code><span>'''</span>
+<span>Last week, we implemented these functions</span>
+<span>1. Levenshtein minimum edit distance</span>
+<span>'''</span>
+
+<span class="kw">def </span><span class="fn">ldist</span>(s, t):
+    <span class="cm">""" 
+        iterative_levenshtein(s, t) -&gt; ldist
+        ldist is the Levenshtein distance between the strings 
+        s and t.
+        For all i and j, dist[i,j] will contain the Levenshtein 
+        distance between the first i characters of s and the 
+        first j characters of t
+    """</span>
+
+    rows <span class="op">= </span><span class="nb">len</span>(s)<span class="op">+</span><span class="ct">1</span>
+    cols <span class="op">= </span><span class="nb">len</span>(t)<span class="op">+</span><span class="ct">1</span>
+    dist <span class="op">= </span>[[<span class="ct">0</span> <span class="kw">for </span>x <span class="kw">in </span><span class="nb">range</span>(cols)] <span class="kw">for </span>x <span class="kw">in </span><span class="nb">range</span>(rows)]
+
+    <span class="cm"># source prefixes can be transformed into empty strings </span>
+    <span class="cm"># by deletions:</span>
+    <span class="kw">for </span>i <span class="kw">in </span><span class="nb">range</span>(<span class="ct">1</span>, rows):
+        dist[i][<span class="ct">0</span>] <span class="op">= </span>i
+
+    <span class="cm"># target prefixes can be created from an empty source string</span>
+    <span class="cm"># by inserting the characters</span>
+    <span class="kw">for </span>i <span class="kw">in </span><span class="nb">range</span>(<span class="ct">1</span>, cols):
+        dist[<span class="ct">0</span>][i] <span class="op">= </span>i
+        
+    <span class="kw">for </span>col <span class="kw">in </span><span class="nb">range</span>(<span class="ct">1</span>, cols):
+        <span class="kw">for </span>row <span class="kw">in </span><span class="nb">range</span>(<span class="ct">1</span>, rows):
+            <span class="kw">if </span>s[row<span class="op">-</span><span class="ct">1</span>] <span class="op">== </span>t[col<span class="op">-</span><span class="ct">1</span>]:
+                c <span class="op">= </span><span class="ct">0</span>
+            <span class="kw">else</span>:
+                c <span class="op">= </span><span class="ct">2</span>
+            dist[row][col] <span class="op">= </span><span class="nb">min</span>(dist[row<span class="op">-</span><span class="ct">1</span>][col] <span class="op">+ </span><span class="ct">1</span>,       <span class="cm"># deletion</span>
+                                 dist[row][col<span class="op">-</span><span class="ct">1</span>] <span class="op">+ </span><span class="ct">1</span>,       <span class="cm"># insertion</span>
+                                 dist[row<span class="op">-</span><span class="ct">1</span>][col<span class="op">-</span><span class="ct">1</span>] <span class="op">+ </span>c)     <span class="cm"># substitution</span>
+    
+ 
+    <span class="kw">return </span>dist[row][col]
+
+<span>'''</span>
+<span>2. Jaro similarity</span>
+<span>'''</span>
+<span class="kw">def </span><span class="fn">jaro_sim</span>(s, t):
+    <span class="cm">'''Jaro similarity between two strings.'''</span>
+    s_len <span class="op">= </span><span class="nb">len</span>(s)
+    t_len <span class="op">= </span><span class="nb">len</span>(t)
+ 
+    <span class="kw">if </span>s_len <span class="op">== </span><span class="ct">0</span> <span class="kw">and </span>t_len <span class="op">== </span><span class="ct">0</span>:
+        <span class="kw">return </span><span class="ct">1</span>
+ 
+    match_distance <span class="op">= </span>(<span class="nb">max</span>(s_len, t_len) <span class="op">/</span><span class="op">/ </span><span class="ct">2</span>) <span class="op">- </span><span class="ct">1</span>
+ 
+    s_matches <span class="op">= </span>[<span class="kw">False</span>] <span class="op">* </span>s_len
+    t_matches <span class="op">= </span>[<span class="kw">False</span>] <span class="op">* </span>t_len
+ 
+    matches <span class="op">= </span><span class="ct">0</span>
+    transpositions <span class="op">= </span><span class="ct">0</span>
+ 
+    <span class="kw">for </span>i <span class="kw">in </span><span class="nb">range</span>(s_len):
+        start <span class="op">= </span><span class="nb">max</span>(<span class="ct">0</span>, i <span class="op">- </span>match_distance)
+        end <span class="op">= </span><span class="nb">min</span>(i <span class="op">+ </span>match_distance <span class="op">+ </span><span class="ct">1</span>, t_len)
+ 
+        <span class="kw">for </span>j <span class="kw">in </span><span class="nb">range</span>(start, end):
+            <span class="kw">if </span>t_matches[j]:
+                <span class="kw">continue</span>
+            <span class="kw">if </span>s[i] <span class="op">!= </span>t[j]:
+                <span class="kw">continue</span>
+            s_matches[i] <span class="op">= </span><span class="kw">True</span>
+            t_matches[j] <span class="op">= </span><span class="kw">True</span>
+            matches <span class="op">+</span><span class="op">= </span><span class="ct">1</span>
+            <span class="kw">break</span>
+ 
+    <span class="kw">if </span>matches <span class="op">== </span><span class="ct">0</span>:
+        <span class="kw">return </span><span class="ct">0</span>
+ 
+    k <span class="op">= </span><span class="ct">0</span>
+    <span class="kw">for </span>i <span class="kw">in </span><span class="nb">range</span>(s_len):
+        <span class="kw">if not </span>s_matches[i]:
+            <span class="kw">continue</span>
+        <span class="kw">while not </span>t_matches[k]:
+            k <span class="op">+</span><span class="op">= </span><span class="ct">1</span>
+        <span class="kw">if </span>s[i] <span class="op">!= </span>t[k]:
+            transpositions <span class="op">+</span><span class="op">= </span><span class="ct">1</span>
+        k <span class="op">+</span><span class="op">= </span><span class="ct">1</span>
+ 
+    <span class="kw">return </span>((matches <span class="op">/ </span>s_len) <span class="op">+</span>
+            (matches <span class="op">/ </span>t_len) <span class="op">+</span>
+            ((matches <span class="op">- </span>transpositions <span class="op">/ </span><span class="ct">2</span>) <span class="op">/ </span>matches)) <span class="op">/ </span><span class="ct">3</span>
+
+<span>'''</span>
+<span>3. Jaro-Winkler similarity</span>
+<span>'''</span>
+<span class="kw">def </span><span class="fn">jaro_winkler</span>(s, t, p <span class="op">= </span><span class="ct">0.1</span>):
+    <span class="cm"># Compute the Jaro similarity</span>
+    jaro_sim <span class="op">= </span>jaro(s, t)
+    ls <span class="op">= </span><span class="nb">len</span>(s)
+    lt <span class="op">= </span><span class="nb">len</span>(t)
+    <span class="cm"># Initialize the upper bound for the no. of prefixes.</span>
+    min_l <span class="op">= </span><span class="nb">min</span>(ls, lt)
+
+    <span class="cm"># Compute the prefix matches.</span>
+    l <span class="op">= </span><span class="ct">0</span>
+    <span class="kw">for </span>i <span class="kw">in </span><span class="nb">range</span>(min_l):
+        <span class="kw">if </span>s[i] <span class="op">== </span>t[i]:
+            l <span class="op">+</span><span class="op">= </span><span class="ct">1</span>
+        <span class="kw">else</span>:
+            <span class="kw">break</span>
+    <span class="cm"># Return the similarity value.</span>
+    L <span class="op">= </span><span class="nb">min</span>(l, <span class="ct">4</span>)
+    <span class="kw">return </span>(jaro_sim <span class="op">+ </span>( L <span class="op">* </span>p <span class="op">* </span>(<span class="ct">1</span> <span class="op">- </span>jaro_sim) ))</code></pre>
+<pre><code><span>'''</span>
+<span>TODO: Modify the affine gap distance to compute the distance between two strings and</span>
+<span>divide the score over the length of the long string</span>
+<span>'''</span>
+
+    </code></pre>
+<pre><code><span>'''</span>
+<span>TODO: given the following records, check if they refer to the same real-world entity</span>
+<span>use the following metrics (ignore the pub_id):</span>
+<span>1. Levenshtein similarity for the title (s_t)</span>
+<span>2. Jaro similarity for the authors (s_a)</span>
+<span>3. The modified Affine similarity for the conference (conf) (s_c)</span>
+<span>4. Numerical difference for the year (s_y)</span>
+<span>use the formula rec_sim = 0.5 * s_t + 0.2 * s_a + 0.2 * s_c + 0.1 * s_y</span>
+<span>Report that the records are referring to the same real-world entity if the rec_sim &gt; 0.7</span>
+<span>'''</span> 
+data_columns <span class="op">= </span>[<span class="str">'pub_id'</span>, <span class="str">'title'</span>, <span class="str">'authors'</span>, <span class="str">'conf'</span>, <span class="str">'year'</span>]
+data1 <span class="op">= </span>[<span class="ct">375678</span>,<span class="str">"Adaptable query optimization and evaluation in temporal middleware"</span>,\
+         <span class="str">"Giedrius Slivinskas, Christian S. Jensen, Richard Thomas Snodgrass"</span>,\
+         <span class="str">"International Conference on Management of Data"</span>,<span class="ct">2001</span>]
+data2 <span class="op">= </span>[<span class="str">"SlivinskasJS01"</span>,<span class="str">"Adaptable Query Optimization and Evaluation in Temporal Middleware"</span>,\
+         <span class="str">"Christian S. Jensen, Richard T. Snodgrass, Giedrius Slivinskas"</span>,<span class="str">"SIGMOD Conference"</span>, <span class="ct">2001</span>]
+
+<span class="cm"># define the similarity measures</span>
+
+<span class="kw">def </span><span class="fn">Lev_sim</span> (s1, s2):
+    
+    <span class="kw">return None</span>
+
+<span class="kw">def </span><span class="fn">mod_jaro_sim</span>(s1, s2):
+
+    <span class="kw">return None</span>
+
+<span class="kw">def </span><span class="fn">record_sim</span>(rec1, rec2, threshold):
+    
+    <span class="kw">return None</span>
+
+<span class="cm"># Usually, we consider two records are similar if their similarity measure is &gt;= 0.7</span>
+record_sim(data1, data2, <span class="ct">0.7</span>)</code></pre>
+<div class="callout callout-warning">
+  <div class="callout-header">Locality Sensitive Hashing (LSH)</div>
+  <div class="callout-body">
+<p class="page-course">In the realm of large datasets and high-dimensional spaces, searching for items can be computationally challenging. Specifically, if you want to find items that are similar to a given item (known as the "query item"), conventional search methods might take an impractical amount of time. This is especially true for tasks like finding similar documents in a vast collection of text or similar image in a massive image database.</p>
+<p class="page-course">Enter Locality Sensitive Hashing (LSH), an ingenious technique designed to tackle such problems.</p>
+<div class="callout callout-note">
+  <div class="callout-header">The Core Concept</div>
+  <div class="callout-body">
+<p class="page-course">Imagine you have vast collection of images and you want to find all documents similar to a particular one. If you've applied LSH to our documents, instead of comparing the query to every single document in the collection, you'd only need to compare it with documents in same hash bucket.
+At its heart, LSH is a method for hashing data points in such a way that similar data points will, with high probability, end up in the same "bucket" or hash bin. Conversely, dissimilar items will, with high probability, end up in different bins.</p>
+<center><img style="max-width:100%" src="https://hqahtan.github.io/Teaching/infomdw/labs/week_7/imgs/Hashing.png" ></center>
+
+<p class="page-course">Unlike traditional hash functions used in dictionaries, which aim to reduce the likelihood of multiple key-values mapping to the same bucket, LSH operates differently. In dictionary hashing, minimizing collisions is crucial. On the contrary, LSH actively embraces collisions, especially for similar inputs. The essence of an LSH function is to group like values into identical buckets.</p>
+<p class="page-course">While the core principle of LSH is to bucket similar items using a hash function, the methodologies can differ significantly.</p>
+<p class="page-course">The technique we're introducing, and which will be the point of this lab, is based on established methods involving shingling, MinHashing, and banding.</p>
+  </div>
+</div>
+<div class="callout callout-note">
+  <div class="callout-header">Loading dataset</div>
+  <div class="callout-body">
+<p class="page-course">First we need dataset. There are great repository in internet for testing similarity search testing. We will be extracting a set of sentences from <a href="https://github.com/brmson/dataset-sts/blob/master/data/sts/sick2014/SICK_train.txt">here</a>.</p>
+<pre><code><span>'''</span>
+<span>URL of the file</span>
+<span>'''</span>
+
+url <span class="op">= </span><span class="str">"https://raw.githubusercontent.com/brmson/dataset-sts/master/data/sts/sick2014/SICK_train.txt"</span>
+response <span class="op">= </span>requests<span class="op">.</span>get(url)
+<span class="kw">if </span>response<span class="op">.</span>status_code <span class="op">== </span><span class="ct">200</span>:
+    content <span class="op">= </span>response<span class="op">.</span>text
+    df_docs <span class="op">= </span>pd<span class="op">.</span>read_csv(StringIO(content), delimiter<span class="op">=</span><span class="str">'\t'</span>)
+    display(df_docs)
+<span class="kw">else</span>:
+    <span class="nb">print</span>(<span class="str">"Failed to fetch data from the URL."</span>)</code></pre>
+  </div>
+</div>
+<div class="callout callout-note">
+  <div class="callout-header">Shingling, MinHashing, and LSH</div>
+  <div class="callout-body">
+<p class="page-course">The Locality-Sensitive Hashing (LSH) approach encompasses a three-step process. Initially, we convert text into sparse vectors using k-shingling and one-hot encoding. We then employ minhashing to generate 'signatures,' which are subsequently used in our LSH process to filter out potential candidate pairs. Finally, we group the signatures into buckets where each bucket conatins the set of doocuments that are potentially similar. This will reduce the computational cost as the pairwise similarity will be performed only on the documents with signatures falling in the same bucket. If the number of buckets is large enough and the signatures are evenly distributed among the buckets, the computational cost will be reduced significantly. </p>
+<div class="callout callout-note">
+  <div class="callout-header"><b>k-Shingling</b></div>
+  <div class="callout-body">
+<p class="page-course">k-Shingling, often referred to as shingling, involves the transformation of a text string into a collection of 'shingles'. This procedure resembles sliding a window of length k along our text string and capturing a snapshot at each step. We aggregate all these snapshots to form our set of shingles.</p>
+<pre><code><span class="kw">def </span><span class="fn">shingle</span>(text: <span class="nb">str</span>, k: <span class="nb">int</span>)<span class="op">-</span><span class="op">&gt;</span><span class="nb">set</span>:
+    <span class="cm">"""
+    Create a set of 'shingles' from the input text using k-shingling.
+
+    Parameters:
+        text (str): The input text to be converted into shingles.
+        k (int): The length of the shingles (substring size).
+
+    Returns:
+        set: A set containing the shingles extracted from the input text.
+    """</span>
+    shingle_set <span class="op">= </span>[]
+    <span class="kw">for </span>i <span class="kw">in </span><span class="nb">range</span>(<span class="nb">len</span>(text) <span class="op">- </span>k<span class="op">+</span><span class="ct">1</span>):
+        shingle_set<span class="op">.</span>append(text[i:i<span class="op">+</span>k])
+    <span class="kw">return </span><span class="nb">set</span>(shingle_set)
+<span class="kw">def </span><span class="fn">build_vocab</span>(shingle_sets: <span class="nb">list</span>)<span class="op">-</span><span class="op">&gt;</span><span class="nb">dict</span>:
+    <span class="cm">"""
+    Constructs a vocabulary dictionary from a list of shingle sets.
+
+    This function takes a list of shingle sets and creates a unified vocabulary
+    dictionary. Each unique shingle across all sets is assigned a unique integer
+    identifier.
+
+    Parameters:
+    - shingle_sets (list of set): A list containing sets of shingles.
+
+    Returns:
+    - dict: A vocabulary dictionary where keys are the unique shingles and values
+      are their corresponding unique integer identifiers.
+
+    Example:
+    sets = [{"apple", "banana"}, {"banana", "cherry"}]
+    build_vocab(sets)
+    {'apple': 0, 'cherry': 1, 'banana': 2}  # The exact order might vary due to set behavior
+    """</span>
+    full_set <span class="op">= </span>{item <span class="kw">for </span>set_ <span class="kw">in </span>shingle_sets <span class="kw">for </span>item <span class="kw">in </span>set_}
+    vocab <span class="op">= </span>{}
+    <span class="kw">for </span>i, shingle <span class="kw">in </span><span class="nb">enumerate</span>(<span class="nb">list</span>(full_set)):
+        vocab[shingle] <span class="op">= </span>i
+    <span class="kw">return </span>vocab
+<span class="kw">def </span><span class="fn">one_hot</span>(shingles: <span class="nb">set</span>, vocab: <span class="nb">dict</span>):
+    vec <span class="op">= </span>np<span class="op">.</span>zeros(<span class="nb">len</span>(vocab))
+    <span class="kw">for </span>shingle <span class="kw">in </span>shingles:
+        idx <span class="op">= </span>vocab[shingle]
+        vec[idx] <span class="op">= </span><span class="ct">1</span>
+    <span class="kw">return </span>vec</code></pre>
+  </div>
+</div>
+  </div>
+</div>
+<div class="callout callout-warning">
+  <div class="callout-header">Use shingling on the set of document in the dataframe df_docs</div>
+  <div class="callout-body">
+<pre><code><span>'''</span>
+<span>TODO:</span>
+<span>    1. create a single list that contains all the sentences in sentence_A, sentence_B</span>
+<span>    2. find the list of 3-shingles from the full list of sentences</span>
+<span>    3. Use the functions build_vocab and one_hot to create the documents-shinles matrix</span>
+<span>        (you can also use your own functions)</span>
+<span>'''</span></code></pre>
+  </div>
+</div>
+  </div>
+</div>
+<div class="callout callout-warning">
+  <div class="callout-header">MinHashing</div>
+  <div class="callout-body">
+<p class="page-course">Minhashing is represents the task of transforming the sparse vectors (in the documents-shingles matrix) into dense ones. Starting with the sparse vectors, for each slot in the signature, we randomly produce a single minhash function.
+For instance, if we aim to formulate a dense vector or signature with 20 values, we would deploy 20 hashing functions.</p>
+<p class="page-course">These hashing functions generate sequences of numbers arranged in randomly. We sequentially number them from 1 up to the number of shingles (vocab entries).</p>
+<pre><code><span class="kw">def </span><span class="fn">get_minhash_arr</span>(num_hashes:<span class="nb">int</span>,vocab:<span class="nb">dict</span>):
+    <span class="cm">"""
+    Generates a MinHash array for the given vocabulary.
+
+    This function creates an array where each row represents a hash function and
+    each column corresponds to a word in the vocabulary. The values are permutations
+    of integers representing the hashed value of each word for that particular hash function.
+
+    Parameters:
+    - num_hashes (int): The number of hash functions (rows) to generate for the MinHash array.
+    - vocab (dict): The vocabulary where keys are words and values can be any data
+      (only keys are used in this function).
+
+    Returns:
+    - np.ndarray: The generated MinHash array with `num_hashes` rows and columns equal
+      to the size of the vocabulary. Each cell contains the hashed value of the corresponding
+      word for the respective hash function.
+
+    Example:
+    vocab = {'apple': 1, 'banana': 2}
+    get_minhash_arr(2, vocab)
+    # Possible output:
+    # array([[1, 2],
+    #        [2, 1]])
+    """</span>
+    length <span class="op">= </span><span class="nb">len</span>(vocab<span class="op">.</span>keys())
+    arr <span class="op">= </span>np<span class="op">.</span>zeros((num_hashes,length))
+    <span class="kw">for </span>i <span class="kw">in </span><span class="nb">range</span>(num_hashes):
+        permutation <span class="op">= </span>np<span class="op">.</span>random<span class="op">.</span>permutation(<span class="nb">len</span>(vocab<span class="op">.</span>keys())) <span class="op">+ </span><span class="ct">1</span>
+        arr[i,:] <span class="op">= </span>permutation<span class="op">.</span>copy()
+    <span class="kw">return </span>arr<span class="op">.</span>astype(<span class="nb">int</span>)
+<span class="kw">def </span><span class="fn">get_signature</span>(minhash:np<span class="op">.</span>ndarray, vector:np<span class="op">.</span>ndarray):
+    <span class="cm">"""
+    Computes the signature of a given vector using the provided MinHash matrix.
+
+    The function finds the nonzero indices of the vector, extracts the corresponding
+    columns from the MinHash matrix, and computes the signature as the minimum value
+    across those columns for each row of the MinHash matrix.
+
+    Parameters:
+    - minhash (np.ndarray): The MinHash matrix where each column represents a shingle
+      and each row represents a hash function.
+    - vector (np.ndarray): A vector representing the presence (non-zero values) or
+      absence (zero values) of shingles.
+
+    Returns:
+    - np.ndarray: The signature vector derived from the MinHash matrix for the provided vector.
+
+    Example:
+    minhash = np.array([[2, 3, 4], [5, 6, 7], [8, 9, 10]])
+    vector = np.array([0, 1, 0])
+    get_signature(minhash, vector)
+    output:array([3, 6, 9])
+    """</span>
+    idx <span class="op">= </span>np<span class="op">.</span>nonzero(vector)[<span class="ct">0</span>]<span class="op">.</span>tolist()
+    shingles <span class="op">= </span>minhash[:,idx]
+    signature <span class="op">= </span>np<span class="op">.</span>min(shingles,axis<span class="op">=</span><span class="ct">1</span>)
+    <span class="kw">return </span>signature
+
+<span class="kw">def </span><span class="fn">jaccard_similarity</span>(set1, set2):
+    intersection_size <span class="op">= </span><span class="nb">len</span>(set1<span class="op">.</span>intersection(set2))
+    union_size <span class="op">= </span><span class="nb">len</span>(set1<span class="op">.</span>union(set2))
+    <span class="kw">return </span>intersection_size <span class="op">/ </span>union_size <span class="kw">if </span>union_size <span class="op">!= </span><span class="ct">0</span> <span class="kw">else </span><span class="ct">0.0</span>
+
+<span class="kw">def </span><span class="fn">compute_signature_similarity</span>(signature_1, signature_2):
+    <span class="cm">"""
+    Calculate the similarity between two signature matrices using MinHash.
+
+    Parameters:
+    - signature_1: First signature matrix as a numpy array.
+    - signature_matrix2: Second signature matrix as a numpy array.
+
+    Returns:
+    - Estimated Jaccard similarity.
+    """</span>
+    <span class="cm"># Ensure the matrices have the same shape</span>
+    <span class="kw">if </span>signature_1<span class="op">.</span>shape <span class="op">!= </span>signature_2<span class="op">.</span>shape:
+        <span class="kw">raise </span>ValueError(<span class="str">"Both signature matrices must have the same shape."</span>)
+    <span class="cm"># Count the number of rows where the two matrices agree</span>
+    agreement_count <span class="op">= </span>np<span class="op">.</span>sum(signature_1 <span class="op">== </span>signature_2)
+    <span class="cm"># Calculate the similarity</span>
+    similarity <span class="op">= </span>agreement_count <span class="op">/ </span>signature_2<span class="op">.</span>shape[<span class="ct">0</span>]
+
+    <span class="kw">return </span>similarity</code></pre>
+<pre><code><span>'''</span>
+<span>TODO:</span>
+<span>    1. create an array to hold 100 permutations (the second dimension will be the number of shingles for sure)</span>
+<span>    2. create the signature matrix</span>
+<span>        (the size of the matrix should be the number of permutaions times the number of documents)</span>
+<span>'''</span></code></pre>
+<pre><code><span>'''</span>
+<span>TODO:compute the simialrity between two documents using:</span>
+<span>    1. Jaccard similarity on the documents-shingles arrays</span>
+<span>    2. the signature based similarity using the function `compute_signature_similarity`</span>
+<span>'''</span></code></pre>
+  </div>
+</div>
+<div class="callout callout-warning">
+  <div class="callout-header">Final Step: LSH Function(Optional)</div>
+  <div class="callout-body">
+<p class="page-course">After preparing the data using the methods mentioned above, the LSH function is applied. This function divides the MinHash signature of each sentence into multiple bands and hashes each band. If two sentences have the same hash value for any band, they are considered to be potentially similar and are placed in the same bucket. Sentences within the same bucket are then checked more thoroughly to determine the degree of their similarity. By adjusting parameters like the number of bands and rows, one can control the trade-off between precision and recall.</p>
+<pre><code><span class="kw">class </span><span class="fn">LSH</span>:
+    <span class="cm">"""
+    Implements the Locality Sensitive Hashing (LSH) technique for approximate
+    nearest neighbor search.
+    """</span>
+    buckets <span class="op">= </span>[]
+    counter <span class="op">= </span><span class="ct">0</span>
+
+    <span class="kw">def </span><span class="fn">__init__</span>(<span class="nb">self</span>, b: <span class="nb">int</span>):
+        <span class="cm">"""
+        Initializes the LSH instance with a specified number of bands.
+
+        Parameters:
+        - b (int): The number of bands to divide the signature into.
+        """</span>
+        <span class="nb">self</span><span class="op">.</span>b <span class="op">= </span>b
+        <span class="kw">for </span>i <span class="kw">in </span><span class="nb">range</span>(b):
+            <span class="nb">self</span><span class="op">.</span>buckets<span class="op">.</span>append({})
+
+    <span class="kw">def </span><span class="fn">make_subvecs</span>(<span class="nb">self</span>, signature: np<span class="op">.</span>ndarray) <span class="op">-</span><span class="op">&gt; </span>np<span class="op">.</span>ndarray:
+        <span class="cm">"""
+        Divides a given signature into subvectors based on the number of bands.
+
+        Parameters:
+        - signature (np.ndarray): The MinHash signature to be divided.
+
+        Returns:
+        - np.ndarray: A stacked array where each row is a subvector of the signature.
+        """</span>
+        l <span class="op">= </span><span class="nb">len</span>(signature)
+        <span class="kw">assert </span>l <span class="op">% </span><span class="nb">self</span><span class="op">.</span>b <span class="op">== </span><span class="ct">0</span>
+        r <span class="op">= </span><span class="nb">int</span>(l <span class="op">/ </span><span class="nb">self</span><span class="op">.</span>b)
+        subvecs <span class="op">= </span>[]
+        <span class="kw">for </span>i <span class="kw">in </span><span class="nb">range</span>(<span class="ct">0</span>, l, r):
+            subvecs<span class="op">.</span>append(signature[i:i<span class="op">+</span>r])
+        <span class="kw">return </span>np<span class="op">.</span>stack(subvecs)
+
+    <span class="kw">def </span><span class="fn">add_hash</span>(<span class="nb">self</span>, signature: np<span class="op">.</span>ndarray):
+        <span class="cm">"""
+        Adds a signature to the appropriate LSH buckets based on its subvectors.
+
+        Parameters:
+        - signature (np.ndarray): The MinHash signature to be hashed and added.
+        """</span>
+        subvecs <span class="op">= </span><span class="nb">self</span><span class="op">.</span>make_subvecs(signature)<span class="op">.</span>astype(<span class="nb">str</span>)
+        <span class="kw">for </span>i, subvec <span class="kw">in </span><span class="nb">enumerate</span>(subvecs):
+            subvec <span class="op">= </span><span class="str">','</span><span class="op">.</span>join(subvec)
+            <span class="kw">if </span>subvec <span class="kw">not in </span><span class="nb">self</span><span class="op">.</span>buckets[i]<span class="op">.</span>keys():
+                <span class="nb">self</span><span class="op">.</span>buckets[i][subvec] <span class="op">= </span>[]
+            <span class="nb">self</span><span class="op">.</span>buckets[i][subvec]<span class="op">.</span>append(<span class="nb">self</span><span class="op">.</span>counter)
+        <span class="nb">self</span><span class="op">.</span>counter <span class="op">+</span><span class="op">= </span><span class="ct">1</span>
+
+    <span class="kw">def </span><span class="fn">check_candidates</span>(<span class="nb">self</span>) <span class="op">-</span><span class="op">&gt; </span><span class="nb">set</span>:
+        <span class="cm">"""
+        Identifies candidate pairs from the LSH buckets that could be potential near duplicates.
+
+        Returns:
+        - set: A set of tuple pairs representing the indices of candidate signatures.
+        """</span>
+        candidates <span class="op">= </span>[]
+        <span class="kw">for </span>bucket_band <span class="kw">in </span><span class="nb">self</span><span class="op">.</span>buckets:
+            keys <span class="op">= </span>bucket_band<span class="op">.</span>keys()
+            <span class="kw">for </span>bucket <span class="kw">in </span>keys:
+                hits <span class="op">= </span>bucket_band[bucket]
+                <span class="kw">if </span><span class="nb">len</span>(hits) <span class="op">&gt; </span><span class="ct">1</span>:
+                    candidates<span class="op">.</span>extend(combinations(hits, <span class="ct">2</span>))
+        <span class="kw">return </span><span class="nb">set</span>(candidates)</code></pre>
+<pre><code>b <span class="op">= </span><span class="ct">10</span>
+lsh <span class="op">= </span>LSH(b)
+<span class="kw">for </span>signature <span class="kw">in </span>signatures:
+    lsh<span class="op">.</span>add_hash(signature)
+candidate_pairs <span class="op">= </span>lsh<span class="op">.</span>check_candidates()
+<span class="nb">len</span>(candidate_pairs)</code></pre>
+<pre><code><span class="kw">for </span>candidate <span class="kw">in </span><span class="nb">list</span>(candidate_pairs)[:<span class="ct">5</span>]:
+    <span class="nb">print</span>(<span class="str">"Candidate similar sentence are:"</span>)
+    <span class="nb">print</span>(sentences[candidate[<span class="ct">0</span>]])
+    <span class="nb">print</span>(sentences[candidate[<span class="ct">1</span>]])
+    <span class="nb">print</span>(<span class="str">"="</span><span class="op">*</span><span class="ct">10</span>)</code></pre>
+<pre><code><span>'''</span>
+<span>TODO: try displaying more documents that looks similar.</span>
+<span>'''</span></code></pre>
+  </div>
+</div>
+</section>
+
+<section id="4-data-discretization">
+<h2>4. Data Discretization</h2>
+
+<pre><code><span>'''</span>
+<span>TODO: Generate data from normal distrinution with mean = 0 and standard deviation = 0.1</span>
+<span>'''</span></code></pre>
+<pre><code><span>'''</span>
+<span>TODO: Define an "interface" to matplotlib.axes.Axes.hist() method</span>
+<span>and create the histogram of the data</span>
+<span>check (https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.hist.html) for information about matplotlib.axes.Axes.hist()</span>
+<span>'''</span></code></pre>
+<pre><code><span>'''</span>
+<span>TODO: display the parameters of the histogram that summarizes the data</span>
+<span>'''</span></code></pre>
+<pre><code><span>'''</span>
+<span>TODO: Create histogram to discretize the data in the attribute `ConvexArea' from the `df_raisen` dataframe.</span>
+<span>'''</span></code></pre>
+</section>
+
+</div>
+
+  <!-- <script type="text/javascript" async="" src="https://hqahtan.github.io/button.js"></script> -->
+  <script type="text/javascript" async="" src="button.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('pre').forEach(function (preEl) {
+        var codeEl = preEl.querySelector('code');
+        if (!codeEl || preEl.closest('.nb-out')) return;
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+
+        btn.addEventListener('click', function () {
+          var text = codeEl.innerText;
+          navigator.clipboard.writeText(text).then(function () {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 1500);
+          }).catch(function () {
+            btn.textContent = 'Failed';
+            setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+          });
+        });
+
+        preEl.appendChild(btn);
+      });
+    });
+  </script>
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      jax: ["input/TeX", "output/HTML-CSS"],
+      extensions: ["tex2jax.js"],
+      "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+      tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+      TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+      messageStyle: "none"
+    });
+    </script>    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
+
+
+</body>
+</html>
