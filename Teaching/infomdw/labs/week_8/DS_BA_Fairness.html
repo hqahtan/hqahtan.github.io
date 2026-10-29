@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HQ — Teaching</title>
+  <link rel="stylesheet" href="https://hqahtan.github.io/shared.css">
+  <link rel="stylesheet" href="https://hqahtan.github.io/teaching.css">
+  <style>
+    /* Let wide code/outputs scroll inside their own box instead of stretching the page */
+    #main { min-width: 0; }
+    /* Notebook cell outputs (the only styles not provided by shared.css / teaching.css) */
+    .nb-out { margin: 1rem 0; padding-left: .9rem; border-left: 3px solid var(--accent); overflow-x: auto; }
+    .nb-out-label { display: block; margin-bottom: .35rem; font-family: 'IBM Plex Mono', monospace;
+                    font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; color: rosybrown; }
+    .nb-out pre { margin: 0; background: var(--white); }
+    .nb-out code { color: var(--ink); }
+    .nb-out table { border-collapse: collapse; font-size: .85rem; width: auto; }
+  </style>
+</head>
+<body>
+  <button onclick="topFunction()" id="to_top" title="Go to top"><img src="https://hqahtan.github.io/img/top.png" width="30"/></button>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-photo">
+      <img src="https://hqahtan.github.io/img/DW.png" alt="INFOMDW">
+    </div>
+    <div class="sidebar-name">INFOMDW</div>
+    <div class="sidebar-title"><a href="https://www.uu.nl/en/masters/applied-data-science">Applied Data Science Program</a></div>
+    <div class="sidebar-dept"><a href="https://ics.uu.nl/">Dept. of Information and Computing Sciences</a></div>
+    <div class="bio-eyebrow"><a href="http://www.uu.nl">Utrecht University</a></div>
+    <div class="sidebar-divider"></div>
+      Materials for the ADS course <br/>
+      (INFOMDW) <br/>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Useful Links</div>
+    <div class="sidebar-contact-list">
+      <a href="https://mytimetable.uu.nl/schedule" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/rooster.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>My Timetable</div>
+      </a>
+      <a href="https://uu.brightspace.com/d2l/home" class="sidebar-contact-item">
+        <svg class="ci-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><img src="https://hqahtan.github.io/img/BS.jpg" width="20"/></svg>
+        <div><span class="ci-label"></span>BrightSpace</div>
+      </a>
+    </div>
+    <div class="sidebar-socials">
+      <a href="https://creativecommons.org/licenses/by/4.0/" class="social-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><img src="https://hqahtan.github.io/img/cc.svg" width="20"/><img src="https://hqahtan.github.io/img/by.svg" width="20"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+    </div>
+    <p>
+      The materials on this website are <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a> licensed.
+    </p>
+  </aside>
+
+
+  <!-- MAIN -->
+  <div id="main">
+    <nav id="navbar">
+      <a href="https://hqahtan.github.io/infomdw.html" class="nav-logo">Data Wrangling (INFOMDW)</a>
+      <ul class="nav-links">
+        <li>
+          <a href="https://hqahtan.github.io/index.html">Home</a>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/research.html">Research<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/research.html#book_chapters">Book Chapters</a>
+            <a href="https://hqahtan.github.io/research.html#research_papers">Research Papers</a>
+            <a href="https://hqahtan.github.io/research.html#demos">Demo Papers</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/teaching.html">Teaching<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/teaching.html#current-courses">Current courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#past-courses">Past courses</a>
+            <a href="https://hqahtan.github.io/teaching.html#admin">Administration</a>
+          </div>
+        </li>
+        <li>
+          <a href="https://hqahtan.github.io/infomdw.html" class="active">INFOMDW<span class="nav-chevron"></span></a>
+          <div class="nav-dropdown">
+            <a href="https://hqahtan.github.io/infomdw.html#Introduction">Introduction</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Policy">Policy</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Material">Material</a>
+            <a href="https://hqahtan.github.io/infomdw.html#Schedule">Schedule</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+
+    
+<section id="Introduction">
+<h1>Data Stream Mining, Imbalanced Learning, Algorithmic Fairness</h1>
+<p class="page-course">We first process an oil-price stream under memory constraints, then study online learning, imbalanced classification, synthetic data, and fairness.</p>
+<p class="page-course"><strong>Data:</strong></p>
+<ul>
+<li><p class="page-course"><code>oil.csv</code> from the Kaggle <em>Store Sales, Time Series Forecasting</em> competition</p></li>
+<li><p class="page-course">simulated data for classification</p></li>
+<li><p class="page-course">German Credit for fairness.</p></li>
+</ul>
+<div class="callout callout-note">
+  <div class="callout-header">Setup and dataset access</div>
+  <div class="callout-body">
+<p class="page-course">Install dependencies once.</p>
+<pre><code><span class="sh">%pip</span> install -q \
+    "numpy==2.2.6" \
+    "numba&gt;=0.61,&lt;0.62" \
+    river \
+    scikit-learn \
+    imbalanced-learn \
+    fairlearn \
+    aif360 \
+    sdv \
+    ctgan \
+    bitarray</code></pre>
+<p class="page-course">Download the oil-price dataset from <a href="https://www.kaggle.com/c/store-sales-time-series-forecasting/data?select=oil.csv">HERE</a>, remove missing prices, and parse dates. The same cleaned observations are used for subsequent stream experiments.</p>
+<p class="page-course"><strong>Check:</strong> Are dates sorted, and how many rows were excluded?</p>
+<pre><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+
+<span class="cm"># If already downloaded, use the local file. Otherwise, use KaggleHub.</span>
+oil_file <span class="op">=</span> Path(<span class="str">'oil.csv'</span>)
+<span class="kw">if</span> <span class="kw">not</span> oil_file<span class="op">.</span>exists():
+    <span class="kw">import</span> kagglehub
+    <span class="kw">try</span>:
+        oil_file <span class="op">=</span> Path(kagglehub<span class="op">.</span>competition_download(
+            <span class="str">'store-sales-time-series-forecasting'</span>, path<span class="op">='oil.csv'</span>))
+    <span class="kw">except</span> Exception <span class="kw">as</span> exc:
+        <span class="nb">print</span>(<span class="str">'Kaggle access requires authentication and accepted competition rules.'</span>)
+        <span class="nb">print</span>(<span class="str">'Run kagglehub.login() and retry, or upload oil.csv to Colab.'</span>)
+        <span class="kw">raise</span>
+
+df_oil <span class="op">=</span> pd<span class="op">.</span>read_csv(oil_file)<span class="op">.</span>dropna(subset<span class="op">=</span>[<span class="str">'dcoilwtico'</span>])<span class="op">.</span>reset_index(drop<span class="op">=</span><span class="kw">True</span>)
+df_oil[<span class="str">'date'</span>] <span class="op">=</span> pd<span class="op">.</span>to_datetime(df_oil[<span class="str">'date'</span>])
+<span class="nb">print</span>(<span class="str">f'{</span><span class="nb">len</span>(df_oil)<span class="str">} valid oil-price observations'</span>)
+display(df_oil<span class="op">.</span>head())</code></pre>
+  </div>
+</div>
+</section>
+
+<section id="data-streams">
+<h2>Data Streams</h2>
+<div class="callout callout-note">
+  <div class="callout-header">Simulating a data stream</div>
+  <div class="callout-body">
+<p class="page-course">A stream is consumed incrementally; the entire history need not be retained. Here we use <code>oil.csv</code> as an ordered source of observations.</p>
+<p class="page-course"><strong>Exercise:</strong> Read the file one record at a time, skip missing <code>dcoilwtico</code>, and build a DataFrame. Compare the result with <code>pd.read_csv(...).dropna(...)</code>.</p>
+<p class="page-course"><strong>What this does:</strong> <code>csv.DictReader</code> consumes one row at a time, mimicking a stream. The example still accumulates accepted rows to make later comparisons easy. A true bounded-memory processor would not retain <code>records</code>.</p>
+<pre><code><span class="kw">import</span> csv
+
+records <span class="op">=</span> []
+<span class="kw">with</span> <span class="nb">open</span>(oil_file, newline<span class="op">=''</span>) <span class="kw">as</span> stream:
+    <span class="kw">for</span> row <span class="kw">in</span> csv<span class="op">.</span>DictReader(stream):
+        <span class="kw">if</span> row[<span class="str">'dcoilwtico'</span>]:
+            records<span class="op">.</span>append(row)
+
+df_stream <span class="op">=</span> pd<span class="op">.</span>DataFrame(records)
+df_stream[<span class="str">'dcoilwtico'</span>] <span class="op">=</span> pd<span class="op">.</span>to_numeric(df_stream[<span class="str">'dcoilwtico'</span>])
+<span class="nb">print</span>(<span class="str">f'Read {</span><span class="nb">len</span>(df_stream)<span class="str">} records incrementally'</span>)
+display(df_stream<span class="op">.</span>head())</code></pre>
+<p class="page-course">The time-series view reveals changes in the level and variability of oil prices. These changes motivate recent-history windows, but do not alone prove concept drift.</p>
+<pre><code>fig, ax <span class="op">=</span> plt<span class="op">.</span>subplots(figsize<span class="op">=</span>(<span class="ct">10</span>, <span class="ct">3</span>))
+ax<span class="op">.</span>plot(df_oil[<span class="str">'date'</span>], df_oil[<span class="str">'dcoilwtico'</span>], lw<span class="op">=</span><span class="ct">1</span>)
+ax<span class="op">.</span>set(title<span class="op">='Oil price observations over time'</span>, xlabel<span class="op">='Date'</span>, ylabel<span class="op">='Oil price'</span>)
+plt<span class="op">.</span>tight_layout(); plt<span class="op">.</span>show()</code></pre>
+<p class="page-course"><strong>Interpretation:</strong> Look for periods of change. The time ordering motivates window-based monitoring.</p>
+<p class="page-course">This plot alone does not establish concept drift.</p>
+  </div>
+</div>
+<div class="callout callout-note">
+  <div class="callout-header">Reservoir Sampling</div>
+  <div class="callout-body">
+<p class="page-course"><strong>Reservoir sampling</strong> is a randomized algorithm for selecting  $k$ samples from a list of $n$ items.</p>
+<p class="page-course">The number of selected values $k$ is usually much smaller than the total number of elements in the list $n$.</p>
+<p class="page-course">In data streams, the total number of elements is unknow.</p>
+<p class="page-course">Typically, $n$ is large enough such that the data cannot fit into active memory.</p>
+<p class="page-course">We will assume the <a href="https://www.kaggle.com/c/store-sales-time-series-forecasting/data">oil price</a> as a stream of $n$ records, and we need to to select $k$ records where $1 \le k \le n$. We will also read the records from the csv file one-by-one and ignore the lines with no value for the <code>dcoilwtico</code> attribute.</p>
+<div class="callout callout-warning">
+  <div class="callout-header"><b>[TODO]</b> Implement reservoir sampling</div>
+  <div class="callout-body">
+<p class="page-course">Keep exactly $k=10$ observations while scanning the stream. Inspect the reservoir after every 100 valid observations.</p>
+<p class="page-course"><strong>Question:</strong> Does a reservoir represent the entire history or mainly recent records?</p>
+<p class="page-course"><strong>What this does:</strong> Reservoir sampling keeps at most <code>k</code> records. At each new observation, a randomly selected previous entry may be replaced, giving all seen observations equal inclusion probability.</p>
+<pre><code><span class="kw">import</span> random
+
+rng <span class="op">=</span> random<span class="op">.</span>Random(<span class="ct">42</span>)
+
+<span class="cm"># ------------------- #</span>
+<span class="cm"># YOUR CODE</span>
+<span class="cm"># ------------------- #</span></code></pre>
+  </div>
+</div>
+<p class="page-course"><strong>How to interpret the plot:</strong> Compare the shape of the reservoir histogram with the full-history histogram. Large differences are plausible for <code>k=10</code>.</p>
+<p class="page-course">They are sampling variability, not necessarily a bug.</p>
+<pre><code>fig, ax <span class="op">=</span> plt<span class="op">.</span>subplots(figsize<span class="op">=</span>(<span class="ct">8</span>, <span class="ct">3</span>))
+ax<span class="op">.</span>hist(df_oil[<span class="str">'dcoilwtico'</span>], bins<span class="op">=</span><span class="ct">25</span>, density<span class="op">=</span><span class="kw">True</span>, alpha<span class="op">=</span><span class="ct">.5</span>, label<span class="op">='All observations'</span>)
+ax<span class="op">.</span>hist([<span class="nb">float</span>(r[<span class="ct">1</span>]) <span class="kw">for</span> r <span class="kw">in</span> reservoir], bins<span class="op">=</span><span class="ct">10</span>, density<span class="op">=</span><span class="kw">True</span>, alpha<span class="op">=</span><span class="ct">.5</span>, label<span class="op">='Reservoir (k=10)'</span>)
+ax<span class="op">.</span>set(title<span class="op">='Historical distribution vs small reservoir'</span>, xlabel<span class="op">='Oil price'</span>, ylabel<span class="op">='Density'</span>)
+ax<span class="op">.</span>legend(); plt<span class="op">.</span>tight_layout(); plt<span class="op">.</span>show()</code></pre>
+<p class="page-course"><strong>Interpretation:</strong> A reservoir is a uniform sample of previously seen records; with only 10 observations, its histogram may be noisy. Try $k=50$ and $k=100$.</p>
+  </div>
+</div>
+<div class="callout callout-note">
+  <div class="callout-header">Windowing Models</div>
+  <div class="callout-body">
+<p class="page-course">Another approach for processing data streams is to look at a fixed length (Window) of the last $k$ elements from the stream. We will combine the windowing model with estimating the probability density function of the values to learn the data distribution. We will use the kernel density estimation to estimate the density of the oil price. For more information about using the kernel density estimator can be found in the scikit learn documentation about <a href="https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html#sphx-glr-auto-examples-neighbors-plot-kde-1d-py">1D Kernel Density Estimation</a></p>
+<div class="callout callout-warning">
+  <div class="callout-header"><b>[TODO]</b> Compare sliding, hopping and tumbling windows</div>
+  <div class="callout-body">
+<p class="page-course">Compare sliding, hopping, and tumbling windows by changing <code>step</code> relative to <code>window_size</code>: sliding (<code>step=1</code>), hopping (<code>1 &lt; step &lt; window_size</code>), and tumbling (<code>step=window_size</code>).</p>
+<p class="page-course">How does window size change responsiveness versus stability? Plot only a manageable number of windows.</p>
+<p class="page-course"><strong>What this does:</strong> Compare the empirical oil-price distributions in successive fixed-length windows. Each curve uses the same histogram bins so changes in the distribution can be compared fairly. Unlike KDE, this version avoids a scikit-learn import.</p>
+<pre><code><span class="cm"># ------------------- #</span>
+<span class="cm"># YOUR CODE</span>
+<span class="cm"># ------------------- #</span></code></pre>
+  </div>
+</div>
+<p class="page-course"><strong>Question:</strong> How does a shorter window affect responsiveness and statistical stability? Compare <code>step=1</code>, <code>100</code>, and <code>window_size</code> (reduce plotting frequency for small steps).</p>
+  </div>
+</div>
+<div class="callout callout-note">
+  <div class="callout-header">Creating Hashtable for the Data Stream</div>
+  <div class="callout-body">
+<p class="page-course">Hashing is an important technique for filtering data streams. In this exercise, we will work on simple techniques for hasing the data streams. <strong>Again</strong>, we will not use <code>pd.read_csv</code> to read the csv file of the oil dataset. Instead, we will read it line-by-line and parse each line, convert the values of <code>dcoilwtico</code> from <code>strings</code> to <code>float</code> and process the records one-by-one. We will ignore the records that have empty string in the <code>dcoilwtico</code> attribute.</p>
+<p class="page-course">First, we will create a numpy array of size (array_size = 4096) and type boolean to hash the values in the column <code>dcoilwtico</code>. We will initialize the boolean array to false (each element will be initializzed to <code>False</code>). When an element is hashed to an index $i$, we store <code>True</code> at that index of the array.</p>
+<p class="page-course">Second, we will use the hashing function $h(x) = int(x*100) \%\ array\_size$ to hash the elements of <code>dcoilwtico</code>, where the $\%$ represents the modulus function in Python.</p>
+<p class="page-course">Finally, we will keep track of the number of collisions, which represent the cases when as element is hashed to the an index that has been already set to True. Compute the ratio of the number of collisions to the total number of elements in the attribute <code>dcoilwtico</code>.</p>
+<p class="page-course"><strong>Why do we have a large ratio of collisions?</strong></p>
+<div class="callout callout-warning">
+  <div class="callout-header"><b>[TODO]</b> Hash collisions</div>
+  <div class="callout-body">
+<p class="page-course">For array sizes 1,024 and 4,096, hash each oil price using <code>int(price * 100) % array_size</code>. Count occupied slots, repeated-slot encounters, and elapsed time. Distinguish <strong>hash collisions</strong> (different values sharing a slot) from <strong>repeated observations</strong> (the same value returning).</p>
+<p class="page-course"><strong>What this does:</strong> Hash each price into a fixed-size table and count repeated slot encounters. A repeated slot can be caused by the same price or by a collision between different prices; the bucket inspection separates the two.</p>
+<pre><code><span class="cm"># ------------------- #</span>
+<span class="cm"># YOUR CODE</span>
+<span class="cm"># ------------------- #</span></code></pre>
+  </div>
+</div>
+<p class="page-course"><strong>Read the chart:</strong> Compare repeated-slot encounter rates across table sizes. Increasing the table size can reduce collisions, but repeated identical observations still revisit the same slot.</p>
+<pre><code>ax <span class="op">=</span> hash_summary<span class="op">.</span>plot<span class="op">.</span>bar(x<span class="op">='array_size'</span>, y<span class="op">='slot_ratio'</span>, legend<span class="op">=</span><span class="kw">False</span>, figsize<span class="op">=</span>(<span class="ct">6</span>, <span class="ct">3</span>))
+ax<span class="op">.</span>set(title<span class="op">='Repeated-slot encounter rate'</span>, xlabel<span class="op">='Hash array size'</span>, ylabel<span class="op">='Fraction of observations'</span>)
+plt<span class="op">.</span>tight_layout(); plt<span class="op">.</span>show()</code></pre>
+<div class="callout callout-warning">
+  <div class="callout-header"><b>[TODO]</b> Find a collision</div>
+  <div class="callout-body">
+<p class="page-course">Find a bucket containing <strong>different</strong> prices and verify that they map to the same hash key.</p>
+<p class="page-course"><strong>What this does:</strong> Find two <em>distinct</em> oil prices assigned to the same hash bucket. This demonstrates why a hash slot is not an exact identifier.</p>
+<pre><code><span class="cm"># ------------------- #</span>
+<span class="cm"># YOUR CODE</span>
+<span class="cm"># ------------------- #</span></code></pre>
+  </div>
+</div>
+<p class="page-course"><strong>Insight:</strong> Hashing can map distinct inputs to the same slot. A Boolean hash array alone cannot identify which original value was seen.</p>
+<div class="callout callout-warning">
+  <div class="callout-header"><b>[TODO]</b> Exact distinct values</div>
+  <div class="callout-body">
+<p class="page-course">Use a Python <code>set</code> to track exact distinct oil prices and compare runtime with the hash approach. Unlike a fixed-size Boolean array, a set can grow with the number of distinct values.</p>
+<p class="page-course"><strong>What this does:</strong> A Python set records exact distinct values. Compare its exactness and memory behavior with a fixed-size hashed occupancy structure.</p>
+<pre><code><span class="cm"># ------------------- #</span>
+<span class="cm"># YOUR CODE</span>
+<span class="cm"># ------------------- #</span></code></pre>
+  </div>
+</div>
+<p class="page-course">We can see that the time for using the set structure is faster than using the Boolean array. Moreover, for the set we do not have the collision problem. However, the set might be extremely large, which makes it an impractical solution. We can use <code>bitarray</code> to speed up the hashing process and reduce the required space. Instead of using one byte for each Boolean value, we will use only one bit in this case. You will need to install <code>bitarray</code> library. Check this <a href="https://pypi.org/project/bitarray/#:~:text=bitarray%3A%20efficient%20arrays%20of%20booleans,a%20contiguous%20block%20of%20memory.">website</a> for more information about using <code>bitarray</code>.</p>
+<div class="callout callout-warning">
+  <div class="callout-header"><b>[TODO]</b> Compact bit arrays</div>
+  <div class="callout-body">
+<p class="page-course">Repeat hashing using <code>bitarray</code> and compare memory use. The bit array stores occupancy only; the optional bucket dictionary still consumes memory.</p>
+<p class="page-course"><strong>What this does:</strong> A bit array uses one bit per slot and is memory-efficient for occupancy tracking. It does not reconstruct the original price or resolve collisions.</p>
+<pre><code><span class="cm"># ------------------- #</span>
+<span class="cm"># YOUR CODE</span>
+<span class="cm"># ------------------- #</span></code></pre>
+  </div>
+</div>
+  </div>
+</div>
+<div class="callout callout-note">
+  <div class="callout-header">Classifying Data Streams</div>
+  <div class="callout-body">
+<p class="page-course">Online processing of data streams is important as the data cannot be stored in the memory so we need to process one element at a time. Moreover, we need to process each element only once. In the case of machine learning, we need to train the models using one sample at a time. This is completely opposite to the traditional way of training the ML models where the models are trained on a whole training set at the same time.</p>
+<p class="page-course">An online model is therefore a stateful, dynamic object. It keeps learning and doesn't have to revisit past data. For this exercise, you may use the <a href="https://riverml.xyz/0.19.0/">river libray</a> and run some of the online examples such as <a href="https://riverml.xyz/0.19.0/introduction/getting-started/binary-classification/">Binary classification</a> and <a href="https://riverml.xyz/dev/api/tree/HoeffdingTreeClassifier/">HoeffdingTreeClassifier</a>. You may check a set performance measures that they defined and use them (e.g. ROCAUC, Accuracy).</p>
+<p class="page-course"><strong>Online learning:</strong> A Hoeffding tree updates incrementally, one observation at a time. Progressive evaluation predicts first and then learns, avoiding evaluation on the same observation after training.</p>
+<p class="page-course"><strong>What this does:</strong> The Hoeffding tree predicts each incoming observation and then updates using its true label (prequential evaluation). The learning curve shows how predictive performance evolves.</p>
+<pre><code><span class="sh">%pip</span> install numpy</code></pre>
+<pre><code><span class="kw">from</span> river.datasets <span class="kw">import</span> synth
+<span class="kw">from</span> river <span class="kw">import</span> metrics, tree
+
+stream <span class="op">=</span> synth<span class="op">.</span>Agrawal(classification_function<span class="op">=</span><span class="ct">0</span>, seed<span class="op">=</span><span class="ct">42</span>)<span class="op">.</span>take(<span class="ct">1000</span>)
+model <span class="op">=</span> tree<span class="op">.</span>HoeffdingTreeClassifier(grace_period<span class="op">=</span><span class="ct">100</span>, delta<span class="op">=</span><span class="ct">1e-5</span>,
+                                    nominal_attributes<span class="op">=</span>[<span class="str">'elevel'</span>, <span class="str">'car'</span>, <span class="str">'zipcode'</span>])
+acc, balanced, precision, auc <span class="op">=</span> metrics<span class="op">.</span>Accuracy(), metrics<span class="op">.</span>BalancedAccuracy(), metrics<span class="op">.</span>Precision(), metrics<span class="op">.</span>ROCAUC()
+steps, accuracy_history, balanced_history <span class="op">=</span> [], [], []
+<span class="kw">for</span> i, (x, y) <span class="kw">in</span> <span class="nb">enumerate</span>(stream, start<span class="op">=</span><span class="ct">1</span>):
+    pred <span class="op">=</span> model<span class="op">.</span>predict_one(x)
+    proba <span class="op">=</span> model<span class="op">.</span>predict_proba_one(x)
+    <span class="kw">if</span> pred <span class="kw">is</span> <span class="kw">not</span> <span class="kw">None</span>:
+        <span class="kw">for</span> metric <span class="kw">in</span> (acc, balanced, precision): metric<span class="op">.</span>update(y, pred)
+        <span class="kw">if</span> proba: auc<span class="op">.</span>update(y, proba)
+    model<span class="op">.</span>learn_one(x, y)
+    <span class="kw">if</span> i <span class="op">%</span> <span class="ct">25</span> <span class="op">==</span> <span class="ct">0</span>:
+        steps<span class="op">.</span>append(i); accuracy_history<span class="op">.</span>append(acc<span class="op">.</span>get()); balanced_history<span class="op">.</span>append(balanced<span class="op">.</span>get())
+<span class="nb">print</span>(acc, <span class="str">'\n'</span>, balanced, <span class="str">'\n'</span>, precision, <span class="str">'\n'</span>, auc)</code></pre>
+<pre><code>plt<span class="op">.</span>figure(figsize<span class="op">=</span>(<span class="ct">8</span>, <span class="ct">3</span>))
+plt<span class="op">.</span>plot(steps, accuracy_history, label<span class="op">='Accuracy'</span>)
+plt<span class="op">.</span>plot(steps, balanced_history, label<span class="op">='Balanced accuracy'</span>)
+plt<span class="op">.</span>xlabel(<span class="str">'Observations processed'</span>); plt<span class="op">.</span>ylabel(<span class="str">'Progressive metric'</span>)
+plt<span class="op">.</span>title(<span class="str">'Online model quality over the stream'</span>); plt<span class="op">.</span>legend(); plt<span class="op">.</span>tight_layout(); plt<span class="op">.</span>show()</code></pre>
+<p class="page-course"><strong>Question:</strong> Does performance stabilize as more examples arrive? Why might accuracy conceal errors on a rare class?</p>
+  </div>
+</div>
+<div class="callout callout-note">
+  <div class="callout-header">SMOTE for Balancing Data</div>
+  <div class="callout-body">
+<pre><code><span class="kw">from</span> collections <span class="kw">import</span> Counter
+<span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> train_test_split
+<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LogisticRegression
+<span class="kw">from</span> sklearn.preprocessing <span class="kw">import</span> StandardScaler
+<span class="kw">from</span> sklearn.metrics <span class="kw">import</span> (accuracy_score, balanced_accuracy_score, f1_score,
+                             confusion_matrix, ConfusionMatrixDisplay, classification_report)
+<span class="kw">from</span> aif360.datasets <span class="kw">import</span> GermanDataset
+<span class="kw">from</span> aif360.metrics <span class="kw">import</span> BinaryLabelDatasetMetric
+<span class="kw">from</span> aif360.algorithms.preprocessing.lfr <span class="kw">import</span> LFR</code></pre>
+<p class="page-course"><strong>Why start with this plot?</strong> The synthetic dataset has a heavily underrepresented positive class. Visualize the original imbalance before changing the training distribution.</p>
+<pre><code><span class="cm"># Oversample and plot imbalanced dataset with SMOTE</span>
+<span class="kw">from</span> collections <span class="kw">import</span> Counter
+<span class="kw">from</span> sklearn.datasets <span class="kw">import</span> make_classification
+<span class="kw">from</span> imblearn.over_sampling <span class="kw">import</span> SMOTE
+<span class="kw">from</span> matplotlib <span class="kw">import</span> pyplot <span class="kw">as</span> plt
+<span class="kw">from</span> numpy <span class="kw">import</span> where
+
+<span class="cm"># define dataset</span>
+X_org, y_org <span class="op">=</span> make_classification(n_samples<span class="op">=</span><span class="ct">10000</span>, n_features<span class="op">=</span><span class="ct">2</span>, n_redundant<span class="op">=</span><span class="ct">0</span>,
+	n_clusters_per_class<span class="op">=</span><span class="ct">1</span>, weights<span class="op">=</span>[<span class="ct">0.99</span>], flip_y<span class="op">=</span><span class="ct">0</span>, random_state<span class="op">=</span><span class="ct">1</span>)
+
+<span class="cm"># summarize class distribution</span>
+counter <span class="op">=</span> Counter(y_org)
+<span class="nb">print</span>(<span class="str">"Before Running SMOTE: "</span>, counter)
+<span class="kw">for</span> label, _ <span class="kw">in</span> counter<span class="op">.</span>items():
+	row_ix <span class="op">=</span> where(y_org <span class="op">==</span> label)[<span class="ct">0</span>]
+	plt<span class="op">.</span>scatter(X_org[row_ix, <span class="ct">0</span>], X_org[row_ix, <span class="ct">1</span>], label<span class="op">=</span><span class="nb">str</span>(label))
+plt<span class="op">.</span>legend()
+plt<span class="op">.</span>show()</code></pre>
+<p class="page-course"><strong>What this does:</strong> Split into training and test sets <em>before</em> resampling. The untouched test set estimates performance on the original class distribution.</p>
+<pre><code>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(
+    X_org, y_org, test_size<span class="op">=</span><span class="ct">0.3</span>, random_state<span class="op">=</span><span class="ct">42</span>, stratify<span class="op">=</span>y_org)
+<span class="nb">print</span>(<span class="str">'Train:'</span>, Counter(y_train), <span class="str">'Test:'</span>, Counter(y_test))</code></pre>
+<p class="page-course"><strong>What this does:</strong> Fit a baseline logistic regression and inspect its confusion matrix. Accuracy alone may conceal poor minority-class recall.</p>
+<pre><code>baseline <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="ct">1000</span>, random_state<span class="op">=</span><span class="ct">42</span>)<span class="op">.</span>fit(X_train, y_train)
+result <span class="op">=</span> baseline<span class="op">.</span>predict(X_test)
+ConfusionMatrixDisplay<span class="op">.</span>from_predictions(y_test, result, labels<span class="op">=</span>[<span class="ct">0</span>, <span class="ct">1</span>]); plt<span class="op">.</span>title(<span class="str">'Baseline'</span>); plt<span class="op">.</span>show()</code></pre>
+<pre><code><span class="kw">def</span> <span class="fn">evaluate_predictions</span>(name, truth, pred):
+    <span class="kw">return</span> {<span class="str">'method'</span>: name, <span class="str">'accuracy'</span>: accuracy_score(truth, pred),
+            <span class="str">'balanced_accuracy'</span>: balanced_accuracy_score(truth, pred),
+            <span class="str">'minority_f1'</span>: f1_score(truth, pred, pos_label<span class="op">=</span><span class="ct">1</span>, zero_division<span class="op">=</span><span class="ct">0</span>),
+            <span class="str">'minority_recall'</span>: (pred[truth <span class="op">==</span> <span class="ct">1</span>] <span class="op">==</span> <span class="ct">1</span>)<span class="op">.</span>mean()}
+
+results <span class="op">=</span> [evaluate_predictions(<span class="str">'Baseline'</span>, y_test, result)]
+display(pd<span class="op">.</span>DataFrame(results))</code></pre>
+<p class="page-course"><strong>What this does:</strong> SMOTE synthesizes minority-class examples using neighbors from the training split only. The test data must remain unchanged.</p>
+<pre><code><span class="kw">from</span> imblearn.over_sampling <span class="kw">import</span> SMOTE
+
+X_OS, y_OS <span class="op">=</span> SMOTE(random_state<span class="op">=</span><span class="ct">42</span>)<span class="op">.</span>fit_resample(X_train, y_train)
+<span class="nb">print</span>(<span class="str">'Before:'</span>, Counter(y_train), <span class="str">'| After SMOTE:'</span>, Counter(y_OS))</code></pre>
+<p class="page-course"><strong>What this does:</strong> Train the same classifier on the SMOTE-balanced training data. Comparing with the baseline isolates the effect of the training-data intervention.</p>
+<pre><code>smote_model <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="ct">1000</span>, random_state<span class="op">=</span><span class="ct">42</span>)<span class="op">.</span>fit(X_OS, y_OS)
+result_smote <span class="op">=</span> smote_model<span class="op">.</span>predict(X_test)
+ConfusionMatrixDisplay<span class="op">.</span>from_predictions(y_test, result_smote, labels<span class="op">=</span>[<span class="ct">0</span>, <span class="ct">1</span>]); plt<span class="op">.</span>title(<span class="str">'SMOTE'</span>); plt<span class="op">.</span>show()</code></pre>
+<p class="page-course"><strong>Compare:</strong> Look beyond accuracy: did minority recall improve, and what happened to precision and balanced accuracy?</p>
+<pre><code>results<span class="op">.</span>append(evaluate_predictions(<span class="str">'SMOTE'</span>, y_test, result_smote))
+display(pd<span class="op">.</span>DataFrame(results))</code></pre>
+<p class="page-course"><strong>Interpretation:</strong> Compare minority recall <strong>and</strong> precision-related metrics. More positive predictions do not automatically mean better decisions. The test set must remain untouched by SMOTE.</p>
+<p class="page-course">The classifier tend to classify more examples as negative than before so it is predicting more samples from the minority class. <strong>Keep this in mind so you can apply it for the fairness</strong></p>
+<p class="page-course"><strong>Note That:</strong> SMOTE treats all the variables as numerical values from a continuous random variable. If you have categorical data, then you can use SMOTENC for mixed set of features (continuous, categorical) from the imblearn.over_sampling package.</p>
+  </div>
+</div>
+</section>
+
+<section id="synthetic-data-generation">
+<h2>Synthetic data generation</h2>
+<div class="callout callout-note">
+  <div class="callout-header">C-GAN: Generate Synthetic Data</div>
+  <div class="callout-body">
+<p class="page-course">CTGAN model is based on the GAN-based Deep Learning data synthesizer.</p>
+<p class="page-course">The main idea here is to generate a tabular data, the ctgan can be used to generate any number of data set (All types). After training the ctgan on the fitted dataset, the model will be ready to generate samples and take care about:</p>
+<ol>
+<li><p class="page-course">Primary_key</p></li>
+<li><p class="page-course">Non-redundant values of special features e.x. the addresses.</p></li>
+</ol>
+<p class="page-course">CTGAN model is based on the GAN-based Deep Learning data synthesizer</p>
+<p class="page-course">The architecture is comprised of a generator and a discriminator model. The generator model is responsible for generating new plausible examples that ideally are indistinguishable from real examples in the dataset. The discriminator model is responsible for classifying a given image as either real (drawn from the dataset) or fake (generated).</p>
+<p class="page-course">The models are trained together in a zero-sum or adversarial manner, such that improvements in the discriminator come at the cost of a reduced capability of the generator, and vice versa.</p>
+<p class="page-course"><strong>CTGAN experiment:</strong> Train the generator on the <strong>training split only</strong>, condition on the minority label by learning from minority-class rows, and compare against SMOTE on the original test set. The standalone <code>ctgan.CTGAN</code> does <strong>not</strong> support <code>sample(..., conditions=...)</code>.</p>
+<p class="page-course"><strong>What this does:</strong> Fit a standalone CTGAN on minority-class training records, generate additional minority examples, and retrain the classifier. Synthetic quality and downstream utility are separate questions.</p>
+<pre><code><span class="kw">from</span> ctgan <span class="kw">import</span> CTGAN
+
+minority_train <span class="op">=</span> pd<span class="op">.</span>DataFrame(X_train[y_train <span class="op">==</span> <span class="ct">1</span>], columns<span class="op">=</span>[<span class="str">'x1'</span>, <span class="str">'x2'</span>])
+needed <span class="op">=</span> <span class="nb">int</span>((y_train <span class="op">==</span> <span class="ct">0</span>)<span class="op">.</span>sum() <span class="op">-</span> (y_train <span class="op">==</span> <span class="ct">1</span>)<span class="op">.</span>sum())
+generator <span class="op">=</span> CTGAN(epochs<span class="op">=</span><span class="ct">50</span>, verbose<span class="op">=</span><span class="kw">False</span>)
+generator<span class="op">.</span>fit(minority_train)
+synthetic_minority <span class="op">=</span> generator<span class="op">.</span>sample(needed)
+
+X_train_GAN <span class="op">=</span> np<span class="op">.</span>vstack([X_train, synthetic_minority[[<span class="str">'x1'</span>, <span class="str">'x2'</span>]]<span class="op">.</span>to_numpy()])
+y_train_GAN <span class="op">=</span> np<span class="op">.</span>r_[y_train, np<span class="op">.</span>ones(needed, dtype<span class="op">=</span><span class="nb">int</span>)]
+gan_model <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="ct">1000</span>, random_state<span class="op">=</span><span class="ct">42</span>)<span class="op">.</span>fit(X_train_GAN, y_train_GAN)
+result_GAN <span class="op">=</span> gan_model<span class="op">.</span>predict(X_test)
+results<span class="op">.</span>append(evaluate_predictions(<span class="str">'CTGAN'</span>, y_test, result_GAN))
+display(pd<span class="op">.</span>DataFrame(results))</code></pre>
+<p class="page-course"><strong>Interpretation:</strong> Overlaying real and generated minority examples can reveal implausible regions or missing modes, but visual similarity is not sufficient to establish synthetic-data quality.</p>
+<pre><code>fig, ax <span class="op">=</span> plt<span class="op">.</span>subplots(figsize<span class="op">=</span>(<span class="ct">7</span>, <span class="ct">4</span>))
+ax<span class="op">.</span>scatter(minority_train[<span class="str">'x1'</span>], minority_train[<span class="str">'x2'</span>], s<span class="op">=</span><span class="ct">10</span>, alpha<span class="op">=</span><span class="ct">.3</span>, label<span class="op">='Real minority'</span>)
+ax<span class="op">.</span>scatter(synthetic_minority[<span class="str">'x1'</span>], synthetic_minority[<span class="str">'x2'</span>], s<span class="op">=</span><span class="ct">10</span>, alpha<span class="op">=</span><span class="ct">.2</span>, label<span class="op">='Synthetic minority'</span>)
+ax<span class="op">.</span>set(title<span class="op">='CTGAN: real vs synthetic minority observations'</span>, xlabel<span class="op">='x1'</span>, ylabel<span class="op">='x2'</span>)
+ax<span class="op">.</span>legend(); plt<span class="op">.</span>tight_layout(); plt<span class="op">.</span>show()</code></pre>
+<p class="page-course"><strong>Question:</strong> Do synthetic observations cover plausible regions? A similar scatter plot is not proof of statistical fidelity or improved downstream performance.</p>
+  </div>
+</div>
+<div class="callout callout-note">
+  <div class="callout-header">Cost sensitive classification</div>
+  <div class="callout-body">
+<p class="page-course"><strong>What this does:</strong> Assign a larger training penalty to errors on the positive class. Class weights change the fitted decision boundary.</p>
+<p class="page-course">They are not the same as choosing a deployment threshold.</p>
+<pre><code>cost_model <span class="op">=</span> LogisticRegression(class_weight<span class="op">=</span>{<span class="ct">0</span>: <span class="ct">0.1</span>, <span class="ct">1</span>: <span class="ct">9.9</span>}, max_iter<span class="op">=</span><span class="ct">1000</span>, random_state<span class="op">=</span><span class="ct">42</span>)
+cost_model<span class="op">.</span>fit(X_train, y_train)
+result_CS <span class="op">=</span> cost_model<span class="op">.</span>predict(X_test)
+ConfusionMatrixDisplay<span class="op">.</span>from_predictions(y_test, result_CS, labels<span class="op">=</span>[<span class="ct">0</span>, <span class="ct">1</span>]); plt<span class="op">.</span>title(<span class="str">'Cost-sensitive model'</span>); plt<span class="op">.</span>show()</code></pre>
+<p class="page-course"><strong>Question:</strong> The original example computes <code>120/200</code> and <code>480/700</code>. What do these ratios represent, and are they comparable? For classification, use a defined confusion-matrix denominator and an explicit error-cost assumption.</p>
+<p class="page-course"><strong>Decision point:</strong> Compare all methods on the same held-out test set. Choose based on the relevant false-negative/false-positive trade-off, not just a single score.</p>
+<pre><code>results<span class="op">.</span>append(evaluate_predictions(<span class="str">'Cost-sensitive'</span>, y_test, result_CS))
+comparison <span class="op">=</span> pd<span class="op">.</span>DataFrame(results)<span class="op">.</span>set_index(<span class="str">'method'</span>)
+display(comparison)
+comparison[[<span class="str">'balanced_accuracy'</span>, <span class="str">'minority_recall'</span>, <span class="str">'minority_f1'</span>]]<span class="op">.</span>plot<span class="op">.</span>bar(figsize<span class="op">=</span>(<span class="ct">8</span>, <span class="ct">3</span>), rot<span class="op">=</span><span class="ct">20</span>)
+plt<span class="op">.</span>ylim(<span class="ct">0</span>, <span class="ct">1</span>); plt<span class="op">.</span>title(<span class="str">'Methods on the same untouched test set'</span>); plt<span class="op">.</span>tight_layout(); plt<span class="op">.</span>show()</code></pre>
+<p class="page-course"><strong>Interpretation:</strong> A higher minority recall can come at the expense of more false positives. The preferred model depends on the application's error costs.</p>
+  </div>
+</div>
+</section>
+
+<section id="algorithmic-fairness">
+<h2>Algorithmic Fairness</h2>
+<p class="page-course">In this Exercise, we will learn about measuring the fairness metrics and applying fairness mitigation algorithms.</p>
+<p class="page-course">First, we read the German dataset and replace the class label 2 by 0.</p>
+<p class="page-course"><strong>Dataset access:</strong> AIF360 expects the German Credit raw files in its package data directory. This cell downloads the original public files when absent.</p>
+<p class="page-course"><strong>What this does:</strong> Retrieve the German Credit raw files required by AIF360. The original dataset is a separate fairness case study rather than part of the oil-price stream.</p>
+<pre><code><span class="kw">import</span> os
+<span class="kw">import</span> urllib.request
+<span class="kw">import</span> aif360
+
+<span class="cm"># Locate AIF360 installation</span>
+aif360_path <span class="op">=</span> os<span class="op">.</span>path<span class="op">.</span>dirname(aif360<span class="op">.</span>__file__)
+
+<span class="cm"># Create dataset directory</span>
+data_dir <span class="op">=</span> os<span class="op">.</span>path<span class="op">.</span>join(aif360_path, <span class="str">"data"</span>, <span class="str">"raw"</span>, <span class="str">"german"</span>)
+os<span class="op">.</span>makedirs(data_dir, exist_ok<span class="op">=</span><span class="kw">True</span>)
+
+<span class="cm"># Download required files</span>
+base_url <span class="op">=</span> <span class="str">"https://archive.ics.uci.edu/ml/machine-learning-databases/statlog/german/"</span>
+
+<span class="kw">for</span> filename <span class="kw">in</span> [<span class="str">"german.data"</span>, <span class="str">"german.doc"</span>]:
+    destination <span class="op">=</span> os<span class="op">.</span>path<span class="op">.</span>join(data_dir, filename)
+
+    <span class="kw">if</span> <span class="kw">not</span> os<span class="op">.</span>path<span class="op">.</span>exists(destination):
+        urllib<span class="op">.</span>request<span class="op">.</span>urlretrieve(
+            base_url <span class="op">+</span> filename,
+            destination
+        )
+        <span class="nb">print</span>(<span class="str">f"Downloaded: {</span>filename<span class="str">}"</span>)
+
+<span class="nb">print</span>(<span class="str">"German Credit dataset ready!"</span>)</code></pre>
+<pre><code>german_data <span class="op">=</span> GermanDataset()
+german_df <span class="op">=</span> german_data<span class="op">.</span>convert_to_dataframe()
+german_df <span class="op">=</span> german_df[<span class="ct">0</span>]
+german_df</code></pre>
+<p class="page-course"><strong>What this does:</strong> Inspect the German Credit records and outcome distribution before computing fairness metrics. Keep the label coding consistent with AIF360.</p>
+<pre><code>german_data <span class="op">=</span> GermanDataset()
+german_df <span class="op">=</span> german_data<span class="op">.</span>convert_to_dataframe()[<span class="ct">0</span>]<span class="op">.</span>copy()
+german_df[<span class="str">'credit'</span>] <span class="op">=</span> german_df[<span class="str">'credit'</span>]<span class="op">.</span>replace({<span class="ct">2.0</span>: <span class="ct">0</span>})
+display(german_df<span class="op">.</span>head())</code></pre>
+<p class="page-course"><strong>Fairness setup:</strong> The original exercise defines the privileged group as <code>sex=1 AND age=1</code> and the unprivileged group as <code>sex=0 AND age=0</code>.</p>
+<p class="page-course">These are <strong>intersectional groups</strong>, not all records, other combinations are excluded from the two-group comparison.</p>
+<pre><code>privileged_groups <span class="op">=</span> [{<span class="str">'sex'</span>: <span class="ct">1</span>, <span class="str">'age'</span>: <span class="ct">1</span>}]
+unprivileged_groups <span class="op">=</span> [{<span class="str">'sex'</span>: <span class="ct">0</span>, <span class="str">'age'</span>: <span class="ct">0</span>}]</code></pre>
+<p class="page-course"><strong>What this does:</strong> Compute dataset-level group-rate fairness metrics using the privileged/unprivileged definitions above. These metrics describe labels in the dataset, not the errors of a trained classifier.</p>
+<pre><code>metric_orig <span class="op">=</span> BinaryLabelDatasetMetric(german_data,
+                                              unprivileged_groups<span class="op">=</span>unprivileged_groups,
+                                              privileged_groups<span class="op">=</span>privileged_groups)
+<span class="nb">print</span>(<span class="str">"Disparate impact (of original labels) between unprivileged and privileged groups = %f"</span> <span class="op">%</span> metric_orig<span class="op">.</span>disparate_impact())
+<span class="nb">print</span>(<span class="str">"Difference in statistical parity (of original labels) between unprivileged and privileged groups = %f"</span> <span class="op">%</span> metric_orig<span class="op">.</span>statistical_parity_difference())
+<span class="nb">print</span>(<span class="str">"Individual fairness metric that measures how similar the labels are for similar instances = %f"</span> <span class="op">%</span> metric_orig<span class="op">.</span>consistency())</code></pre>
+<p class="page-course"><strong>Read the chart:</strong> Group sample sizes matter when interpreting differences in observed positive-label rates. Small groups yield less stable estimates.</p>
+<pre><code>group_rates <span class="op">=</span> (german_df<span class="op">.</span>groupby([<span class="str">'sex'</span>, <span class="str">'age'</span>])[<span class="str">'credit'</span>]
+               <span class="op">.</span>agg([<span class="str">'mean'</span>, <span class="str">'count'</span>])<span class="op">.</span>reset_index())
+group_rates[<span class="str">'group'</span>] <span class="op">=</span> group_rates[[<span class="str">'sex'</span>, <span class="str">'age'</span>]]<span class="op">.</span>astype(<span class="nb">str</span>)<span class="op">.</span>agg(<span class="str">' / '</span><span class="op">.</span>join, axis<span class="op">=</span><span class="ct">1</span>)
+ax <span class="op">=</span> group_rates<span class="op">.</span>plot<span class="op">.</span>bar(x<span class="op">='group'</span>, y<span class="op">='mean'</span>, legend<span class="op">=</span><span class="kw">False</span>, figsize<span class="op">=</span>(<span class="ct">7</span>, <span class="ct">3</span>))
+ax<span class="op">.</span>set(title<span class="op">='Observed favorable-label rate by intersectional group'</span>, xlabel<span class="op">='Sex / age'</span>, ylabel<span class="op">='Positive-label rate'</span>)
+plt<span class="op">.</span>tight_layout(); plt<span class="op">.</span>show()</code></pre>
+<p class="page-course"><strong>Interpretation:</strong> Statistical parity and disparate impact describe <strong>group label rates</strong>; they do not by themselves establish whether a model is discriminatory. Consider base rates and sample sizes.</p>
+<p class="page-course"><strong>What this does:</strong> Prepare a supervised learning split for the German Credit case study. All comparisons should use the same held-out test data.</p>
+<pre><code>X_ger <span class="op">=</span> german_df<span class="op">.</span>drop(columns<span class="op">='credit'</span>)
+y_ger <span class="op">=</span> german_df[<span class="str">'credit'</span>]<span class="op">.</span>astype(<span class="nb">int</span>)
+X_train_g, X_test_g, y_train_g, y_test_g <span class="op">=</span> train_test_split(
+    X_ger, y_ger, test_size<span class="op">=</span><span class="ct">0.3</span>, random_state<span class="op">=</span><span class="ct">42</span>, stratify<span class="op">=</span>y_ger)</code></pre>
+<p class="page-course"><strong>What this does:</strong> Fit a baseline credit classifier and inspect classification errors. This is a predictive-performance baseline, not a fairness-mitigation result.</p>
+<pre><code>german_model <span class="op">=</span> LogisticRegression(max_iter<span class="op">=</span><span class="ct">2000</span>)<span class="op">.</span>fit(X_train_g, y_train_g)
+result_LR <span class="op">=</span> german_model<span class="op">.</span>predict(X_test_g)
+ConfusionMatrixDisplay<span class="op">.</span>from_predictions(y_test_g, result_LR, labels<span class="op">=</span>[<span class="ct">0</span>, <span class="ct">1</span>]); plt<span class="op">.</span>title(<span class="str">'German Credit baseline'</span>); plt<span class="op">.</span>show()
+<span class="nb">print</span>(classification_report(y_test_g, result_LR, zero_division<span class="op">=</span><span class="ct">0</span>))</code></pre>
+<p class="page-course"><strong>Fairness mitigation - Learning Fair Representations (LFR):</strong> LFR learns a transformed representation balancing reconstruction, prediction, and group-fairness objectives. Compare the transformed labels with the original labels; transformation alone does not guarantee improved downstream decisions.</p>
+<p class="page-course"><strong>What this does:</strong> Learn a transformed representation with LFR. This experiment evaluates a preprocessing intervention; downstream fairness should be assessed separately on predictions.</p>
+<pre><code>dataset_orig_train, dataset_orig_test <span class="op">=</span> german_data<span class="op">.</span>split([<span class="ct">0.7</span>], shuffle<span class="op">=</span><span class="kw">True</span>, seed<span class="op">=</span><span class="ct">42</span>)
+scale_orig <span class="op">=</span> StandardScaler()
+dataset_orig_train<span class="op">.</span>features <span class="op">=</span> scale_orig<span class="op">.</span>fit_transform(dataset_orig_train<span class="op">.</span>features)
+dataset_orig_test<span class="op">.</span>features <span class="op">=</span> scale_orig<span class="op">.</span>transform(dataset_orig_test<span class="op">.</span>features)
+lfr_model <span class="op">=</span> LFR(unprivileged_groups<span class="op">=</span>unprivileged_groups, privileged_groups<span class="op">=</span>privileged_groups,
+                k<span class="op">=</span><span class="ct">5</span>, Ax<span class="op">=</span><span class="ct">0.1</span>, Ay<span class="op">=</span><span class="ct">1.0</span>, Az<span class="op">=</span><span class="ct">100.0</span>, verbose<span class="op">=</span><span class="ct">0</span>)
+lfr_model<span class="op">.</span>fit(dataset_orig_train, maxiter<span class="op">=</span><span class="ct">1000</span>, maxfun<span class="op">=</span><span class="ct">1000</span>)
+dataset_transf_train <span class="op">=</span> lfr_model<span class="op">.</span>transform(dataset_orig_train)</code></pre>
+<pre><code>changed <span class="op">=</span> np<span class="op">.</span>count_nonzero(dataset_transf_train<span class="op">.</span>labels <span class="op">!=</span> dataset_orig_train<span class="op">.</span>labels)
+<span class="nb">print</span>(<span class="str">f'Labels changed after LFR: {</span>changed<span class="str">} / {</span><span class="nb">len</span>(dataset_orig_train<span class="op">.</span>labels)<span class="str">}'</span>)</code></pre>
+<p class="page-course"><strong>What this does:</strong> Measure statistical parity, disparate impact, and consistency on the transformed training data. Interpret these as descriptive metrics, not proof of fair decisions.</p>
+<pre><code><span class="cm">#Fairness Performance of Datasets Before Classification</span>
+
+<span class="cm">#Constucting two functions to call the desired metrics</span>
+metric_transf_train <span class="op">=</span> BinaryLabelDatasetMetric(dataset_transf_train,
+                                             unprivileged_groups <span class="op">=</span> unprivileged_groups,
+                                             privileged_groups <span class="op">=</span> privileged_groups)
+
+<span class="nb">print</span>(<span class="str">"Disparate impact ratio (of transformed labels) between unprivileged and privileged groups = %f"</span> <span class="op">%</span> metric_transf_train<span class="op">.</span>disparate_impact())
+<span class="nb">print</span>(<span class="str">"Difference in statistical parity (of transformed labels) between unprivileged and privileged groups = %f"</span> <span class="op">%</span> metric_transf_train<span class="op">.</span>statistical_parity_difference())
+<span class="nb">print</span>(<span class="str">"Individual fairness metric 'consistency' that measures how similar the labels are for similar instances = %f"</span> <span class="op">%</span> metric_transf_train<span class="op">.</span>consistency())</code></pre>
+<div class="callout callout-note">
+  <div class="callout-header">Using C-GAN for Generating Synthetic data from the German Dataset</div>
+  <div class="callout-body">
+<pre><code><span class="kw">from</span> ctgan <span class="kw">import</span> CTGAN
+<span class="nb">print</span>(<span class="str">'Using standalone CTGAN, fit requires a DataFrame.'</span>)</code></pre>
+<p class="page-course">We will generate values such that the number of records that have:</p>
+<ul>
+<li><p class="page-course">0 in 'sex' &amp; 0 in class label,</p></li>
+<li><p class="page-course">0 in 'sex' &amp; 1 in class label,</p></li>
+<li><p class="page-course">1 in 'sex' &amp; 0 in class label,    AND  1 in 'sex' &amp; 1 in class label will be the same</p></li>
+</ul>
+<p class="page-course"><strong>What this does:</strong> Create an intersectional label encoding combinations of sex and credit outcome. This makes it possible to inspect how well each subgroup is represented.</p>
+<pre><code>ger_df <span class="op">=</span> german_df<span class="op">.</span>copy()
+ger_df[<span class="str">'sub_labels'</span>] <span class="op">=</span> (<span class="ct">2</span> <span class="op">*</span> ger_df[<span class="str">'sex'</span>]<span class="op">.</span>astype(<span class="nb">int</span>) <span class="op">+</span> ger_df[<span class="str">'credit'</span>]<span class="op">.</span>astype(<span class="nb">int</span>) <span class="op">+</span> <span class="ct">1</span>)
+ger_df <span class="op">=</span> ger_df<span class="op">.</span>drop(columns<span class="op">=</span>[<span class="str">'sex'</span>, <span class="str">'credit'</span>])
+<span class="nb">print</span>(<span class="str">'Intersectional categories:'</span>, <span class="nb">sorted</span>(ger_df[<span class="str">'sub_labels'</span>]<span class="op">.</span>unique()))
+display(ger_df[<span class="str">'sub_labels'</span>]<span class="op">.</span>value_counts()<span class="op">.</span>sort_index())</code></pre>
+<p class="page-course"><strong>CTGAN note:</strong> To oversample specific <code>sub_labels</code>, the standalone CTGAN API cannot accept a <code>conditions</code> argument to <code>sample()</code>. We fit a separate generator to each group's features instead. Small groups can be difficult to model reliably.</p>
+<p class="page-course"><strong>What this does:</strong> Count the original intersectional groups and set a target group size. Equal counts are an experimental balancing target, not a guarantee of fairness.</p>
+<pre><code>target_attribute <span class="op">=</span> <span class="str">'sub_labels'</span>
+counts_before <span class="op">=</span> ger_df[target_attribute]<span class="op">.</span>value_counts()<span class="op">.</span>sort_index()
+target_rows <span class="op">=</span> <span class="nb">int</span>(counts_before<span class="op">.</span>max())
+<span class="nb">print</span>(<span class="str">'Original group sizes:'</span>)
+display(counts_before)</code></pre>
+<p class="page-course"><strong>What this does:</strong> Fit a separate CTGAN to each underrepresented group and append generated records. The method may be unreliable for very small groups, so inspect fidelity and evaluate downstream results on real data.</p>
+<pre><code>synthetic_groups <span class="op">=</span> []
+feature_columns <span class="op">=</span> ger_df<span class="op">.</span>columns<span class="op">.</span>drop(target_attribute)<span class="op">.</span>tolist()
+<span class="kw">for</span> key, count <span class="kw">in</span> counts_before<span class="op">.</span>items():
+    needed <span class="op">=</span> target_rows <span class="op">-</span> <span class="nb">int</span>(count)
+    <span class="kw">if</span> needed <span class="op">&lt;</span><span class="op">=</span> <span class="ct">0</span>:
+        <span class="kw">continue</span>
+    group_features <span class="op">=</span> ger_df<span class="op">.</span>loc[ger_df[target_attribute] <span class="op">==</span> key, feature_columns]
+    group_generator <span class="op">=</span> CTGAN(epochs<span class="op">=</span><span class="ct">50</span>, verbose<span class="op">=</span><span class="kw">False</span>)
+    group_generator<span class="op">.</span>fit(group_features)
+    new_rows <span class="op">=</span> group_generator<span class="op">.</span>sample(needed)
+    new_rows[target_attribute] <span class="op">=</span> key
+    synthetic_groups<span class="op">.</span>append(new_rows[ger_df<span class="op">.</span>columns])
+
+ger2_df <span class="op">=</span> pd<span class="op">.</span>concat([ger_df, <span class="op">*</span>synthetic_groups], ignore_index<span class="op">=</span><span class="kw">True</span>)
+ger2_df <span class="op">=</span> ger2_df<span class="op">.</span>sample(frac<span class="op">=</span><span class="ct">1</span>, random_state<span class="op">=</span><span class="ct">42</span>)<span class="op">.</span>reset_index(drop<span class="op">=</span><span class="kw">True</span>)
+counts_after <span class="op">=</span> ger2_df[target_attribute]<span class="op">.</span>value_counts()<span class="op">.</span>sort_index()
+display(pd<span class="op">.</span>DataFrame({<span class="str">'Before'</span>: counts_before, <span class="str">'After'</span>: counts_after}))</code></pre>
+<p class="page-course"><strong>Read the plot:</strong> Verify that the intended group counts increased. This demonstrates count balancing only; it does not establish predictive improvement or fairness.</p>
+<pre><code>pd<span class="op">.</span>DataFrame({<span class="str">'Before'</span>: counts_before, <span class="str">'After'</span>: counts_after})<span class="op">.</span>plot<span class="op">.</span>bar(figsize<span class="op">=</span>(<span class="ct">7</span>, <span class="ct">3</span>), rot<span class="op">=</span><span class="ct">0</span>)
+plt<span class="op">.</span>title(<span class="str">'Intersectional group sizes before vs after CTGAN'</span>)
+plt<span class="op">.</span>xlabel(<span class="str">'Combined sex / credit group code'</span>); plt<span class="op">.</span>ylabel(<span class="str">'Records'</span>)
+plt<span class="op">.</span>tight_layout(); plt<span class="op">.</span>show()</code></pre>
+<p class="page-course"><strong>Question:</strong> Does balancing group counts ensure fairness? No: group sizes, predictive quality, and fairness metrics are different properties. Evaluate any trained model on real held-out data.</p>
+<p class="page-course"><strong>Optional persistence:</strong> The standalone <code>ctgan.CTGAN</code> class does not expose the old SDV <code>.save()</code> method. Save a fitted generator with <code>pickle</code> only if you trust the source when loading it.</p>
+<pre><code><span class="kw">import</span> pickle
+<span class="str">'''
+Example (uncomment only if you have trained a model you want to retain):
+with open('ctgan_group_model.pkl', 'wb') as f:
+    pickle.dump(group_generator, f)
+'''</span></code></pre>
+  </div>
+</div>
+</section>
+
+
+
+</div>
+
+  <!-- <script type="text/javascript" async="" src="https://hqahtan.github.io/button.js"></script> -->
+  <script type="text/javascript" async="" src="button.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('pre').forEach(function (preEl) {
+        var codeEl = preEl.querySelector('code');
+        if (!codeEl || preEl.closest('.nb-out')) return;
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+
+        btn.addEventListener('click', function () {
+          var text = codeEl.innerText;
+          navigator.clipboard.writeText(text).then(function () {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(function () {
+              btn.textContent = 'Copy';
+              btn.classList.remove('copied');
+            }, 1500);
+          }).catch(function () {
+            btn.textContent = 'Failed';
+            setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+          });
+        });
+
+        preEl.appendChild(btn);
+      });
+    });
+  </script>
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      jax: ["input/TeX", "output/HTML-CSS"],
+      extensions: ["tex2jax.js"],
+      "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+      tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+      TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+      messageStyle: "none"
+    });
+    </script>    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js"></script>
+
+
+</body>
+</html>
